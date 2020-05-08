@@ -21,6 +21,7 @@
     <th>用户姓名</th>
     <th>用户可以资金</th>
     <th>充值时间</th>
+    <th>状态</th>
     <c:forEach items="${particulars}" var="particulars">
 
         <tr>
@@ -29,6 +30,12 @@
             <td>${particulars.userName}</td>
             <td>${particulars.money}</td>
             <td><fmt:formatDate value="${particulars.refillTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+            <c:if test="${particulars.state==0}">
+                <td>正常</td>
+            </c:if>
+            <c:if test="${particulars.state==1}">
+                <td>删除</td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>
