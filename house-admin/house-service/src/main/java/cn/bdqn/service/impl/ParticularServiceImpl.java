@@ -3,6 +3,7 @@ package cn.bdqn.service.impl;
 import cn.bdqn.domain.Particular;
 import cn.bdqn.mapper.ParticularMapper;
 import cn.bdqn.service.ParticularService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,8 @@ public class ParticularServiceImpl implements ParticularService {
      * @return
      */
     @Override
-    public List<Particular> queryByUserId(Integer userId) {
+    public List<Particular> queryByUserId(Integer userId,int page,int size) {
+        PageHelper.startPage(page,size);
         return particularMapper.selectByUserId(userId);
     }
 
