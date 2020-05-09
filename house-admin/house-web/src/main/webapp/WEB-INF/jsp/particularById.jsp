@@ -20,12 +20,19 @@
         <th>用户姓名</th>
         <th>用户可以资金</th>
         <th>充值时间</th>
+        <th>状态</th>
             <tr>
                 <td>${particular.id}</td>
                 <td>${particular.user.id}</td>
                 <td>${particular.userName}</td>
                 <td>${particular.money}</td>
                 <td><fmt:formatDate value="${particular.refillTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                <c:if test="${particular.state==0}">
+                    <td>正常</td>
+                </c:if>
+                <c:if test="${particular.state==1}">
+                    <td>删除</td>
+                </c:if>
             </tr>
     </table>
 </form>

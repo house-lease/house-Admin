@@ -10,6 +10,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RecordServiceTest {
 
@@ -39,5 +42,17 @@ public class RecordServiceTest {
         record.setDealTime(new Date());
         record.setRecord("123456tfcccccsedrfgthb");
         recordService.save(record);
+    }
+    @Test
+    public void testQueryRecord() throws Exception{
+        ApplicationContext applicationContext =
+                new ClassPathXmlApplicationContext("beans-service.xml", "beans-mapper.xml");
+        RecordService recordService = (RecordService) applicationContext.getBean("recordServiceImpl");
+        Map<String, Object> params = new HashMap<>();
+//        params.put("payer_id",1 );
+        params.put("record" ,"1223");
+
+        List<Record> records = recordService.queryRecord(params);
+        System.out.println(records);
     }
 }
