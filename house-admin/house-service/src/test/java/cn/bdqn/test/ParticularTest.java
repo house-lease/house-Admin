@@ -29,7 +29,7 @@ public class ParticularTest {
         BigDecimal bigDecimal =new BigDecimal("12.22");
         particulars.setMoney(bigDecimal);
         particulars.setState(0);
-        particularService.save(particulars);
+
 
         System.out.println(particulars);
     }
