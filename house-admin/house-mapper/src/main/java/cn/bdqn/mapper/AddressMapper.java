@@ -2,6 +2,8 @@ package cn.bdqn.mapper;
 
 import cn.bdqn.domain.Address;
 
+import java.util.List;
+
 public interface AddressMapper {
 
     void deleteByPrimaryKey(Integer id);
@@ -9,6 +11,8 @@ public interface AddressMapper {
     void insert(Address record);
 
     void insertSelective(Address record);
+
+    List<Address> selectAll();
 
     Address selectByPrimaryKey(Integer id);
 

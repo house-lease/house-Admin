@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/house-domain/house-domain.iml" filepath="$PROJECT_DIR$/house-domain/house-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/house-exception/house-exception.iml" filepath="$PROJECT_DIR$/house-exception/house-exception.iml" />
+      <module fileurl="file://$PROJECT_DIR$/house-interceptor/house-interceptor.iml" filepath="$PROJECT_DIR$/house-interceptor/house-interceptor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/house-mapper/house-mapper.iml" filepath="$PROJECT_DIR$/house-mapper/house-mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/house-parent.iml" filepath="$PROJECT_DIR$/house-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/house-service/house-service.iml" filepath="$PROJECT_DIR$/house-service/house-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/house-utils/house-utils.iml" filepath="$PROJECT_DIR$/house-utils/house-utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/house-web/house-web.iml" filepath="$PROJECT_DIR$/house-web/house-web.iml" />
+    </modules>
+  </component>
+</project>

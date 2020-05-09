@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bdqn.mapper.ParticularMapper" >
+  <resultMap id="BaseResultMap" type="cn.bdqn.domain.Particular" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="refill_time" property="refillTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <association property="user" select="cn.bdqn.mapper.UserMapper.selectByPrimaryKey" column="user_id"/>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, money, refill_time, state
+  </sql>
+
+  <!--  根据id查询-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_particular
+    where id = #{id,jdbcType=INTEGER} and state = 0
+  </select>
+
+  <!--  根据用户id查询-->
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_particular
+    where user_id = #{userId} and state = 0
+  </select>
+
+
+
+  <!--  修改订单状态-->
+  <update id="updateById">
+    update t_particular
+       set state = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

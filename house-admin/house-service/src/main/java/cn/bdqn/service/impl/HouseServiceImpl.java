@@ -44,6 +44,17 @@ public class HouseServiceImpl implements HouseService {
         }
         return houses;
     }
+
+    /**
+     * 按条件查询房屋【分页】
+     * @param houseName
+     * @return
+     */
+    @Override
+    public List<House> selectByPage(String houseName) {
+        return  houseMapper.selectByPage(houseName);
+    }
+
     /**
      * 根据房屋id查询
      * @param id
@@ -62,5 +73,15 @@ public class HouseServiceImpl implements HouseService {
         house.setHouseImages(houseImages);
         //返回对象
         return house;
+    }
+
+    /**
+     * 根据房东查询房屋
+     * @param username
+     * @return
+     */
+    @Override
+    public House selectByUserName(String username) {
+        return houseMapper.selectByUserName(username);
     }
 }

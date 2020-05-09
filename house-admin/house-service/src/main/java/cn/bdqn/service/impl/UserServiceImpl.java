@@ -7,11 +7,15 @@ import cn.bdqn.mapper.UserMapper;
 import cn.bdqn.service.UserService;
 import cn.bdqn.utils.HttpClientUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.sun.tracing.dtrace.ProviderAttributes;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -87,4 +91,22 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+
+    //总条数
+    @Override
+    public int count() {
+        return userMapper.count();
+    }
+
+    @Override
+    public List<User> queryByUser(String username) {
+        return userMapper.selectByUser(username);
+    }
+
+    @Override
+    public Integer updateByState(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+
 }
