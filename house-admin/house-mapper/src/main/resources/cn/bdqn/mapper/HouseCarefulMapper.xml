@@ -89,4 +89,8 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updateByHouseId">
+    update t_house_careful set furniture  = #{furniture}  where house_id = #{houseId} ;
+  </update>
 </mapper>
