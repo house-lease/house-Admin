@@ -4,16 +4,21 @@
   <resultMap id="BaseResultMap" type="cn.bdqn.domain.Record" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="record" property="record" jdbcType="VARCHAR" />
-    <result column="payer_id" property="payerId" jdbcType="INTEGER" />
+    <result column="payer_id" property="payerUser.id" jdbcType="INTEGER" />
     <result column="payer_name" property="payerName" jdbcType="VARCHAR" />
-    <result column="payee_id" property="payeeId" jdbcType="INTEGER" />
+    <result column="payee_id" property="payeeUser.id" jdbcType="INTEGER" />
     <result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
-    <result column="house_id" property="houseId" jdbcType="INTEGER" />
+    <result column="house_id" property="house.id" jdbcType="INTEGER" />
     <result column="house_name" property="houseName" jdbcType="VARCHAR" />
     <result column="deal_time" property="dealTime" jdbcType="TIMESTAMP" />
     <result column="deal_money" property="dealMoney" jdbcType="DECIMAL" />
     <result column="deal_state" property="dealState" jdbcType="INTEGER" />
     <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="RecordResultMap" type="cn.bdqn.domain.Record" extends="BaseResultMap">
+    <association property="payerUser" select="cn.bdqn.mapper.UserMapper.selectByPrimaryKey" column="payer_id"/>
+    <association property="payeeUser" select="cn.bdqn.mapper.UserMapper.selectByPrimaryKey" column="payee_id"/>
+    <association property="house" select="cn.bdqn.mapper.HouseMapper" column="house_id"/>
   </resultMap>
   <sql id="Base_Column_List" >
     id, record, payer_id, payer_name, payee_id, payee_name, house_id, house_name, deal_time, 
@@ -176,4 +181,16 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByParams" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from t_record
+    <trim prefix="where" suffixOverrides="and">
+        <if test="payer_id != null">
+          payer_id = #{payer_id}
+        </if>
+        <if test="record != null">
+          record = #{record}
+        </if>
+    </trim>
+  </select>
 </mapper>
