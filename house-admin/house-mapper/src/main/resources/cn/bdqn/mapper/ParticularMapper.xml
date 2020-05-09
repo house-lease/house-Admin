@@ -38,4 +38,6 @@
        set state = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
 </mapper>

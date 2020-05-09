@@ -1,5 +1,7 @@
 <html>
 <body>
-<jsp:forward page="/particular/selectById"></jsp:forward>
+
+    <jsp:forward page="/particular/selectById"/>
+
 </body>
 </html>
