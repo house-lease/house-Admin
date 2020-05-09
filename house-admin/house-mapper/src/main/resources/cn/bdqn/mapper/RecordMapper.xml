@@ -18,7 +18,7 @@
   <resultMap id="RecordResultMap" type="cn.bdqn.domain.Record" extends="BaseResultMap">
     <association property="payerUser" select="cn.bdqn.mapper.UserMapper.selectByPrimaryKey" column="payer_id"/>
     <association property="payeeUser" select="cn.bdqn.mapper.UserMapper.selectByPrimaryKey" column="payee_id"/>
-    <association property="house" select="cn.bdqn.mapper.HouseMapper" column="house_id"/>
+    <association property="house" select="cn.bdqn.mapper.HouseMapper.selectByPrimaryKey" column="house_id"/>
   </resultMap>
   <sql id="Base_Column_List" >
     id, record, payer_id, payer_name, payee_id, payee_name, house_id, house_name, deal_time, 
@@ -181,12 +181,12 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByParams" resultMap="BaseResultMap">
+  <select id="selectByParams" resultMap="RecordResultMap">
     select <include refid="Base_Column_List"/>
     from t_record
     <trim prefix="where" suffixOverrides="and">
         <if test="payer_id != null">
-          payer_id = #{payer_id}
+          payer_id = #{userId} or payee_id = #{userId}
         </if>
         <if test="record != null">
           record = #{record}
