@@ -51,4 +51,14 @@ public class Start {
     public void setState(Integer state) {
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return "Start{" +
+                "id=" + id +
+                ", startName='" + startName + '\'' +
+                ", startValue=" + startValue +
+                ", state=" + state +
+                '}';
+    }
 }

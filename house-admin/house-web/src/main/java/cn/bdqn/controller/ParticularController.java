@@ -4,11 +4,13 @@ import cn.bdqn.domain.Particular;
 import cn.bdqn.exception.MyException;
 import cn.bdqn.service.ParticularService;
 import cn.bdqn.utils.Result;
+import com.github.pagehelper.PageInfo;
 import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -32,12 +34,15 @@ public class ParticularController {
      * @return
      */
     @RequestMapping("/selectByUserId")
-    public String selectByUserId(Model model,Integer userId){
+    public String selectByUserId(Model model, Integer userId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
         try {
-            List<Particular> particulars = particularService.queryByUserId(userId);
+
+            List<Particular> particulars = particularService.queryByUserId(userId,page,size);
+            PageInfo pageInfo = new PageInfo(particulars);
             model.addAttribute("particulars",particulars);
+            model.addAttribute("pageInfo",pageInfo);
             model.addAttribute("userId",userId);
-            return "particular";
+            return "particulaByUserIdr";
         }catch (Exception e){
             e.printStackTrace();
             return "error";
@@ -67,7 +72,7 @@ public class ParticularController {
     }
 
     /**
-     * 根据订单id查询
+     * 根据充值id查询
      * @param id
      * @return
      */
@@ -76,7 +81,7 @@ public class ParticularController {
     public String selectById(Model model,Integer id){
         try {
             Particular particular = particularService.queryByPrimaryKey(id);
-            System.out.println(id);
+
             model.addAttribute("particular",particular);
             model.addAttribute("id",id);
             return "particularById";
