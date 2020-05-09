@@ -21,6 +21,6 @@ public interface StartMapper {
 
     //根据id删除信息
     void updateById(Integer id);
-
-    int selectCount(String startName);
+    //验证是否与数据库数据重复
+    int selectCount(@Param("startName") String startName,@Param("stateValue") Integer stateValue);
 }

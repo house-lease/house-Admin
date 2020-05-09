@@ -47,6 +47,6 @@
 
     </div>
 
-    <a href="${pageContext.request.contextPath}/start/addYe">添加信息</a>
+    <a href="${pageContext.request.contextPath}/addInfo">添加信息</a>
 </body>
 </html>

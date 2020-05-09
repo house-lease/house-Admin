@@ -49,11 +49,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectCount" resultMap="BaseResultMap">
+  <select id="selectCount" resultType="java.lang.Integer">
    select
       COUNT(*)
     from t_start
-    where  start_name = #{startName,jdbcType=VARCHAR} and state = 0
+    where  start_name = #{startName,jdbcType=VARCHAR} and  start_value = #{stateValue,jdbcType=INTEGER} and state = 0
   </select>
 
 </mapper>

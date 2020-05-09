@@ -33,23 +33,23 @@ public class StartController {
         }
     }
 
-    //跳转添加页面的Controller
-    @RequestMapping("/addYe")
-    public String addYe() {
-
-        return "startInsert";
-    }
 
     //添加的Start
     @RequestMapping("/add")
     public String add(Start start) {
-        int count = startService.queryCount(start.getStartName());
-        System.out.println(count);
-        if (count == 0) {
-            startService.save(start);
-            return "redirect:/start/selectAll";
+        try{
+            //验证是否与数据库数据重复
+            int count = startService.queryCount(start.getStartName(),start.getStartValue());
+            if (count == 0) {
+                startService.save(start);
+                return "redirect:/start/selectAll";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+
         }
-        return "redirect:/start/addYe";
+        return "startInsert";
+
     }
 
     //带数据到修改页面

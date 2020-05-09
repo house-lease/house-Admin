@@ -40,10 +40,10 @@ public class StartServiceImpl  implements StartService {
     public int update(Start start) {
         return startMapper.updateByPrimaryKey(start);
     }
-
+    //验证是否与数据库数据重复
     @Override
-    public int queryCount(String startName) {
-        return startMapper.selectCount(startName);
+    public int queryCount(String startName,Integer stateValue) {
+        return startMapper.selectCount(startName,stateValue);
     }
 
 

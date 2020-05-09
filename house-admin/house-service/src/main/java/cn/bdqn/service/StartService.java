@@ -16,6 +16,6 @@ public interface StartService {
     Start selectById(Integer id);
     //修改信息
     int  update(Start start);
-
-    int queryCount(String startName);
+    //验证是否与数据库数据重复
+    int queryCount(String startName,Integer stateValue);
 }
