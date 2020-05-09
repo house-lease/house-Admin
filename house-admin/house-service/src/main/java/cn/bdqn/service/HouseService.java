@@ -1,6 +1,7 @@
 package cn.bdqn.service;
 
 import cn.bdqn.domain.House;
+import cn.bdqn.domain.HouseCareful;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -21,6 +22,14 @@ public interface HouseService {
      * @return
      */
     public House selectByPrimaryKey(Integer id);
+
+    /**
+     * 根据房屋对象更新房屋详细信息
+     * @param houseCareful
+     */
+    void modifyByHouseId(HouseCareful houseCareful);
+
+
 
 
 }

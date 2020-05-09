@@ -1,6 +1,7 @@
 package cn.bdqn.service;
 
 import cn.bdqn.domain.Record;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -19,5 +20,11 @@ public interface RecordService {
      * 查询订单
      * @return
      */
-    List<Record> queryRecord(Map<String, Object> params);
+    PageInfo<Record> queryRecord(Map<String, Object> params);
+
+    /**
+     * 根据id查询订单
+     * @return
+     */
+    Record queryRecordById(Integer id);
 }

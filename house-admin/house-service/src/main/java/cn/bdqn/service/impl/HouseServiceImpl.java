@@ -63,4 +63,14 @@ public class HouseServiceImpl implements HouseService {
         //返回对象
         return house;
     }
+    /**
+     * 根据房屋对象更新房屋详细信息
+     * @param houseCareful
+     */
+    @Override
+    public void modifyByHouseId(HouseCareful houseCareful) {
+        houseCarefulMapper.updateByHouseId(houseCareful);
+    }
+
+
 }

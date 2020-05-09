@@ -4,9 +4,11 @@ import cn.bdqn.domain.Record;
 import cn.bdqn.exception.MyException;
 import cn.bdqn.service.RecordService;
 import cn.bdqn.utils.Result;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -22,6 +24,13 @@ public class RecordController {
     @Autowired
     private RecordService recordService;
 
+    /**
+     * 保存订单
+     *
+     * @param record
+     * @return
+     * @throws MyException
+     */
     @RequestMapping("/save")
     @ResponseBody
     public Result save(Record record) throws MyException {
@@ -39,7 +48,51 @@ public class RecordController {
         return results;
     }
 
-
+    /**
+     * 查询订单
+     * @param pageCode 页码
+     * @param userId 用户id
+     * @param record 订单号
+     * @return
+     */
+    @RequestMapping("/getRecordList")
+    @ResponseBody
+    public Result getRecordList(@RequestParam(defaultValue = "0")Integer pageCode, Integer userId, Integer record) throws MyException {
+        Result result = new Result<>();
+        Map<String, Object> params = new HashMap<>();
+        if (userId != null) {
+            params.put("userId", userId);
+        }
+        if(record != null){
+            params.put("record", record);
+        }
+        params.put("pageCode", pageCode);
+        try {
+            PageInfo<Record> recordPageInfo =  recordService.queryRecord(params);
+            result.setData(recordPageInfo);
+            result.setMessage("success");
+            return result;
+        }catch(Exception e){
+            e.printStackTrace();
+            result.setMessage("error");
+            throw new MyException("网络异常");
+        }
+    }
+    @RequestMapping("/getRecordById")
+    @ResponseBody
+    public Result getRecordById(Integer id) throws MyException {
+        Result result = new Result();
+        try {
+            Record record = recordService.queryRecordById(id);
+            result.setData(record);
+            result.setMessage("success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setMessage("error");
+            throw new MyException("网络异常");
+        }
+        return result;
+    }
 
 
 }

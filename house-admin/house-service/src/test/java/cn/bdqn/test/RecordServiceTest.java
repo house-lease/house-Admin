@@ -4,6 +4,8 @@ import cn.bdqn.domain.House;
 import cn.bdqn.domain.Record;
 import cn.bdqn.domain.User;
 import cn.bdqn.service.RecordService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -49,10 +51,11 @@ public class RecordServiceTest {
                 new ClassPathXmlApplicationContext("beans-service.xml", "beans-mapper.xml");
         RecordService recordService = (RecordService) applicationContext.getBean("recordServiceImpl");
         Map<String, Object> params = new HashMap<>();
-//        params.put("payer_id",1 );
-        params.put("record" ,"1223");
-
-        List<Record> records = recordService.queryRecord(params);
-        System.out.println(records);
+        params.put("userId",1 );
+//        params.put("record" ,"1223");
+        PageHelper.startPage(0, 1);
+        PageInfo<Record> recordPageInfo =recordService.queryRecord(params);
+        System.out.println(recordPageInfo);
+//        System.out.println(records);
     }
 }

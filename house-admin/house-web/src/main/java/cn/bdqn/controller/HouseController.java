@@ -1,7 +1,9 @@
 package cn.bdqn.controller;
 
 import cn.bdqn.domain.House;
+import cn.bdqn.domain.HouseCareful;
 import cn.bdqn.domain.HouseImage;
+import cn.bdqn.exception.MyException;
 import cn.bdqn.service.HouseService;
 import cn.bdqn.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +70,19 @@ public class HouseController {
             result.setMessage("网络异常");
             return result;
         }
+    }
+    @RequestMapping("/modifyByHouseId")
+    @ResponseBody
+    public Result modifyByHouseId(HouseCareful houseCareful) throws MyException {
+        Result result  = new Result();
+        try {
+            houseService.modifyByHouseId(houseCareful);
+            result.setMessage("修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setMessage("修改成功");
+            throw new MyException("网络异常");
+        }
+        return result;
     }
 }
