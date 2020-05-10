@@ -10,73 +10,27 @@
   <sql id="Base_Column_List" >
     id, start_name, start_value, state
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_start
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_start
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="cn.bdqn.domain.Start" >
     insert into t_start (id, start_name, start_value, 
       state)
     values (#{id,jdbcType=INTEGER}, #{startName,jdbcType=VARCHAR}, #{startValue,jdbcType=INTEGER}, 
-      #{state,jdbcType=INTEGER})
+      0)
   </insert>
-  <insert id="insertSelective" parameterType="cn.bdqn.domain.Start" >
-    insert into t_start
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="startName != null" >
-        start_name,
-      </if>
-      <if test="startValue != null" >
-        start_value,
-      </if>
-      <if test="state != null" >
-        state,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="startName != null" >
-        #{startName,jdbcType=VARCHAR},
-      </if>
-      <if test="startValue != null" >
-        #{startValue,jdbcType=INTEGER},
-      </if>
-      <if test="state != null" >
-        #{state,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.bdqn.domain.Start" >
-    update t_start
-    <set >
-      <if test="startName != null" >
-        start_name = #{startName,jdbcType=VARCHAR},
-      </if>
-      <if test="startValue != null" >
-        start_value = #{startValue,jdbcType=INTEGER},
-      </if>
-      <if test="state != null" >
-        state = #{state,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+
   <update id="updateByPrimaryKey" parameterType="cn.bdqn.domain.Start" >
     update t_start
     set start_name = #{startName,jdbcType=VARCHAR},
       start_value = #{startValue,jdbcType=INTEGER},
-      state = #{state,jdbcType=INTEGER}
+      state = 0
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -84,6 +38,22 @@
       select
        <include refid="Base_Column_List" />
       from t_start
+      where  state = 0
+  </select>
+
+
+  <update id="updateById" parameterType="cn.bdqn.domain.Start" >
+    update t_start
+    set
+      state = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCount" resultType="java.lang.Integer">
+   select
+      COUNT(*)
+    from t_start
+    where  start_name = #{startName,jdbcType=VARCHAR} and  start_value = #{stateValue,jdbcType=INTEGER} and state = 0
   </select>
 
 </mapper>

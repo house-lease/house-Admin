@@ -27,13 +27,24 @@
     where open_id = #{openId} and state = 0
   </select>
 
-
 <!--  根据id查询用户-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_user
     where id = #{id,jdbcType=INTEGER} and state = 0
+  </select>
+
+  <!-- 查询全部【模糊】-->
+  <select id="selectByUser"  resultMap="BaseResultMap"  >
+    select <include refid="Base_Column_List"/>
+    from t_user
+    <trim prefix="where" suffixOverrides="and">
+      <!-- 用户名称[模糊]-->
+      <if test="username != null and username!=''">
+        user_name like concat('%',#{username},'%')
+      </if>
+    </trim>
   </select>
 
 <!--  添加用户-->

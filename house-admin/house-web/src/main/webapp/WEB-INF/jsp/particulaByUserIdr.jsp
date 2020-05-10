@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form method="post" action="${pageContext.request.contextPath}/particular/selectByUserId">
+<form method="post" action="${pageContext.request.contextPath}/particular/selectByUserId?page=1&size=2">
 
     <div>
         用户id：  <input type="text" name="userId" value="${userId}"/>
@@ -40,5 +40,23 @@
     </c:forEach>
 </table>
 </form>
+
+
+
+<div id="fenye">
+
+
+    <a href="${pageContext.request.contextPath}/particular/selectByUserId?userId=${userId}&page=1&size=2">首页</a>
+    <a href="${pageContext.request.contextPath}/particular/selectByUserId?userId=${userId}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+    <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+        <a href="${pageContext.request.contextPath}/particular/selectByUserId?userId=${userId}&page=${pageNum}&size=2">${pageNum}</a>
+    </c:forEach>
+    <a href="${pageContext.request.contextPath}/particular/selectByUserId?userId=${userId}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+    <a  href="${pageContext.request.contextPath}/particular/selectByUserId?userId=${userId}&page=${pageInfo.pages}&size=2" aria-label="Next"> 尾页</a>
+
+
+
+</div>
+
 </body>
 </html>

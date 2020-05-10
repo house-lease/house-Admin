@@ -10,13 +10,6 @@ import java.util.List;
 public interface HouseCarefulMapper {
 
 
-    /**
-     * 根据房屋id查询房屋详细信息
-     *
-     * @param houseId
-     * @return
-     */
-    public List<HouseCareful> selectByHouseId(Integer houseId);
 
     /**
      * 根据id删除
@@ -69,4 +62,11 @@ public interface HouseCarefulMapper {
      * @param houseCareful
      */
     void updateByHouseId(HouseCareful houseCareful);
+    /*
+     * 根据房屋id查询
+     * @param houseId
+     * @return
+     */
+    public HouseCareful selectByHouseId(Integer houseId);
+
 }

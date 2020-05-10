@@ -16,5 +16,5 @@ public interface ParticularService {
     void updateById(Integer id);
 
     //    根据用户id查询
-    public List<Particular> queryByUserId(Integer userId);
+    public List<Particular> queryByUserId(Integer userId,int page,int size);
 }

@@ -12,6 +12,19 @@ import java.util.List;
 public interface HouseMapper {
 
     /**
+     * 查询房屋【分页】
+     * @param houseName
+     */
+    List<House> selectByPage(String houseName);
+
+    /**
+     * 根据房东查询房屋
+     * @param username
+     * @return
+     */
+    House selectByUserName(String username);
+
+    /**
      * 添加房屋
      * @param record
      */

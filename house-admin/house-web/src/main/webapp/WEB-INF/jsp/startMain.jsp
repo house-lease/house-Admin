@@ -28,7 +28,7 @@
                 <c:if test="${starts.state==1}">
                     <td>删除</td>
                 </c:if>
-                <td><a href="#">删除</a>&nbsp;<a href="#">修改</a></td>
+                <td><a href="${pageContext.request.contextPath}/start/delete?id=${starts.id}">删除</a>&nbsp;<a href="${pageContext.request.contextPath}/start/updateYe?id=${starts.id}">修改</a></td>
             </tr>
         </c:forEach>
     </table>
@@ -46,5 +46,7 @@
 
 
     </div>
+
+    <a href="${pageContext.request.contextPath}/addInfo">添加信息</a>
 </body>
 </html>

@@ -6,8 +6,11 @@ import cn.bdqn.domain.HouseImage;
 import cn.bdqn.exception.MyException;
 import cn.bdqn.service.HouseService;
 import cn.bdqn.utils.Result;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +27,6 @@ public class HouseController {
     //房屋业务类
     @Autowired
     private HouseService houseService;
-
 
     /**
      * 查询房屋方法
@@ -71,18 +73,52 @@ public class HouseController {
             return result;
         }
     }
-    @RequestMapping("/modifyByHouseId")
+
+
+    /**
+     * 按条件查询房屋{分页，支持模糊查询}
+     * @param model
+     * @param pageCode
+     * @param houseName
+     * @return
+     */
+    @RequestMapping("/queryByPage")
     @ResponseBody
-    public Result modifyByHouseId(HouseCareful houseCareful) throws MyException {
-        Result result  = new Result();
-        try {
-            houseService.modifyByHouseId(houseCareful);
-            result.setMessage("修改成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            result.setMessage("修改成功");
-            throw new MyException("网络异常");
+    public String queryByPage(Model model, Integer pageCode, String houseName){
+
+        PageHelper.startPage(pageCode,10);//设置分页 每页10条数据
+        List<House> houses = houseService.selectByPage(houseName);//全部数据
+
+        PageInfo<House> housePageInfo = new PageInfo<House>(houses);
+        houses = housePageInfo.getList();
+        Integer totalPage = housePageInfo.getPages();//总页数
+
+        if (houses != null){
+            model.addAttribute("pageCode",pageCode);//当前页
+            model.addAttribute("total",totalPage);//总页数
+            model.addAttribute("housesList",housePageInfo);//用户集合
+            return "houseList";
         }
-        return result;
+        return "error";
+    }
+
+    /**
+     * 根据房东查询房屋
+     */
+    @RequestMapping("/selectByUserName")
+    @ResponseBody
+    public String selectByUserName(String userName, Model model){
+
+        try {
+            House house = houseService.selectByUserName(userName);
+            if (house!=null){
+                model.addAttribute("house",house);
+                return "houseList";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return "error";
+        }
+        return "";
     }
 }
