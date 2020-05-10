@@ -75,8 +75,8 @@ public class HouseServiceImpl implements HouseService {
      * @param houseCareful
      */
     @Override
-    public void modifyByHouseId(HouseCareful houseCareful) {
-        houseCarefulMapper.updateByHouseId(houseCareful);
+    public void modifyById(HouseCareful houseCareful) {
+        houseCarefulMapper.updateById(houseCareful);
     }
 
 

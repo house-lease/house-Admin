@@ -61,7 +61,7 @@ public interface HouseCarefulMapper {
      * 根据房屋对象更新房屋详细信息
      * @param houseCareful
      */
-    void updateByHouseId(HouseCareful houseCareful);
+    void updateById(HouseCareful houseCareful);
     /*
      * 根据房屋id查询
      * @param houseId

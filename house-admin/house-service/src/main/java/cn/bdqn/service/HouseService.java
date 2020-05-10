@@ -32,7 +32,7 @@ public interface HouseService {
      * 根据房屋对象更新房屋详细信息
      * @param houseCareful
      */
-    void modifyByHouseId(HouseCareful houseCareful);
+    void modifyById(HouseCareful houseCareful);
 
     /*
      * 根据房东查询房屋

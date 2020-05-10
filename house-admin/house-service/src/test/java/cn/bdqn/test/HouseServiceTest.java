@@ -52,4 +52,21 @@ public class HouseServiceTest {
         House house = houseService.selectByUserName("张三");
         System.out.println(house.getHouseName());
     }
+
+    /**
+     * 根据id更新房屋信息
+     * @throws Exception
+     */
+    @Test
+    public void testModifyById() throws Exception{
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans-service.xml", "beans-mapper.xml");
+
+        HouseService service = (HouseService) applicationContext.getBean("houseService");
+        HouseCareful houseCareful = new HouseCareful();
+        houseCareful.setHouseId(1);
+        houseCareful.setBingxiang(0);
+        houseCareful.setChuang(0);
+        houseCareful.setId(1);
+        service.modifyById(houseCareful);
+    }
 }
