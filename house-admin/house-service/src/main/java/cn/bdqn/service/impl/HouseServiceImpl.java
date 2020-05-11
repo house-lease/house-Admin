@@ -66,14 +66,20 @@ public class HouseServiceImpl implements HouseService {
         House house = houseMapper.selectByPrimaryKey(id);
         //根据房屋id查询房屋图片信息
         List<HouseImage> houseImages = houseImageMapper.selectByHouseId(id);
-        //根据房屋id查询房屋详细信息
-        List<HouseCareful> houseCarefulList = houseCarefulMapper.selectByHouseId(id);
-        //封装到房屋信息中
-        house.setHouseCareful(houseCarefulList);
         house.setHouseImages(houseImages);
         //返回对象
         return house;
     }
+    /**
+     * 根据房屋对象更新房屋详细信息
+     * @param houseCareful
+     */
+    @Override
+    public void modifyById(HouseCareful houseCareful) {
+        houseCarefulMapper.updateById(houseCareful);
+    }
+
+
 
     /**
      * 根据房东查询房屋
