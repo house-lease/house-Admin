@@ -5,8 +5,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
-
-
 		<!-- 公共样式 开始 -->
 		<link rel="shortcut icon" href="images/favicon.ico"/>
 		<link rel="bookmark" href="images/favicon.ico"/>
@@ -46,41 +44,41 @@
 		    <div class="menu">
 		        <ul>
 		        	<li>
-		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/qdAPI.html',this)"><i class="iconfont icon-zhishi left"></i>前端API</a>
+		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/qdAPI.jsp',this)"><i class="iconfont icon-zhishi left"></i>前端API</a>
 		            </li>
 		        	<li>
-		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/iconfont.html',this)"><i class="iconfont icon-huojian left"></i>iconfont字体库</a>
+		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/iconfont.jsp',this)"><i class="iconfont icon-huojian left"></i>iconfont字体库</a>
 		           	</li>
 		        	<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-liuliangyunpingtaitubiao03 left"></i>分管管理<i class="iconfont icon-dajiantouyou right"></i></a>
 		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/agent/agent_add.html',this)">添加分管</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/agent/agent_list.html',this)">分管列表</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/agent/agent_add.jsp',this)">添加分管</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/agent/agent_list.jsp',this)">分管列表</a></dt>
 		                </dl>
 		            </li>
 		        	<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-shangpin left"></i>商品管理<i class="iconfont icon-dajiantouyou right"></i></a>
 		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">分类列表</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goods_list.html',this)">基本商品库</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goods_add.html',this)">添加商品</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.jsp',this)">分类列表</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goods_list.jsp',this)">基本商品库</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goods_add.jsp',this)">添加商品</a></dt>
 		                </dl>
 		            </li>
 		        	<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-yunying left"></i>基础库内容<i class="iconfont icon-dajiantouyou right"></i></a>
 		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/base_add.html',this)">表单含编辑器</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/base_list.html',this)">常用列表</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/base_customList.html',this)">可新增的列表</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/base_customNewList.html',this)">可新增的列表(手写)</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/pages.html',this)">页签切换Table</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/maintain.html',this)">维护中页面</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/base_add.jsp',this)">表单含编辑器</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/base_list.jsp',this)">常用列表</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/base_customList.jsp',this)">可新增的列表</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/base_customNewList.jsp',this)">可新增的列表(手写)</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/pages.jsp',this)">页签切换Table</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/base/maintain.jsp',this)">维护中页面</a></dt>
 		                </dl>
 		           	</li>
 		        	<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>打印模板<i class="iconfont icon-dajiantouyou right"></i></a>
 		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/print/outPrintData.html',this)">入库单打印模版</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/print/outPrintData.jsp',this)">入库单打印模版</a></dt>
 		                </dl>
 		           	</li>
 		        	<li>
@@ -89,7 +87,7 @@
 		        	<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>报表模块<i class="iconfont icon-dajiantouyou right"></i></a>
 		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/reportForm/reportForm1.html',this)">订单统计报表</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/reportForm/reportForm1.jsp',this)">订单统计报表</a></dt>
 		                </dl>
 		           	</li>
 		        </ul>
@@ -103,8 +101,8 @@
 				<img class="jt" src="images/top_jt.png"/>
 				<div class="topMenu">
 					<ul>
-						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-yonghu1"></i>管理员</a></li>
-						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>
+						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.jsp',this)"><i class="iconfont icon-yonghu1"></i>管理员</a></li>
+						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.jsp',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>
 						<li><a href="#"><i class="iconfont icon-084tuichu"></i>注销</a></li>
 					</ul>
 				</div>
