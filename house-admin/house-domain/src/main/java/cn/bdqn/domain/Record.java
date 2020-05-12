@@ -65,11 +65,10 @@ public class Record {
 
     public String getPayerName() {
 
-        return payerName == null ? this.payerUser.getUserName() : null;
+        return payerName == null ? payerName = this.payerUser.getUserName() : payerName;
     }
 
     public void setPayerName(String payerName) {
-
         this.payerName = payerName == null ? null : payerName.trim();
     }
 
@@ -99,7 +98,7 @@ public class Record {
 
     public String getPayeeName()
     {
-        return payeeName == null ? this.payeeUser.getUserName() : null;
+        return payeeName == null ? payeeName = this.payeeUser.getUserName() : payeeName;
     }
 
     public void setPayeeName(String payeeName) {
