@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/house")
@@ -56,22 +57,17 @@ public class HouseController {
     }
 
     @RequestMapping("/queryByHouseId")
-    @ResponseBody
-    public Result queryByHouseId(Integer houseId) {
+    public String queryByHouseId(Integer houseId, Map<String, Object> map) throws MyException {
         try {
             Result result = new Result();
             //根据id查询房屋详细信息
             House house = houseService.selectByPrimaryKey(houseId);
-            result.setData(house);
-            result.setMessage("加载完成");
-            return result;
+            map.put("house", house);
         } catch (Exception e) {
-            Result result = new Result();
-            e.printStackTrace();
-            result.setData(null);
-            result.setMessage("网络异常");
-            return result;
+           e.printStackTrace();
+           throw new MyException("网络异常");
         }
+        return "houseDetaileInfo";
     }
 
 

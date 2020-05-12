@@ -467,10 +467,6 @@
                         </li>
 
                         <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>查询房屋详细信息</a>
-                        </li>
-
-                        <li>
                             <a href=""><i class="icon-font">&#xe005;</i>查询城市信息</a>
                         </li>
 
@@ -500,8 +496,6 @@
                 <a href="javascript:void(0);" color="#white">首页</a><span class="crumb-step">&gt;</span><span
                         class="crumb-name">后台功能</span></div>
         </div>
-
-
 
         <c:if test="${pageParticularByUserId==1}">
 
@@ -571,8 +565,6 @@
 
         </c:if>
 
-
-
         <c:if test="${pageParticularById==1}">
 
             <form action="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1"method="post" id="formParticular">
@@ -625,8 +617,6 @@
                 </div>
             </form>
         </c:if>
-
-
 
         <c:if test="${pageStart==1}">
 
