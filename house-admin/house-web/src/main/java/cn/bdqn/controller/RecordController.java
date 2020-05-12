@@ -7,6 +7,7 @@ import cn.bdqn.utils.Result;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,9 +57,7 @@ public class RecordController {
      * @return
      */
     @RequestMapping("/getRecordList")
-    @ResponseBody
-    public Result getRecordList(@RequestParam(defaultValue = "0")Integer pageCode, Integer userId, Integer record) throws MyException {
-        Result result = new Result<>();
+    public String getRecordList(@RequestParam(defaultValue = "0")Integer pageCode, Integer userId, Integer record, Model model) throws MyException {
         Map<String, Object> params = new HashMap<>();
         if (userId != null) {
             params.put("userId", userId);
@@ -69,14 +68,13 @@ public class RecordController {
         params.put("pageCode", pageCode);
         try {
             PageInfo<Record> recordPageInfo =  recordService.queryRecord(params);
-            result.setData(recordPageInfo);
-            result.setMessage("success");
-            return result;
+            System.out.println(recordPageInfo.getList().get(0).getPayeeName());
+            model.addAttribute("recordPageInfo", recordPageInfo);
         }catch(Exception e){
             e.printStackTrace();
-            result.setMessage("error");
             throw new MyException("网络异常");
         }
+        return "orderList";
     }
     @RequestMapping("/getRecordById")
     @ResponseBody
