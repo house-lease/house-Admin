@@ -34,7 +34,7 @@ public class ParticularController {
      * @return
      */
     @RequestMapping("/selectByUserId")
-    public String selectByUserId(Model model, Integer userId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
+    public String selectByUserId(int pageParticularByUserId, Model model, Integer userId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
         try {
 
             List<Particular> particulars = particularService.queryByUserId(userId,page,size);
@@ -42,7 +42,8 @@ public class ParticularController {
             model.addAttribute("particulars",particulars);
             model.addAttribute("pageInfo",pageInfo);
             model.addAttribute("userId",userId);
-            return "particulaByUserIdr";
+            model.addAttribute("pageParticularByUserId",pageParticularByUserId);
+            return "mainlist";
         }catch (Exception e){
             e.printStackTrace();
             return "error";
@@ -78,13 +79,14 @@ public class ParticularController {
      */
     @RequestMapping("/selectById")
 
-    public String selectById(Model model,Integer id){
+    public String selectById(int pageParticularById,Model model,Integer id){
         try {
             Particular particular = particularService.queryByPrimaryKey(id);
 
             model.addAttribute("particular",particular);
             model.addAttribute("id",id);
-            return "particularById";
+            model.addAttribute("pageParticularById",pageParticularById);
+            return "mainlist";
         }catch (Exception e){
             e.printStackTrace();
             return "error";

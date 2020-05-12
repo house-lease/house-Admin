@@ -127,4 +127,5 @@
             id = #{id,jdbcType=INTEGER}
         </where>
     </update>
+
 </mapper>

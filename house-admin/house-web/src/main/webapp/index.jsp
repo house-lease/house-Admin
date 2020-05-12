@@ -1,7 +1,7 @@
 <html>
 <body>
 
-    <jsp:forward page="/particular/selectById"/>
+    <jsp:forward page="/WEB-INF/jsp/mainlist.jsp"/>
 
 
 </body>
