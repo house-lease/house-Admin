@@ -8,6 +8,7 @@ import cn.bdqn.service.UserService;
 import cn.bdqn.utils.HttpClientUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sun.tracing.dtrace.ProviderAttributes;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,14 +93,9 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    //总条数
     @Override
-    public int count() {
-        return userMapper.count();
-    }
-
-    @Override
-    public List<User> queryByUser(String username) {
+    public List<User> queryByUser(String username,Integer page,Integer size) {
+        PageHelper.startPage(page,size);
         return userMapper.selectByUser(username);
     }
 

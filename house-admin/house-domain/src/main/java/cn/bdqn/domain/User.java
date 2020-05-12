@@ -15,7 +15,7 @@ public class User {
     //用户昵称
     private String nickname;
 
-    //用户性别
+    //用户性别 0:男 ，1：女
     private Integer sex;
 
     //用户名

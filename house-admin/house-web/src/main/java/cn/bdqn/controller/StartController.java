@@ -27,6 +27,7 @@ public class StartController {
         try {
             List<Start> starts = startService.queryAll(page, size);
             PageInfo pageInfo = new PageInfo(starts);
+
             model.addAttribute("starts", starts);
             model.addAttribute("pageInfo", pageInfo);
             model.addAttribute("pageStart",pageStart);

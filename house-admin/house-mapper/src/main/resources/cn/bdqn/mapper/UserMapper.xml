@@ -35,7 +35,7 @@
     where id = #{id,jdbcType=INTEGER} and state = 0
   </select>
 
-  <!-- 查询全部【模糊】-->
+  <!-- 查询全部【模糊】分页-->
   <select id="selectByUser"  resultMap="BaseResultMap"  >
     select <include refid="Base_Column_List"/>
     from t_user

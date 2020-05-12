@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -63,24 +64,22 @@ public class UserController {
      * 查询全部
      */
     @RequestMapping("/selectByUser")
-    @ResponseBody
-    public String selectByUser(Model model, String username
-                           , @RequestParam(defaultValue = "1", value = "currentPage") Integer pageCode){
-
-        PageHelper.startPage(pageCode,10);//设置分页 每页16条数据
-        List<User> users = userService.queryByUser(username);//全部数据
-
-        PageInfo<User> userPageInfo = new PageInfo<User>(users);
-        users = userPageInfo.getList();
-        Integer totalPage = userPageInfo.getPages();//总页数
-
-        if (users != null){
-            model.addAttribute("pageCode",pageCode);//当前页
-            model.addAttribute("total",totalPage);//总页数
-            model.addAttribute("userList",users);//用户集合
-            return "userList";
+    public String selectByUser(Model model, String username,Integer pageStart
+                           , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size){
+        try {
+            List<User> users = userService.queryByUser(username,page,size);//全部数据
+            PageInfo pageInfo = new PageInfo(users);
+            if (users != null){
+                model.addAttribute("pageInfo",pageInfo);
+                model.addAttribute("userList",users);//用户集合
+                return "userlist";
+            }else {
+                return "error";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return "error";
         }
-        return "index";
     }
 
 
@@ -88,32 +87,34 @@ public class UserController {
      *  查看用户信息
      */
     @RequestMapping("/selectByUserMessage")
-    @ResponseBody
     public String selectByUserMessage(Integer id, Model model){
 
         try {
             User user = userService.queryByUserId(id);//根据用户id查询
-            model.addAttribute("users",user);
-            return "userMessage";
+            List<User> userList = new ArrayList<User>();
+            userList.add(user);
+            model.addAttribute("users",userList);
+            return "selectuser";
         }catch (Exception e){
             e.printStackTrace();
             return "error";
         }
     }
 
+
     /**
      *  根据用户id修改状态
      */
     @RequestMapping("/updateByState")
-    @ResponseBody
-    public String updateByState(Integer id ,Integer state){
+    public String updateByState(Integer pageStart,Integer id ,Integer state,Model model){
 
-        User user = new User();
-        user.setId(id);
-        user.setState(state);
         try{
-            Integer result = userService.updateByState(user);
-            return "userList";
+            User user = new User();
+            user.setId(id);
+            user.setState(state);
+            model.addAttribute("pageStart",pageStart);
+            userService.updateByState(user);
+            return "userlist";
         }catch (Exception e){
             e.printStackTrace();
             return "error";

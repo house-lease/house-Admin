@@ -41,11 +41,8 @@ public interface UserService {
      */
     public User login( String code,String image_url,String nickName,Integer sex);
 
-    // 总条数
-    int count();
-
     //查询全部
-    List<User> queryByUser(String username);
+    List<User> queryByUser(String username,Integer page,Integer size);
 
     //修改状态
     Integer updateByState(User user);
