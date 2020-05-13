@@ -2,7 +2,6 @@ package cn.bdqn.controller;
 
 import cn.bdqn.domain.House;
 import cn.bdqn.domain.HouseCareful;
-import cn.bdqn.domain.HouseImage;
 import cn.bdqn.exception.MyException;
 import cn.bdqn.service.HouseService;
 import cn.bdqn.utils.Result;
@@ -11,7 +10,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,7 +65,7 @@ public class HouseController {
            e.printStackTrace();
            throw new MyException("网络异常");
         }
-        return "houseDetaileInfo";
+        return "houseCarefulDetails";
     }
 
 
@@ -124,19 +122,35 @@ public class HouseController {
      * @param houseCareful
      * @return
      */
-    @RequestMapping
-    @ResponseBody
-    public Result<String> modifyById(HouseCareful houseCareful) {
-        Result<String> result = new Result<>();
+    @RequestMapping("/modifyById")
+    public String modifyById(HouseCareful houseCareful) throws MyException {
         try {
             houseService.modifyById(houseCareful);
-            result.setData("更新成功");
-            result.setMessage("success");
         } catch (Exception e) {
             e.printStackTrace();
-            result.setMessage("error");
-            result.setData("网络异常");
+            throw new MyException("网络错误");
         }
-        return result;
+        return "redirect: queryHouseCarefulById";
     }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/queryHouseCarefulById")
+    public String  queryHouseCarefulById(Integer id,@RequestParam(defaultValue = "1") Integer pageCode, Model model){
+        PageHelper.startPage(pageCode, 10);//设置分页 每页10条数据
+        List<HouseCareful> houseCarefuls = houseService.selectByHouseId(pageCode);
+        PageInfo<HouseCareful> houseCarefulPageInfo = new PageInfo<>(houseCarefuls);
+        model.addAttribute("houseCarefulPageInfo", houseCarefulPageInfo);
+        return "houseCarefulAllInfo";
+    }
+    @RequestMapping("/selectHouseCarefulById")
+    public String queryHouseCarefulById(Integer id, Map<String, Object> map){
+        List<HouseCareful> houseCarefuls = houseService.selectByHouseId(id);
+        map.put("houseCareful", houseCarefuls.get(0));
+        return "changeHouseCaregul";
+    }
+
 }

@@ -90,4 +90,9 @@ public class HouseServiceImpl implements HouseService {
     public House selectByUserName(String username) {
         return houseMapper.selectByUserName(username);
     }
+
+    @Override
+    public List<HouseCareful> selectByHouseId(Integer houseId) {
+        return houseCarefulMapper.selectByHouseId(houseId);
+    }
 }

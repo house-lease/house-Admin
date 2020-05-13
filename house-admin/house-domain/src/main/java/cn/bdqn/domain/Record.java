@@ -109,7 +109,7 @@ public class Record {
 
     public String getHouseName() {
 
-        return houseName == null ? this.getHouse().getHouseName() : null;
+        return houseName == null ? houseName = this.getHouse().getHouseName() : houseName;
     }
 
     public void setHouseName(String houseName) {

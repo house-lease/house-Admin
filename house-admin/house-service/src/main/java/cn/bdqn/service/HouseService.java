@@ -40,4 +40,10 @@ public interface HouseService {
      * @return
      */
     House selectByUserName(String username);
+    /*
+     * 根据房屋id查询房屋详细信息
+     * @param houseId
+     * @return
+     */
+    List<HouseCareful> selectByHouseId(Integer houseId);
 }

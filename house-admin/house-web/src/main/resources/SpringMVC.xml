@@ -58,6 +58,6 @@
 <!--        </mvc:interceptor>-->
 <!--    </mvc:interceptors>-->
 <!--    房屋详情页-->
-    <mvc:view-controller path="houseDetaileInfo" view-name="houseDetaileInfo"/>
+    <mvc:view-controller path="houseDetaileInfo" view-name="houseCarefulAllInfo"/>
     <mvc:view-controller path="orderList" view-name="orderList"/>
 </beans>

@@ -67,6 +67,6 @@ public interface HouseCarefulMapper {
      * @param houseId
      * @return
      */
-    public HouseCareful selectByHouseId(Integer houseId);
+    public List<HouseCareful> selectByHouseId(Integer houseId);
 
 }

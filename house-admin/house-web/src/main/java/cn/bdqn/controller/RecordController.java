@@ -57,7 +57,7 @@ public class RecordController {
      * @return
      */
     @RequestMapping("/getRecordList")
-    public String getRecordList(@RequestParam(defaultValue = "0")Integer pageCode, Integer userId, Integer record, Model model) throws MyException {
+    public String getRecordList(@RequestParam(defaultValue = "0")Integer pageCode, Integer userId, String record, Model model) throws MyException {
         Map<String, Object> params = new HashMap<>();
         if (userId != null) {
             params.put("userId", userId);
@@ -68,7 +68,6 @@ public class RecordController {
         params.put("pageCode", pageCode);
         try {
             PageInfo<Record> recordPageInfo =  recordService.queryRecord(params);
-            System.out.println(recordPageInfo.getList().get(0).getPayeeName());
             model.addAttribute("recordPageInfo", recordPageInfo);
         }catch(Exception e){
             e.printStackTrace();

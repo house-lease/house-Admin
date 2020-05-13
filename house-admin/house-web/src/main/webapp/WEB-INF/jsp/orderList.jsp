@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<form class="layui-form" action="${pageContext.request.contextPath}/record/getRecordList">
+<form class="layui-form" action="${pageContext.request.contextPath}/record/getRecordList" method="post">
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">订单号</label>
