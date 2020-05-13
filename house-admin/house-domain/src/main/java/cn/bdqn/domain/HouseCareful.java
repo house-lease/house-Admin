@@ -4,6 +4,7 @@ package cn.bdqn.domain;
  * 房屋详细信息
  */
 public class HouseCareful {
+
     private Integer id;
 
     //房屋id

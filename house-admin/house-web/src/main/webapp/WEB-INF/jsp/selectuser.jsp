@@ -6,9 +6,7 @@
     <title>查看用户信息</title>
 </head>
 <body>
-
         <table border="2px">
-            <c:forEach items="${users}" var="user">
             <tr><th>用户编号</th> <td>${user.id}</td></tr>
             <tr><th>用户昵称</th> <td>${user.nickname}</td></tr>
             <tr><th>用户性别</th>
@@ -41,7 +39,6 @@
                     <td>失效</td>
                 </c:if>
             </tr>
-            </c:forEach>
         </table>
 
 </body>

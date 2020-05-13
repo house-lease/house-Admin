@@ -18,17 +18,14 @@
     </table>
     <br/>
     <div class="result-wrapParticular">
-        <table class="result-tab" width="100%" border="2px">
+        <table class="result-tab" border="2px">
             <tr>
                 <th>用户编号</th>
                 <th>用户昵称</th>
                 <th>用户性别</th>
                 <th>用户名</th>
-                <th>身份证号</th>
-                <th>手机号</th>
                 <th>房东认证</th>
                 <th>注册时间</th>
-                <!--<th>头像路径</th>-->
                 <th>用户的唯一标识</th>
                 <th>用户状态</th>
                 <th>操作</th>
@@ -44,8 +41,6 @@
                         <td>女</td>
                     </c:if>
                     <td style="color: red">${user.userName}</td>
-                    <td>${user.idcard}</td>
-                    <td>${user.phone}</td>
                     <!-- 房东认证 0代表普通用户 1代表房东-->
                     <c:if test="${user.landlord==0}">
                         <td>普通用户</td>
@@ -55,8 +50,7 @@
                     </c:if>
 
                     <td><fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-                    <!-- 头像路径-->
-                    <!--<td style="text-overflow : clip; ">${user.imageUrl}</td>-->
+
                     <td>${user.openId}</td>
                     <c:if test="${user.state==0}">
                         <td>正常</td>
@@ -64,13 +58,13 @@
                     <c:if test="${user.state==1}">
                         <td>失效</td>
                     </c:if>
-                </tr>
 
                 <td style="color: red">
                     <a href="${pageContext.request.contextPath}/user/selectByUserMessage?id=${user.id}">查看</a>
 
-                    <a href="#">修改</a>
+                    <a href="${pageContext.request.contextPath}/user/selectById?id=${user.id}">修改</a>
                 </td>
+                </tr>
             </c:forEach>
         </table>
     </div>

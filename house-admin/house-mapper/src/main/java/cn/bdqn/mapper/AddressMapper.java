@@ -12,9 +12,9 @@ public interface AddressMapper {
 
     void insertSelective(Address record);
 
-    List<Address> selectAll();
+    List<Address> selectByPrimaryKey(String address);
 
-    Address selectByPrimaryKey(Integer id);
+    Address selectById(Integer id);
 
     void updateByPrimaryKeySelective(Address record);
 

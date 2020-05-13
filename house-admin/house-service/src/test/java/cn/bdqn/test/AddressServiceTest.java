@@ -21,7 +21,7 @@ public class AddressServiceTest {
 
         AddressService addressService = (AddressService) ac.getBean("addressService");
 
-        List<Address> addressList =addressService.queryAll();
+        List<Address> addressList =addressService.queryAll("");
 
         for(Address address : addressList){
             System.out.println("城市名称："+address.getAddress());
@@ -44,6 +44,21 @@ public class AddressServiceTest {
         addressService.insertAddress(address);
     }
 
+    //添加城市
+    @Test
+    public void testUpdate() throws Exception {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("beans-service.xml", "beans-mapper.xml");
+
+        AddressService addressService = (AddressService) ac.getBean("addressService");
+
+        Address address = new Address();
+        address.setId(1);
+        address.setAddress("二七区");
+        address.setParentId(1);
+        address.setState(0);
+
+        addressService.updateById(address);
+    }
 
 
 }
