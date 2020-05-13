@@ -32,8 +32,6 @@
             })
 
 
-
-
             $(".sidebar-list #a3").click(function () {
                 $(".sidebar-list .sub-menu3").show();
                 $(".sidebar-list .sub-menu").hide();
@@ -95,6 +93,7 @@
 
         })
     </script>
+
     <style>
         .sidebar-list li .icon-font-video {
             margin-right: 5px;
@@ -351,28 +350,41 @@
             -webkit-font-smoothing: antialiased;
         }
     </style>
+
     <style>
 
-        #formParticular .search-tab{
+        #formParticular .search-tab {
 
             margin-top: 10px;
         }
-        .result-wrapParticular{
-            margin-left:90px;
+
+        .result-wrapParticular {
+            margin-left: 90px;
 
         }
-        .result-wrapStart{
+
+        .result-wrapStart {
             margin-top: 70px;
             margin-left: 90px;
         }
 
-        .result-wrapStartAdd{
+        .result-wrapStartAdd {
             margin-top: 70px;
-            margin-left:300px;
+            margin-left: 300px;
         }
-        #fenye{
+
+        #fenye {
             margin-left: 550px;
 
+        }
+
+        .result-wrapUser {
+            margin-left: 90px;
+        }
+
+        .result-wrapUserInfo {
+            margin-top: 50px;
+            margin-left: 600px;
         }
 
     </style>
@@ -390,19 +402,10 @@
                 <li>
                     <a href="javascript:void(0);"><i class="icon-font">&#xe003;</i>用户管理</a>
                     <ul class="sub-menu">
+
                         <li>
-                            <a href="${pageContext.request.contextPath}/order/list?page=0"><i
-                                    class="icon-font">&#xe008;</i>模糊查询</a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/order/orderStat?page=1" id="a7"><i
-                                    class="icon-font">&#xe005;</i>查询全部</a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/order/orderStatWan?page=2"><i class="icon-font">&#xe006;</i> 用户状态更改 </a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/order/orderStatTui?page=3"><i class="icon-font">&#xe008;</i>查看用户信息</a>
+                            <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1" id="a7"><i
+                                    class="icon-font">&#xe005;</i>查询用户信息</a>
                         </li>
 
 
@@ -426,13 +429,15 @@
                     <a href="javascript:void(0);" id="a2"><i class="icon-font-user">&#xe003;</i>订单管理</a>
                     <ul class="sub-menu2">
                         <li>
-                            <a href="${pageContext.request.contextPath}/user/list?page1=0"><i class="icon-font">&#xe008;</i>根据用户查询订单列表</a>
+                            <a href="${pageContext.request.contextPath}/user/list?page1=0"><i
+                                    class="icon-font">&#xe008;</i>根据用户查询订单列表</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/user/userNames?page1=1"><i class="icon-font">&#xe005;</i>根据订单号查询订单详细信息</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/user/userByAddress?page1=2"><i class="icon-font">&#xe006;</i>根据订单id查询订单信息</a>
+                            <a href="${pageContext.request.contextPath}/user/userByAddress?page1=2"><i
+                                    class="icon-font">&#xe006;</i>根据订单id查询订单信息</a>
                         </li>
 
                     </ul>
@@ -441,10 +446,12 @@
                     <a href="javascript:void(0);" id="a3"><i class="icon-font-message">&#xe003;</i>充值管理</a>
                     <ul class="sub-menu3">
                         <li>
-                            <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1"><i class="icon-font">&#xe008;</i>根据用户id查询充值记录列表</a>
+                            <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1"><i
+                                    class="icon-font">&#xe008;</i>根据用户id查询充值记录列表</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1"><i class="icon-font">&#xe005;</i>根据充值id查询充值记录信息</a>
+                            <a href="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1"><i
+                                    class="icon-font">&#xe005;</i>根据充值id查询充值记录信息</a>
                         </li>
                     </ul>
 
@@ -455,7 +462,8 @@
                             <a href="${pageContext.request.contextPath}/start/addYe?pageStart=0"><i class="icon-font">&#xe008;</i>新增起租时间信息</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1"><i class="icon-font">&#xe005;</i>查询起租时间信息</a>
+                            <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1"><i
+                                    class="icon-font">&#xe005;</i>查询起租时间信息</a>
                         </li>
 
                         <li>
@@ -499,12 +507,14 @@
 
         <c:if test="${pageParticularByUserId==1}">
 
-            <form action="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&page=1&size=2"method="post" id="formParticular">
+            <form action="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&page=1&size=2"
+                  method="post" id="formParticular">
 
                 <table class="search-tab">
                     <tr>
                         <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="请输入用户Id" name="userId"  id="text" type="text" value="${userId}"></td>
+                        <td><input class="common-text" placeholder="请输入用户Id" name="userId" id="text" type="text"
+                                   value="${userId}"></td>
 
                         <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
 
@@ -535,7 +545,8 @@
                                 <td>${particulars.user.id}</td>
                                 <td>${particulars.userName}</td>
                                 <td>${particulars.money}</td>
-                                <td><fmt:formatDate value="${particulars.refillTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                                <td><fmt:formatDate value="${particulars.refillTime}"
+                                                    pattern="yyyy-MM-dd hh:mm:ss"/></td>
                                 <c:if test="${particulars.state==0}">
                                     <td>正常</td>
                                 </c:if>
@@ -557,7 +568,8 @@
                     <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=10&userId=${userId}&page=${pageNum}&size=2">${pageNum}</a>
                 </c:forEach>
                 <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
-                <a  href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pages}&size=2" aria-label="Next"> 尾页</a>
+                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pages}&size=2"
+                   aria-label="Next"> 尾页</a>
 
 
             </div>
@@ -567,12 +579,14 @@
 
         <c:if test="${pageParticularById==1}">
 
-            <form action="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1"method="post" id="formParticular">
+            <form action="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1" method="post"
+                  id="formParticular">
 
                 <table class="search-tab">
                     <tr>
                         <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="请输入Id" name="id"  id="text" type="text" value="${id}"></td>
+                        <td><input class="common-text" placeholder="请输入Id" name="id" id="text" type="text"
+                                   value="${id}"></td>
 
                         <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
 
@@ -598,18 +612,18 @@
                         </tr>
 
                         <tr>
-                                <td>${particular.id}</td>
-                                <td>${particular.user.id}</td>
-                                <td>${particular.userName}</td>
-                                <td>${particular.money}</td>
-                                <td><fmt:formatDate value="${particular.refillTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-                                <c:if test="${particular.state==0}">
-                                    <td>正常</td>
-                                </c:if>
-                                <c:if test="${particular.state==1}">
-                                    <td>删除</td>
-                                </c:if>
-                            </tr>
+                            <td>${particular.id}</td>
+                            <td>${particular.user.id}</td>
+                            <td>${particular.userName}</td>
+                            <td>${particular.money}</td>
+                            <td><fmt:formatDate value="${particular.refillTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                            <c:if test="${particular.state==0}">
+                                <td>正常</td>
+                            </c:if>
+                            <c:if test="${particular.state==1}">
+                                <td>删除</td>
+                            </c:if>
+                        </tr>
 
                     </table>
 
@@ -621,33 +635,34 @@
 
             <div class="result-wrapStart">
 
-                    <div class="result-content">
+                <div class="result-content">
 
-                        <table class="result-tab" width="100%">
-                            <th>起租时间编号</th>
-                            <th>起租时间</th>
-                            <th>可计算起租时间</th>
-                            <th>状态</th>
-                            <th>操作</th>
-                            <c:forEach items="${starts}" var="starts">
+                    <table class="result-tab" width="100%">
+                        <th>起租时间编号</th>
+                        <th>起租时间</th>
+                        <th>可计算起租时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                        <c:forEach items="${starts}" var="starts">
 
-                                <tr>
-                                    <td>${starts.id}</td>
-                                    <td>${starts.startName}</td>
-                                    <td>${starts.startValue}</td>
-                                    <c:if test="${starts.state==0}">
-                                        <td>正常</td>
-                                    </c:if>
-                                    <c:if test="${starts.state==1}">
-                                        <td>删除</td>
-                                    </c:if>
-                                    <td><a href="${pageContext.request.contextPath}/start/delete?pageStart=1&id=${starts.id}">删除</a>&nbsp;
-                                        <a href="${pageContext.request.contextPath}/start/updateYe?pageStart=2&id=${starts.id}">修改</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </table>
-                    </div>
+                            <tr>
+                                <td>${starts.id}</td>
+                                <td>${starts.startName}</td>
+                                <td>${starts.startValue}</td>
+                                <c:if test="${starts.state==0}">
+                                    <td>正常</td>
+                                </c:if>
+                                <c:if test="${starts.state==1}">
+                                    <td>删除</td>
+                                </c:if>
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/start/delete?pageStart=1&id=${starts.id}">删除</a>&nbsp;
+                                    <a href="${pageContext.request.contextPath}/start/updateYe?pageStart=2&id=${starts.id}">修改</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
 
             </div>
             <br/>
@@ -660,8 +675,8 @@
                     <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageNum}&size=2">${pageNum}</a>
                 </c:forEach>
                 <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
-                <a  href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pages}&size=2" aria-label="Next"> 尾页</a>
-
+                <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pages}&size=2"
+                   aria-label="Next"> 尾页</a>
 
 
             </div>
@@ -674,9 +689,10 @@
 
                 <div class="result-content">
 
-                    <form method="post" action="${pageContext.request.contextPath}/start/add?pageStart=1" >
+                    <form method="post" action="${pageContext.request.contextPath}/start/add?pageStart=1">
 
-                        起租时间: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="startName"/>   (必填项)
+                        起租时间: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="startName"/>
+                        (必填项)
 
                         <br/>
 
@@ -699,13 +715,162 @@
                 <div class="result-content">
 
                     <form method="post" action="${pageContext.request.contextPath}/start/update?pageStart=1">
-                        起租时间id:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="id" value="${start.id}" readonly="readonly"/>
+                        起租时间id:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="id"
+                                                                                 value="${start.id}"
+                                                                                 readonly="readonly"/>
                         <br/><br/>
-                        起租时间: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="startName" value="${start.startName}"/> <br/><br/>
+                        起租时间: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="startName"
+                                                                                            value="${start.startName}"/>
+                        <br/><br/>
                         可计算起租时间:&nbsp;<input type="text" name="startValue" value="${start.startValue}"/> <br/><br/>
 
                         <input type="submit" value="修改">
                     </form>
+                </div>
+
+            </div>
+        </c:if>
+
+        <c:if test="${pageUser==1}">
+
+            <form action="${pageContext.request.contextPath}/user/selectByUser?pageUser=1" method="post"
+                  id="formParticular">
+
+                <table class="search-tab">
+                    <tr>
+                        <th width="70">关键字:</th>
+                        <td><input class="common-text" placeholder="请输入用户名称" name="username" id="username" type="text"
+                                   value="${username}"></td>
+                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="query">
+                        </td>
+                    </tr>
+                </table>
+
+
+                <br/>
+
+                <div class="result-wrapUser">
+                    <table class="result-tab" width="100%">
+                        <tr>
+                            <th>用户编号</th>
+                            <th>用户昵称</th>
+                            <th>用户性别</th>
+                            <th>用户名</th>
+                            <th>身份证号</th>
+                            <th>手机号</th>
+                            <th>房东认证</th>
+                            <th>注册时间</th>
+                            <!--<th>头像路径</th>-->
+                            <th>用户的唯一标识</th>
+                            <th>用户状态</th>
+                            <th>操作</th>
+                        </tr>
+                        <c:forEach items="${userList}" var="user">
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.nickname}</td>
+                                <c:if test="${user.sex==0}">
+                                    <td>男</td>
+                                </c:if>
+                                <c:if test="${user.sex==1}">
+                                    <td>女</td>
+                                </c:if>
+                                <td style="color: red">${user.userName}</td>
+                                <td>${user.idcard}</td>
+                                <td>${user.phone}</td>
+                                <!-- 房东认证 0代表普通用户 1代表房东-->
+                                <c:if test="${user.landlord==0}">
+                                    <td>普通用户</td>
+                                </c:if>
+                                <c:if test="${user.landlord==1}">
+                                    <td>房东</td>
+                                </c:if>
+
+                                <td><fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                                <!-- 头像路径-->
+                                <!--<td style="text-overflow : clip; ">${user.imageUrl}</td>-->
+                                <td>${user.openId}</td>
+                                <c:if test="${user.state==0}">
+                                    <td>正常</td>
+                                </c:if>
+                                <c:if test="${user.state==1}">
+                                    <td>失效</td>
+                                </c:if>
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/user/selectByUserMessage?pageUser=2&id=${user.id}">查看</a>
+                                    &nbsp;
+                                    <a href="${pageContext.request.contextPath}/user/updateByState?pageUser=1&id=${user.id}">修改</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+
+                </div>
+
+            </form>
+
+            <div id="fenye">
+
+                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=1&size=2">首页</a>
+                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+                <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                    <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageNum}&size=2">${pageNum}</a>
+                </c:forEach>
+                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pages}&size=2"
+                   aria-label="Next"> 尾页</a>
+
+
+            </div>
+
+
+        </c:if>
+
+        <c:if test="${pageUser==2}">
+
+            <div class="result-wrapUserInfo">
+
+                <div class="result-content">
+
+
+                    <c:forEach items="${users}" var="user">
+                        用户编号:&nbsp;${user.id}
+                        <br/><br/>
+                        用户昵称:&nbsp;${user.nickname}
+                        <br/><br/>
+                        用户性别:&nbsp;
+                        <c:if test="${user.sex==0}">
+                            男
+                        </c:if>
+                        <c:if test="${user.sex==1}">
+                            女
+                        </c:if> <br/><br/>
+                        用户名:&nbsp;${user.userName} <br/><br/>
+                        身份证:&nbsp;${user.idcard} <br/><br/>
+                        手机号:&nbsp;${user.phone} <br/><br/>
+                        房东认证:&nbsp;
+                        <!-- 房东认证 0代表普通用户 1代表房东-->
+                        <c:if test="${user.landlord==0}">
+                            普通用户
+                        </c:if>
+                        <c:if test="${user.landlord==1}">
+                            房东
+                        </c:if> <br/><br/>
+                        注册时间:&nbsp;<fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/>
+                        <br/><br/>
+
+                        用户的唯一标识:&nbsp;${user.openId} <br/><br/>
+
+                        用户状态:&nbsp;
+                        <c:if test="${user.state==0}">
+                            正常
+                        </c:if>
+                        <c:if test="${user.state==1}">
+                            失效
+                        </c:if>
+
+                    </c:forEach>
+
                 </div>
 
             </div>

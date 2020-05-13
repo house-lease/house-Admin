@@ -55,10 +55,10 @@ public class UserServiceTest {
         user.setId(10);
         user.setLandlord(0);
 
-        Integer integer = userService.updateByState(user);
-        if (integer == 1){
-           System.out.println("修改成功!");
-        }
+//        Integer integer = userService.updateByState(user);
+//        if (integer == 1){
+//           System.out.println("修改成功!");
+//        }
 
     }
 

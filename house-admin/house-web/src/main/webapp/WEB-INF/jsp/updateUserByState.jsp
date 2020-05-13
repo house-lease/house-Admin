@@ -8,7 +8,7 @@
     <h2>修改用户状态</h2>
 <form action="${pageContext.request.contextPath}/user/updateByState" method="post">
     用户编号：<input name="id" type="text" disabled value="${id}" /><br>
-    状态：<input name="state" placeholder="0:正常  1：删除" type="text">
+    状态：<input name="state" placeholder="0:正常  1：失效" type="text">
     <input type="submit" value="修改" name="update"/>
 </form>
 </body>
