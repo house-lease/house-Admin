@@ -26,7 +26,7 @@ public class UserServiceTest {
 
         PageHelper.startPage(1,10);//设置分页 每页10条数据
         //查询全部数据【模糊查询】
-        List<User> users = userService.queryByUser("");
+        List<User> users = userService.queryByUser("",1,1);
 
         PageInfo<User> userPageInfo = new PageInfo<User>(users);
         users = userPageInfo.getList();
@@ -55,10 +55,10 @@ public class UserServiceTest {
         user.setId(1);
         user.setState(1);
 
-        Integer integer = userService.updateByState(user);
-        if (integer == 1){
-           System.out.println("修改成功!");
-        }
+//        Integer integer = userService.updateByState(user);
+//        if (integer == 1){
+//           System.out.println("修改成功!");
+//        }
 
     }
 
