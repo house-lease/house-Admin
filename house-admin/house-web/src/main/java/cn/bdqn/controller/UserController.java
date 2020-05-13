@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  用户Controller
+ * 用户Controller
  */
 
 @Controller
@@ -32,51 +32,24 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 登录方法
-     * @param code  临时令牌
-     * @param image_url 图片路径
-     * @param nickName  昵称
-     * @param sex  性别
-     * @return
-     */
-    @RequestMapping("/login")
-    @ResponseBody
-    public Result login(String code, String image_url, String nickName, Integer sex){
-
-        try {
-            //登录的方法
-            User user = userService.login(code,image_url,nickName,sex);
-            Result result = new Result();
-            result.setData(user);
-            result.setMessage("登录成功");
-            return result;
-        }catch (Exception e){
-            e.printStackTrace();
-            Result result = new Result();
-            result.setData(null);
-            result.setMessage("登录失败");
-            return result;
-        }
-
-    }
-
-    /**
-     * 查询全部
+     * 查询全部及根据用户名模糊查询
      */
     @RequestMapping("/selectByUser")
-    public String selectByUser(Model model, String username,Integer pageStart
-                           , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size){
+    public String selectByUser(int pageUser, Model model, String username
+            , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size) {
         try {
-            List<User> users = userService.queryByUser(username,page,size);//全部数据
+            List<User> users = userService.queryByUser(username, page, size);//全部数据
             PageInfo pageInfo = new PageInfo(users);
-            if (users != null){
-                model.addAttribute("pageInfo",pageInfo);
-                model.addAttribute("userList",users);//用户集合
-                return "userlist";
-            }else {
+            if (users != null) {
+                model.addAttribute("pageInfo", pageInfo);
+                model.addAttribute("userList", users);//用户集合
+                model.addAttribute("username", username);
+                model.addAttribute("pageUser", pageUser);
+                return "mainlist";
+            } else {
                 return "error";
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "error";
         }
@@ -84,18 +57,19 @@ public class UserController {
 
 
     /**
-     *  查看用户信息
+     * 查看用户信息
      */
     @RequestMapping("/selectByUserMessage")
-    public String selectByUserMessage(Integer id, Model model){
+    public String selectByUserMessage(int pageUser, Integer id, Model model) {
 
         try {
             User user = userService.queryByUserId(id);//根据用户id查询
             List<User> userList = new ArrayList<User>();
             userList.add(user);
-            model.addAttribute("users",userList);
-            return "selectuser";
-        }catch (Exception e){
+            model.addAttribute("users", userList);
+            model.addAttribute("pageUser", pageUser);
+            return "mainlist";
+        } catch (Exception e) {
             e.printStackTrace();
             return "error";
         }
@@ -103,19 +77,16 @@ public class UserController {
 
 
     /**
-     *  根据用户id修改状态
+     * 根据用户id修改状态
      */
     @RequestMapping("/updateByState")
-    public String updateByState(Integer pageStart,Integer id ,Integer state,Model model){
+    public String updateByState(int pageUser, Integer id, Integer state, Model model) {
 
-        try{
-            User user = new User();
-            user.setId(id);
-            user.setState(state);
-            model.addAttribute("pageStart",pageStart);
-            userService.updateByState(user);
-            return "userlist";
-        }catch (Exception e){
+        try {
+            userService.updateByState(id);
+            model.addAttribute("pageUser", pageUser);
+            return "redirect:/user/selectByUser";
+        } catch (Exception e) {
             e.printStackTrace();
             return "error";
         }
