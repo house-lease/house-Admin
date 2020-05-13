@@ -70,10 +70,18 @@
     select <include refid="Base_Column_List"/>
     from t_house
     <where>
-      <trim prefix="where" suffixOverrides="and">
+      <trim suffixOverrides="and">
         <!-- 房屋名称[模糊]-->
-        <if test="housename != null and housename!=''">
-          house_name like concat('%',#{housename},'%')
+        <if test="param1 != null and param1!=''">
+          house_name like concat('%',#{param1},'%') and
+        </if>
+        <!-- 房屋id-->
+        <if test="param2 != null and param2 !=''">
+           id=#{param2} and
+        </if>
+        <!-- 房东名字[模糊]-->
+        <if test="param3 != null and param3!=''">
+          user_name like concat('%',#{param3},'%')
         </if>
       </trim>
     </where>

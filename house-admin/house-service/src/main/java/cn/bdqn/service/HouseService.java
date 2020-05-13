@@ -19,7 +19,7 @@ public interface HouseService {
      * 查询房屋【分页】
      * @param houseName
      */
-    List<House> selectByPage(String houseName);
+    List<House> selectByPage(String houseName,Integer id, String  userName, Integer page,Integer size);
 
     /**
      * 根据房屋id查询房屋信息
@@ -46,4 +46,9 @@ public interface HouseService {
      * @return
      */
     List<HouseCareful> selectByHouseId(Integer houseId);
+
+    /**
+     * 根据房屋id查询房屋详细信息
+     */
+    HouseCareful selectHouseCarefulByHouseId(Integer houseId);
 }

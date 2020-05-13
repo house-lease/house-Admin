@@ -7,6 +7,8 @@ import cn.bdqn.mapper.HouseCarefulMapper;
 import cn.bdqn.mapper.HouseImageMapper;
 import cn.bdqn.mapper.HouseMapper;
 import cn.bdqn.service.HouseService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +53,9 @@ public class HouseServiceImpl implements HouseService {
      * @return
      */
     @Override
-    public List<House> selectByPage(String houseName) {
-        return  houseMapper.selectByPage(houseName);
+    public List<House> selectByPage(String houseName,Integer id, String  userName,  Integer page,Integer size ) {
+        PageHelper.startPage(page,size);
+        return  houseMapper.selectByPage(houseName,id,userName);
     }
 
     /**
@@ -94,5 +97,12 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public List<HouseCareful> selectByHouseId(Integer houseId) {
         return houseCarefulMapper.selectByHouseId(houseId);
+    }
+    /**
+     * 根据房屋id查询房屋详细信息
+     */
+    @Override
+    public HouseCareful selectHouseCarefulByHouseId(Integer houseId){
+        return houseCarefulMapper.selectByPrimaryKey(houseId);
     }
 }

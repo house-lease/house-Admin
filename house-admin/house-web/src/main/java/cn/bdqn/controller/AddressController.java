@@ -22,17 +22,32 @@ public class AddressController {
     private AddressService addressService;
 
     /**
-     *  查询全部
+     *  查询
      **/
-    @RequestMapping("selectAll")
-    @ResponseBody
-    public String selectAll(Model model){
-
+    @RequestMapping("/selectAll")
+    public String selectAll(Model model,String address){
         try {
-            List<Address> addressList = addressService.queryAll();//查询全部信息
+            List<Address> addressList = addressService.queryAll(address);//查询
             model.addAttribute("addressList",addressList);
-            System.out.println(addressList);//打印
             return "addressList";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    /**
+     * 根据id查询
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping("/selectById")
+    public String selectById(Integer id,Model model){
+        try {
+            Address address = addressService.selectById(id);
+            model.addAttribute("address",address);
+            return "addressUpdate";
         }catch (Exception e){
             e.printStackTrace();
             return "error";
@@ -40,20 +55,23 @@ public class AddressController {
 
     }
 
+    @RequestMapping("/insert")
+    public String insert(){
+        return "addressInsert";
+    }
+
     /**
      *  添加城市
      */
-    @RequestMapping("/insert")
-    @ResponseBody
-    public String insertAddress(String address,Integer state){
+    @RequestMapping("/insertAddress")
+    public String insertAddress(String address,Integer parentId,Integer state){
 
-        Address address1 = new Address();
-        address1.setAddress(address);
-        address1.setState(state);
         try {
-            if (address1!=null){
-                addressService.insertAddress(address1);
-            }
+            Address address1 = new Address();
+            address1.setAddress(address);
+            address1.setParentId(parentId);
+            address1.setState(state);
+            addressService.insertAddress(address1);
             return "addressList";
         }catch (Exception e){
             e.printStackTrace();
@@ -64,18 +82,16 @@ public class AddressController {
     /**
      *  修改
      */
-    @RequestMapping("updateByDelete")
-    @ResponseBody
-    public String updateByDelete(Integer id,String address,Integer state){
+    @RequestMapping("/updateByDelete")
+    public String updateByDelete(Integer id,String address,Integer state,Integer parentId){
 
-        Address address1 = new Address();
-        address1.setId(id);
-        address1.setAddress(address);
-        address1.setState(state);
         try {
-            if(address1 != null){
-                addressService.updateById(address1);
-            }
+            Address address1 = new Address();
+            address1.setId(id);
+            address1.setAddress(address);
+            address1.setParentId(parentId);
+            address1.setState(state);
+            addressService.updateById(address1);
             return "addressList";
         }catch (Exception e){
             e.printStackTrace();

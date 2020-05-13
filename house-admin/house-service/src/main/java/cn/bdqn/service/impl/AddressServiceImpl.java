@@ -22,8 +22,13 @@ public class AddressServiceImpl implements AddressService {
 
     //查询
     @Override
-    public List<Address> queryAll( ) {
-        return addressMapper.selectAll();
+    public List<Address> queryAll( String address) {
+        return addressMapper.selectByPrimaryKey(address);
+    }
+
+    @Override
+    public Address selectById(Integer id) {
+        return addressMapper.selectById(id);
     }
 
     //修改

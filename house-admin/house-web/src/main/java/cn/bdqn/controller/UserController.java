@@ -64,6 +64,7 @@ public class UserController {
 
         try {
             User user = userService.queryByUserId(id);//根据用户id查询
+
             List<User> userList = new ArrayList<User>();
             userList.add(user);
             model.addAttribute("users", userList);
@@ -74,6 +75,24 @@ public class UserController {
             return "error";
         }
     }
+
+    /**
+     *  查看用户信息
+     */
+    @RequestMapping("/selectById")
+    public String selectById(Integer id, Model model){
+
+        try {
+            User user = userService.queryByUserId(id);//根据用户id查询
+            System.out.println(user);
+            model.addAttribute("user",user);
+            return "updateUserByState";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
 
 
     /**

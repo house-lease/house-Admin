@@ -52,8 +52,8 @@ public class UserServiceTest {
         UserService userService = (UserService) ac.getBean("userService");
 
         User user = new User();
-        user.setId(1);
-        user.setState(1);
+        user.setId(10);
+        user.setLandlord(0);
 
 //        Integer integer = userService.updateByState(user);
 //        if (integer == 1){

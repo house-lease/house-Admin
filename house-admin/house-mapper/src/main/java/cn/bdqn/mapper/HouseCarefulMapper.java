@@ -10,7 +10,6 @@ import java.util.List;
 public interface HouseCarefulMapper {
 
 
-
     /**
      * 根据id删除
      *

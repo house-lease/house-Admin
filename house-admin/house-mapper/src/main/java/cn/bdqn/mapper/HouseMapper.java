@@ -13,9 +13,8 @@ public interface HouseMapper {
 
     /**
      * 查询房屋【分页】
-     * @param houseName
      */
-    List<House> selectByPage(String houseName);
+    List<House> selectByPage(String houseName,Integer id,String userName);
 
     /**
      * 根据房东查询房屋

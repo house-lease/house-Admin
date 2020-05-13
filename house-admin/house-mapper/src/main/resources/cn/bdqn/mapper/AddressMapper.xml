@@ -12,17 +12,24 @@
     id, address, parent_id, state
   </sql>
 
-  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from t_address
+    <where>
+      <trim suffixOverrides="and">
+        <if test="address!=null and address!=''">
+          address like concat('%',#{address},'%')
+        </if>
+      </trim>
+    </where>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
-    <include refid="Base_Column_List" />
-    from t_address
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectById" resultMap="BaseResultMap">
+    SELECT  <include refid="Base_Column_List" />
+    FROM t_address
+    where id=#{id}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_address
     where id = #{id,jdbcType=INTEGER}
@@ -66,7 +73,7 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.bdqn.domain.Address" >
     update t_address
-    <set >
+    <set>
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
