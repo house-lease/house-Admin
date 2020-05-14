@@ -34,17 +34,14 @@
                 <th>房屋名字</th>
                 <th>小区</th>
                 <th>城市</th>
-                <th>房屋类型对象</th>
                 <th>房屋类型名字</th>
-                <th>房屋租赁类型</th>
                 <th>房屋租赁类型名字</th>
-                <th style="color: #c67605">房屋详细信息</th>
                 <th>剩余房间</th>
                 <th>房屋状态</th>
+                <th>操作</th>
             </tr>
             <c:forEach items="${housesList}" var="house">
                 <tr>
-                    房屋编号
                     <td>${house.id}</td>
                     <!--- 房东姓名-->
                     <td>
@@ -59,16 +56,10 @@
                     <td>${house.uptown}</td>
                     <td>${house.address}</td>
                     <!-- 房屋类型对象-->
-                    <td>${house.houseType.id}</td>
                     <td>${house.houseTypeName}</td>
                     <!-- 房屋租赁类型-->
-                    <td>${house.houseLease.id}</td>
                     <td>${house.houseLeaseName}</td>
 
-                    <!-- 房屋详情信息-->
-                    <td style="color: #c67605">
-                        <a href="${pageContext.request.contextPath}/house/selectHouseCareful?houseId=${house.houseCareful.id}">${house.houseCareful.id}</a>
-                    </td>
                     <td>${house.residueRoom}</td>
                     <!-- 房屋状态 0可租 1满租-->
                     <c:if test="${house.state==0}">
@@ -77,6 +68,9 @@
                     <c:if test="${house.state==1}">
                         <td>满租</td>
                     </c:if>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/house/selectHouseCareful?houseId=${house.id}">查看</a>
+                    </td>
                 </tr>
             </c:forEach>
         </table>

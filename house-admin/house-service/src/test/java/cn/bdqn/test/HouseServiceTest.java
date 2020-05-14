@@ -26,7 +26,7 @@ public class HouseServiceTest {
 
         PageHelper.startPage(1, 10);//设置分页 每页10条数据
         //查询全部数据【支持模糊查询】
-        List<House> houses = houseService.selectByPage("",1,"",1,5);
+        List<House> houses = houseService.selectByPage("",2,"",1,5);
 
         PageInfo<House> housePageInfo = new PageInfo<House>(houses);
         houses = housePageInfo.getList();

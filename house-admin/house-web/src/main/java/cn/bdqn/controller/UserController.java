@@ -35,14 +35,14 @@ public class UserController {
      * 查询全部及根据用户名模糊查询
      */
     @RequestMapping("/selectByUser")
-    public String selectByUser(int pageUser, Model model, String username
+    public String selectByUser(int pageStart, Model model, String username
             , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size) {
         try {
             List<User> users = userService.queryByUser(username, page, size);//全部数据
             PageInfo pageInfo = new PageInfo(users);
             if (users != null) {
                 model.addAttribute("pageInfo", pageInfo);
-                model.addAttribute("pageUser",pageUser);
+                model.addAttribute("pageStart",pageStart);
                 model.addAttribute("userList", users);//用户集合
                 model.addAttribute("username", username);
                 return "mainlist";

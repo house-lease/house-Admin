@@ -41,7 +41,6 @@
             <if test="username == null or username==''">
                 state=0
             </if>
-
         </trim>
     </select>
 

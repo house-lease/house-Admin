@@ -73,13 +73,12 @@ public class AddressController {
                     address2.setParentId(parentId);
                     address2.setState(state);
                     addressService.insertAddress(address2);
-                    return "addressList";
                 }
+            return "redirect:/address/selectAll";
         }catch (Exception e){
             e.printStackTrace();
             return "error";
         }
-        return "redirect:/address/selectAll";
     }
 
     /**
@@ -89,19 +88,43 @@ public class AddressController {
     public String updateByDelete(Integer id,String address,Integer state,Integer parentId){
 
         try {
+            Address address2 = addressService.selectById(id);
+            if (address2.getAddress() != address){
                 Address address1 = new Address();
                 address1.setId(id);
                 address1.setAddress(address);
                 address1.setParentId(parentId);
-                address1.setState(state);
                 addressService.updateById(address1);
-                return "addressList";
+            }
+            return "redirect:/address/selectAll";
         }catch (Exception e){
             e.printStackTrace();
             return "error";
         }
     }
 
-
+    /**
+     *  修改
+     */
+    @RequestMapping("/deleteByState")
+    public String deleteByState(Integer id,Integer state){
+        try {
+            Address address2 = addressService.selectById(id);
+            if (address2!=null){
+                Address address1 = new Address();
+                address1.setId(id);
+                if (state == 0){
+                    address1.setState(1);
+                }else {
+                    address1.setState(0);
+                }
+                addressService.updateById(address1);
+            }
+            return "redirect:/address/selectAll";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "error";
+        }
+    }
 
 }

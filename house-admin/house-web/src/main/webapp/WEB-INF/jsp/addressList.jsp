@@ -16,7 +16,7 @@
                 </tr>
             </table>
 
-            <table class="result-tab" border="2px">
+            <table class="result-tab" border="1px">
                 <tr>
                     <th>城市编号</th>
                     <th>城市名</th>
@@ -37,6 +37,7 @@
                         </c:if>
                         <td>
                             <a href="${pageContext.request.contextPath}/address/selectById?id=${address.id}">修改</a>
+                            <a href="${pageContext.request.contextPath}/address/deleteByState?id=${address.id}">删除</a>
                         </td>
                     </tr>
                 </c:forEach>

@@ -22,13 +22,14 @@
     select
     <include refid="Base_Column_List" />
     from t_address
-    <where>
-      <trim suffixOverrides="and">
+      <trim prefix="where" suffixOverrides="and">
         <if test="address!=null and address!=''">
-          address like concat('%',#{address},'%')
+          address like concat('%',#{address},'%') and
+        </if>
+        <if test="address==null or address ==''">
+          state=0
         </if>
       </trim>
-    </where>
   </select>
   <select id="selectById" resultMap="BaseResultMap">
     SELECT  <include refid="Base_Column_List" />
