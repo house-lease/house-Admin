@@ -6,19 +6,30 @@
     <title>房屋详情页面</title>
 </head>
 <body>
-<table class="result-tab" width="100%" border="2px">
-    <tr>
-        <th>房屋详情编号</th>  <td>${houseCareful.id}</td>
-        <th>房屋编号</th> <td>${houseCareful.houseId}</td>
-        <th>床</th>   <td>${houseCareful.chuang}</td>
-        <th>沙发</th> <td>${houseCareful.shafa}</td>
-        <th>空调</th> <td>${houseCareful.kongtiao}</td>
-        <th>燃气</th> <td>${houseCareful.ranqi}</td>
-        <th>洗衣机</th> <td>${houseCareful.xiyiji}</td>
-        <th>宽带</th> <td>${houseCareful.kuandai}</td>
-        <th>电视</th> <td>${houseCareful.dianshi}</td>
-        <th>冰箱</th> <td>${houseCareful.bingxiang}</td>
-    </tr>
-</table>
+<div>
+    <div>
+        <span>房屋详情编号:</span>  <span>${houseCareful.id}</span>
+    </div>
+        <div><span>房屋编号:</span> <span>${houseCareful.houseId}</span> </div>
+            <div> <span>床:</span>
+        <span>  <c:if test="${houseCareful.chuang == 0}">有</c:if>
+        <c:if test="${houseCareful.chuang == 1}">没有</c:if>
+    </span>  </div>
+                <div> <span>沙发:</span> <span>  <c:if test="${houseCareful.shafa == 0}">有</c:if>
+        <c:if test="${houseCareful.shafa == 1}">没有</c:if></span>  </div>
+                    <div>  <span>空调:</span> <span>  <c:if test="${houseCareful.kongtiao == 0}">有</c:if>
+        <c:if test="${houseCareful.kongtiao == 1}">没有</c:if></span>  </div>
+                        <div><span>燃气:</span> <span> <c:if test="${houseCareful.ranqi == 0}">有</c:if>
+        <c:if test="${houseCareful.ranqi == 1}">没有</c:if></span>  </div>
+                            <div>  <span>洗衣机:</span> <span>  <c:if test="${houseCareful.xiyiji == 0}">有</c:if>
+        <c:if test="${houseCareful.xiyiji == 1}">没有</c:if></span> </div>
+                                <div>  <span>宽带:</span> <span> <c:if test="${houseCareful.kuandai == 0}">有</c:if>
+        <c:if test="${houseCareful.kuandai == 1}">没有</c:if></span> </div>
+                                    <div>  <span>电视:</span> <span> <c:if test="${houseCareful.dianshi == 0}">有</c:if>
+        <c:if test="${houseCareful.dianshi == 1}">没有:</c:if></span>  </div>
+                                        <div><span>冰箱:</span> <span><c:if test="${houseCareful.bingxiang == 0}">有</c:if>
+        <c:if test="${houseCareful.bingxiang == 1}">没有</c:if></span> </div>
+
+</div>
 </body>
 </html>

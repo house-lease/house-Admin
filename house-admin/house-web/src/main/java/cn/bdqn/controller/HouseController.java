@@ -55,18 +55,17 @@ public class HouseController {
     }
 
     @RequestMapping("/queryByHouseId")
-    public String queryByHouseId(int pageHouseCareful,Integer houseId, Model model) throws MyException {
+    public String queryByHouseId(Integer houseId, Map<String, Object> map) throws MyException {
         try {
             Result result = new Result();
             //根据id查询房屋详细信息
             House house = houseService.selectByPrimaryKey(houseId);
-            model.addAttribute("pageHouseCareful", pageHouseCareful);
-            model.addAttribute("house", house);
+            map.put("house", house);
         } catch (Exception e) {
            e.printStackTrace();
            throw new MyException("网络异常");
         }
-        return "mainlist";
+        return "houseCarefulDetails";
     }
 
 
@@ -120,37 +119,34 @@ public class HouseController {
      * @return
      */
     @RequestMapping("/modifyById")
-    public String modifyById(int pageHouseCareful, HouseCareful houseCareful,Model model) throws MyException {
+    public String modifyById(HouseCareful houseCareful) throws MyException {
         try {
             houseService.modifyById(houseCareful);
-            model.addAttribute("pageHouseCareful", pageHouseCareful);
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException("网络错误");
         }
-        return "redirect:/house/queryHouseCarefulById";
+        return "redirect: queryHouseCarefulById";
     }
 
     /**
      *
-     * @param
+     * @param id
      * @return
      */
     @RequestMapping("/queryHouseCarefulById")
-    public String  queryHouseCarefulById(int pageHouseCareful,Integer houseId , Model model){
-       //  PageHelper.startPage(pageCode, 10);//设置分页 每页10条数据
-        List<HouseCareful> houseCarefuls = houseService.selectByHouseId(houseId);
-     //   PageInfo<HouseCareful> houseCarefulPageInfo = new PageInfo<>(houseCarefuls);
-        model.addAttribute("houseCarefuls", houseCarefuls);
-        model.addAttribute("pageHouseCareful", pageHouseCareful);
-        return "mainlist";
+    public String  queryHouseCarefulById(Integer id,@RequestParam(defaultValue = "1") Integer pageCode, Model model){
+        PageHelper.startPage(pageCode, 10);//设置分页 每页10条数据
+        List<HouseCareful> houseCarefuls = houseService.selectByHouseId(pageCode);
+        PageInfo<HouseCareful> houseCarefulPageInfo = new PageInfo<>(houseCarefuls);
+        model.addAttribute("houseCarefulPageInfo", houseCarefulPageInfo);
+        return "houseCarefulAllInfo";
     }
     @RequestMapping("/selectHouseCarefulById")
-    public String queryHouseCarefulById(int pageHouseCareful,Integer id, Map<String, Object> map){
+    public String queryHouseCarefulById(Integer id, Map<String, Object> map){
         List<HouseCareful> houseCarefuls = houseService.selectByHouseId(id);
         map.put("houseCareful", houseCarefuls.get(0));
-        map.put("pageHouseCareful",pageHouseCareful);
-        return "mainlist";
+        return "changeHouseCaregul";
     }
 
 }
