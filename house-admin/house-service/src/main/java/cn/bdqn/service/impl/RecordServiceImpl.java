@@ -24,6 +24,7 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public PageInfo<Record> queryRecord(Map<String, Object> params) {
+        System.out.println(params);
         PageHelper.startPage(params.get("pageCode") == null ? 0 : (Integer) params.get("pageCode"), 1);//每页八条数据
         List<Record> records = recordMapper.selectByParams(params);
         PageInfo<Record> pageInfo = new PageInfo<>(records);

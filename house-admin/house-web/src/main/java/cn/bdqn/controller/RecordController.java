@@ -57,23 +57,29 @@ public class RecordController {
      * @return
      */
     @RequestMapping("/getRecordList")
-    public String getRecordList(@RequestParam(defaultValue = "0")Integer pageCode, Integer userId, String record, Model model) throws MyException {
+    public String getRecordList(int pageRecordList,@RequestParam(defaultValue = "0")Integer pageCode, Integer userId, String record, Model model) throws MyException {
         Map<String, Object> params = new HashMap<>();
         if (userId != null) {
             params.put("userId", userId);
         }
-        if(record != null){
+        if(record != null && !"".equals(record)){
+            System.out.println("----");
             params.put("record", record);
         }
         params.put("pageCode", pageCode);
+
         try {
             PageInfo<Record> recordPageInfo =  recordService.queryRecord(params);
+            System.out.println(recordPageInfo.getList());
             model.addAttribute("recordPageInfo", recordPageInfo);
+            model.addAttribute("userId", userId);
+            model.addAttribute("record", record);
+            model.addAttribute("pageRecordList", pageRecordList);
         }catch(Exception e){
             e.printStackTrace();
             throw new MyException("网络异常");
         }
-        return "orderList";
+        return "mainlist";
     }
     @RequestMapping("/getRecordById")
     @ResponseBody

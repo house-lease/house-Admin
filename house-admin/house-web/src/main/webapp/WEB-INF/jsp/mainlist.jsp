@@ -442,16 +442,10 @@
                     <a href="javascript:void(0);" id="a2"><i class="icon-font-user">&#xe003;</i>订单管理</a>
                     <ul class="sub-menu2">
                         <li>
-                            <a href="${pageContext.request.contextPath}/user/list?page1=0"><i
-                                    class="icon-font">&#xe008;</i>根据用户查询订单列表</a>
+                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1"><i
+                                    class="icon-font">&#xe008;</i>查询订单</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/user/userNames?page1=1"><i class="icon-font">&#xe005;</i>根据订单号查询订单详细信息</a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/user/userByAddress?page1=2"><i
-                                    class="icon-font">&#xe006;</i>根据订单id查询订单信息</a>
-                        </li>
+
 
                     </ul>
 
@@ -1057,12 +1051,114 @@
                     <input type="submit" value="立即提交"/>
                 </form>
 
-                    </c:if>
+                </c:if>
+
+        <c:if test="${pageRecordList==1}">
+
+            <form action="${pageContext.request.contextPath}/record/getRecordList?pageRecordList=1"
+                  method="post" id="form">
+
+                <table class="search-tab">
+                    <tr>
+                        <th width="70">关键字:</th>
+                        <td><input class="common-text" placeholder="订单号" id="record" name="record" id="text" type="text"
+                                   ></td>
+
+                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
+
+                        </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <th width="70">关键字:</th>
+                        <td><input class="common-text" placeholder="用户id" name="userId" id="userId" id="text" type="text"
+                                  ></td>
+
+                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
+
+                        </td>
+
+
+                    </tr>
+
+                </table>
+
+
+                <br/>
+                <div class="result-wrapParticular">
+
+                    <table class="result-tab" width="100%">
+                        <tr>
+                            <td>订单id</td>
+                            <td>订单号</td>
+                            <td>付款人id</td>
+                            <td>付款人姓名</td>
+                            <td>收款人id</td>
+                            <td>收款人姓名</td>
+                            <td>房屋id</td>
+                            <td>房屋名字</td>
+                            <td>交易时间</td>
+                            <td>交易金额</td>
+                            <td>交易状态</td>
+                            <td>订单状态</td>
+                        </tr>
+                        <c:forEach items="${recordPageInfo.list}" var="item">
+                            <tr>
+                                <td>${item.id}</td>
+                                <td>${item.record}</td>
+                                <td>${item.payerUser.id}</td>
+                                <td>${item.payerName}</td>
+                                <td>${item.payeeUser.id}</td>
+                                <td>${item.payeeName}</td>
+                                <td>${item.house.id}</td>
+                                <td>${item.houseName}</td>
+                                <td><fmt:formatDate value="${item.dealTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                                <td>${item.dealMoney}</td>
+                                <td>${item.dealState}</td>
+                                <td>${item.state}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+
+                </div>
+            </form>
+                <c:if test="${record==''||record==null}">
+            <div id="fenye">
+
+                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.navigateFirstPage}">首页</a>
+                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.prePage}">上一页</a>
+                <c:forEach var="i" begin="1" end="${recordPageInfo.pages}">
+                    <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${i}">${i}</a>
+                </c:forEach>
+                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.nextPage}">下一页</a>
+                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.navigateLastPage}">尾页</a>
+
+            </div>
+                </c:if>
+
+
+
+        </c:if>
+
+
 
 
 </div>
         </div>
 
 </body>
-
+<script>
+    const record = document.getElementById("record");
+    const userID = document.getElementById("userId");
+    const form = document.querySelector("form");
+    form.onsubmit = (event)=>{
+        if(record.value === '' || userID.value === ''){
+            return true;
+        }
+        alert("订单号和用户名不能同时使用");
+        return false;
+    }
+</script>
 </html>
