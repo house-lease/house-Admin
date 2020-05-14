@@ -12,6 +12,12 @@
     id, address, parent_id, state
   </sql>
 
+  <select id="selectByAddress" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_address
+    where address = #{address}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

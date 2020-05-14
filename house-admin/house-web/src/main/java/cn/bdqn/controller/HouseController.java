@@ -80,8 +80,12 @@ public class HouseController {
     @RequestMapping("/queryByPage")
     public String queryByPage(Integer pageStart,Model model, @RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size, String houseName,Integer id,String userName) {
         try {
+
             List<House> houses = houseService.selectByPage(houseName,id,userName,page,size);
+            PageInfo pageInfo = new PageInfo(houses);
             model.addAttribute("housesList", houses);//用户集合
+            model.addAttribute("pageInfo", pageInfo);
+            model.addAttribute("pageStart",pageStart);
             return "houselist";
         }catch (Exception e){
             e.printStackTrace();

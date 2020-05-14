@@ -65,18 +65,21 @@ public class AddressController {
      */
     @RequestMapping("/insertAddress")
     public String insertAddress(String address,Integer parentId,Integer state){
-
         try {
-            Address address1 = new Address();
-            address1.setAddress(address);
-            address1.setParentId(parentId);
-            address1.setState(state);
-            addressService.insertAddress(address1);
-            return "addressList";
+                Address address1 = addressService.selectByAddress(address);
+                if (address1 == null){
+                    Address address2 = new Address();
+                    address2.setAddress(address);
+                    address2.setParentId(parentId);
+                    address2.setState(state);
+                    addressService.insertAddress(address2);
+                    return "addressList";
+                }
         }catch (Exception e){
             e.printStackTrace();
             return "error";
         }
+        return "redirect:/address/selectAll";
     }
 
     /**
@@ -86,13 +89,13 @@ public class AddressController {
     public String updateByDelete(Integer id,String address,Integer state,Integer parentId){
 
         try {
-            Address address1 = new Address();
-            address1.setId(id);
-            address1.setAddress(address);
-            address1.setParentId(parentId);
-            address1.setState(state);
-            addressService.updateById(address1);
-            return "addressList";
+                Address address1 = new Address();
+                address1.setId(id);
+                address1.setAddress(address);
+                address1.setParentId(parentId);
+                address1.setState(state);
+                addressService.updateById(address1);
+                return "addressList";
         }catch (Exception e){
             e.printStackTrace();
             return "error";

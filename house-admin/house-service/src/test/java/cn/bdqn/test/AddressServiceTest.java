@@ -52,12 +52,22 @@ public class AddressServiceTest {
         AddressService addressService = (AddressService) ac.getBean("addressService");
 
         Address address = new Address();
-        address.setId(1);
-        address.setAddress("二七区");
+        address.setAddress("中原区");
         address.setParentId(1);
         address.setState(0);
 
         addressService.updateById(address);
+    }
+
+    //查询
+    @Test
+    public void testSelectAddress() throws Exception {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("beans-service.xml", "beans-mapper.xml");
+
+        AddressService addressService = (AddressService) ac.getBean("addressService");
+
+        Address address = addressService.selectByAddress("郑州市");
+        System.out.println(address);
     }
 
 

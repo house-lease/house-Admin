@@ -37,6 +37,11 @@ public class AddressServiceImpl implements AddressService {
         addressMapper.updateByPrimaryKeySelective(address);
     }
 
+    @Override
+    public Address selectByAddress(String address) {
+        return addressMapper.selectByAddress(address);
+    }
+
     //删除
     @Override
     public void deleteById(Integer id) {
