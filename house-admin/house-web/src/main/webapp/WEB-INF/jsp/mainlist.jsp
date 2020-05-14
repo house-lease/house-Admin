@@ -353,7 +353,7 @@
 
     <style>
 
-        #formParticular .search-tab {
+        #form .search-tab {
 
             margin-top: 10px;
         }
@@ -361,6 +361,10 @@
         .result-wrapParticular {
             margin-left: 90px;
 
+        }
+
+        .result-wrapHouseCareful {
+            margin-left: 90px;
         }
 
         .result-wrapStart {
@@ -371,6 +375,10 @@
         .result-wrapStartAdd {
             margin-top: 70px;
             margin-left: 300px;
+        }
+        .result-wrapHouseUpdate{
+            margin-top: 70px;
+            margin-left: 600px;
         }
 
         #fenye {
@@ -383,6 +391,11 @@
         }
 
         .result-wrapUserInfo {
+            margin-top: 50px;
+            margin-left: 600px;
+        }
+
+        .result-wrapHouseCarefulInfo {
             margin-top: 50px;
             margin-left: 600px;
         }
@@ -465,13 +478,9 @@
                             <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1"><i
                                     class="icon-font">&#xe005;</i>查询起租时间信息</a>
                         </li>
-
                         <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>修改房屋详细信息</a>
-                        </li>
-
-                        <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>查询房屋详细信息</a>
+                            <a href="${pageContext.request.contextPath}/house/queryHouseCarefulById?pageHouseCareful=1"><i
+                                    class="icon-font">&#xe005;</i>查询房屋详细信息</a>
                         </li>
 
                         <li>
@@ -502,383 +511,558 @@
         <div class="crumb-wrap">
             <div class="crumb-list"><i class="icon-font"></i>
                 <a href="javascript:void(0);" color="#white">首页</a><span class="crumb-step">&gt;</span><span
-                        class="crumb-name">后台功能</span></div>
+                        class="crumb-name">后台功能</span>
+            </div>
         </div>
 
         <c:if test="${pageParticularByUserId==1}">
 
-            <form action="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&page=1&size=2"
-                  method="post" id="formParticular">
+        <form action="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&page=1&size=2"
+              method="post" id="form">
 
-                <table class="search-tab">
+            <table class="search-tab">
+                <tr>
+                    <th width="70">关键字:</th>
+                    <td><input class="common-text" placeholder="请输入用户Id" name="userId" id="text" type="text"
+                               value="${userId}"></td>
+
+                    <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
+
+                    </td>
+
+
+                </tr>
+
+            </table>
+
+
+            <br/>
+            <div class="result-wrapParticular">
+
+                <table class="result-tab" width="100%">
                     <tr>
-                        <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="请输入用户Id" name="userId" id="text" type="text"
-                                   value="${userId}"></td>
 
-                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
-
-                        </td>
-
-
+                        <th>充值编号</th>
+                        <th>用户编号</th>
+                        <th>用户姓名</th>
+                        <th>用户可以资金</th>
+                        <th>充值时间</th>
+                        <th>状态</th>
                     </tr>
-
+                    <c:forEach items="${particulars}" var="particulars">
+                        <tr>
+                            <td>${particulars.id}</td>
+                            <td>${particulars.user.id}</td>
+                            <td>${particulars.userName}</td>
+                            <td>${particulars.money}</td>
+                            <td><fmt:formatDate value="${particulars.refillTime}"
+                                                pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                            <c:if test="${particulars.state==0}">
+                                <td>正常</td>
+                            </c:if>
+                            <c:if test="${particulars.state==1}">
+                                <td>删除</td>
+                            </c:if>
+                        </tr>
+                    </c:forEach>
                 </table>
 
-
-                <br/>
-                <div class="result-wrapParticular">
-
-                    <table class="result-tab" width="100%">
-                        <tr>
-
-                            <th>充值编号</th>
-                            <th>用户编号</th>
-                            <th>用户姓名</th>
-                            <th>用户可以资金</th>
-                            <th>充值时间</th>
-                            <th>状态</th>
-                        </tr>
-                        <c:forEach items="${particulars}" var="particulars">
-                            <tr>
-                                <td>${particulars.id}</td>
-                                <td>${particulars.user.id}</td>
-                                <td>${particulars.userName}</td>
-                                <td>${particulars.money}</td>
-                                <td><fmt:formatDate value="${particulars.refillTime}"
-                                                    pattern="yyyy-MM-dd hh:mm:ss"/></td>
-                                <c:if test="${particulars.state==0}">
-                                    <td>正常</td>
-                                </c:if>
-                                <c:if test="${particulars.state==1}">
-                                    <td>删除</td>
-                                </c:if>
-                            </tr>
-                        </c:forEach>
-                    </table>
-
-                </div>
-            </form>
-
-            <div id="fenye">
-
-                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=1&size=2">首页</a>
-                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
-                <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                    <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=10&userId=${userId}&page=${pageNum}&size=2">${pageNum}</a>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
-                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pages}&size=2"
-                   aria-label="Next"> 尾页</a>
-
-
             </div>
+        </form>
+
+        <div id="fenye">
+
+            <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=1&size=2">首页</a>
+            <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=10&userId=${userId}&page=${pageNum}&size=2">${pageNum}</a>
+            </c:forEach>
+            <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+            <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pages}&size=2"
+               aria-label="Next"> 尾页</a>
+
+
+        </div>
 
 
         </c:if>
 
         <c:if test="${pageParticularById==1}">
 
-            <form action="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1" method="post"
-                  id="formParticular">
+        <form action="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1" method="post"
+              id="form">
 
-                <table class="search-tab">
+            <table class="search-tab">
+                <tr>
+                    <th width="70">关键字:</th>
+                    <td><input class="common-text" placeholder="请输入Id" name="id" id="text" type="text"
+                               value="${id}"></td>
+
+                    <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+            <br/>
+            <div class="result-wrapParticular">
+
+                <table class="result-tab" width="100%">
                     <tr>
-                        <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="请输入Id" name="id" id="text" type="text"
-                                   value="${id}"></td>
 
-                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
+                        <th>充值编号</th>
+                        <th>用户编号</th>
+                        <th>用户姓名</th>
+                        <th>用户可以资金</th>
+                        <th>充值时间</th>
+                        <th>状态</th>
+                    </tr>
 
-                        </td>
-
+                    <tr>
+                        <td>${particular.id}</td>
+                        <td>${particular.user.id}</td>
+                        <td>${particular.userName}</td>
+                        <td>${particular.money}</td>
+                        <td><fmt:formatDate value="${particular.refillTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                        <c:if test="${particular.state==0}">
+                            <td>正常</td>
+                        </c:if>
+                        <c:if test="${particular.state==1}">
+                            <td>删除</td>
+                        </c:if>
                     </tr>
 
                 </table>
 
-
-                <br/>
-                <div class="result-wrapParticular">
-
-                    <table class="result-tab" width="100%">
-                        <tr>
-
-                            <th>充值编号</th>
-                            <th>用户编号</th>
-                            <th>用户姓名</th>
-                            <th>用户可以资金</th>
-                            <th>充值时间</th>
-                            <th>状态</th>
-                        </tr>
-
-                        <tr>
-                            <td>${particular.id}</td>
-                            <td>${particular.user.id}</td>
-                            <td>${particular.userName}</td>
-                            <td>${particular.money}</td>
-                            <td><fmt:formatDate value="${particular.refillTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-                            <c:if test="${particular.state==0}">
-                                <td>正常</td>
-                            </c:if>
-                            <c:if test="${particular.state==1}">
-                                <td>删除</td>
-                            </c:if>
-                        </tr>
-
-                    </table>
-
-                </div>
-            </form>
+            </div>
+        </form>
         </c:if>
 
         <c:if test="${pageStart==1}">
 
-            <div class="result-wrapStart">
+        <div class="result-wrapStart">
 
-                <div class="result-content">
+            <div class="result-content">
 
-                    <table class="result-tab" width="100%">
-                        <th>起租时间编号</th>
-                        <th>起租时间</th>
-                        <th>可计算起租时间</th>
-                        <th>状态</th>
-                        <th>操作</th>
-                        <c:forEach items="${starts}" var="starts">
+                <table class="result-tab" width="100%">
+                    <th>起租时间编号</th>
+                    <th>起租时间</th>
+                    <th>可计算起租时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                    <c:forEach items="${starts}" var="starts">
 
-                            <tr>
-                                <td>${starts.id}</td>
-                                <td>${starts.startName}</td>
-                                <td>${starts.startValue}</td>
-                                <c:if test="${starts.state==0}">
-                                    <td>正常</td>
-                                </c:if>
-                                <c:if test="${starts.state==1}">
-                                    <td>删除</td>
-                                </c:if>
-                                <td>
-                                    <a href="${pageContext.request.contextPath}/start/delete?pageStart=1&id=${starts.id}">删除</a>&nbsp;
-                                    <a href="${pageContext.request.contextPath}/start/updateYe?pageStart=2&id=${starts.id}">修改</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </div>
-
+                        <tr>
+                            <td>${starts.id}</td>
+                            <td>${starts.startName}</td>
+                            <td>${starts.startValue}</td>
+                            <c:if test="${starts.state==0}">
+                                <td>正常</td>
+                            </c:if>
+                            <c:if test="${starts.state==1}">
+                                <td>删除</td>
+                            </c:if>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/start/delete?pageStart=1&id=${starts.id}">删除</a>&nbsp;
+                                <a href="${pageContext.request.contextPath}/start/updateYe?pageStart=2&id=${starts.id}">修改</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
             </div>
-            <br/>
-            <div id="fenye">
+
+        </div>
+        <br/>
+        <div id="fenye">
 
 
-                <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=1&size=2">首页</a>
-                <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pageNum-1}&size=2">上一页</a>
-                <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                    <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageNum}&size=2">${pageNum}</a>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
-                <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pages}&size=2"
-                   aria-label="Next"> 尾页</a>
+            <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=1&size=2">首页</a>
+            <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageNum}&size=2">${pageNum}</a>
+            </c:forEach>
+            <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+            <a href="${pageContext.request.contextPath}/start/selectAll?pageStart=1&page=${pageInfo.pages}&size=2"
+               aria-label="Next"> 尾页</a>
 
 
-            </div>
+        </div>
 
         </c:if>
 
         <c:if test="${pageStart==0}">
 
-            <div class="result-wrapStartAdd">
+        <div class="result-wrapStartAdd">
 
-                <div class="result-content">
+            <div class="result-content">
 
-                    <form method="post" action="${pageContext.request.contextPath}/start/add?pageStart=1">
+                <form method="post" action="${pageContext.request.contextPath}/start/add?pageStart=1">
 
-                        起租时间: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="startName"/>
-                        (必填项)
+                    起租时间: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="startName"/>
+                    (必填项)
 
-                        <br/>
+                    <br/>
 
-                        <br/>
-                        可计算起租时间:<input type="text" name="startValue"/>(必填项)
-                        <br/>
+                    <br/>
+                    可计算起租时间:<input type="text" name="startValue"/>(必填项)
+                    <br/>
 
-                        <br/>
-                        <input type="submit" value="添加">
-                    </form>
-                </div>
-
+                    <br/>
+                    <input type="submit" value="添加">
+                </form>
             </div>
+
+        </div>
         </c:if>
 
         <c:if test="${pageStart==2}">
 
-            <div class="result-wrapStartAdd">
+        <div class="result-wrapStartAdd">
 
-                <div class="result-content">
+            <div class="result-content">
 
-                    <form method="post" action="${pageContext.request.contextPath}/start/update?pageStart=1">
-                        起租时间id:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="id"
-                                                                                 value="${start.id}"
-                                                                                 readonly="readonly"/>
-                        <br/><br/>
-                        起租时间: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="startName"
-                                                                                            value="${start.startName}"/>
-                        <br/><br/>
-                        可计算起租时间:&nbsp;<input type="text" name="startValue" value="${start.startValue}"/> <br/><br/>
+                <form method="post" action="${pageContext.request.contextPath}/start/update?pageStart=1">
+                    起租时间id:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="id"
+                                                                             value="${start.id}"
+                                                                             readonly="readonly"/>
+                    <br/><br/>
+                    起租时间: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="startName"
+                                                                                        value="${start.startName}"/>
+                    <br/><br/>
+                    可计算起租时间:&nbsp;<input type="text" name="startValue" value="${start.startValue}"/> <br/><br/>
 
-                        <input type="submit" value="修改">
-                    </form>
-                </div>
-
+                    <input type="submit" value="修改">
+                </form>
             </div>
+
+        </div>
         </c:if>
 
         <c:if test="${pageUser==1}">
 
-            <form action="${pageContext.request.contextPath}/user/selectByUser?pageUser=1" method="post"
-                  id="formParticular">
+        <form action="${pageContext.request.contextPath}/user/selectByUser?pageUser=1" method="post"
+              id="form">
 
-                <table class="search-tab">
+            <table class="search-tab">
+                <tr>
+                    <th width="70">关键字:</th>
+                    <td><input class="common-text" placeholder="请输入用户名称" name="username" id="username" type="text"
+                               value="${username}"></td>
+                    <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="query">
+                    </td>
+                </tr>
+            </table>
+
+
+            <br/>
+
+            <div class="result-wrapUser">
+                <table class="result-tab" width="100%">
                     <tr>
-                        <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="请输入用户名称" name="username" id="username" type="text"
-                                   value="${username}"></td>
-                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="query">
-                        </td>
+                        <th>用户编号</th>
+                        <th>用户昵称</th>
+                        <th>用户性别</th>
+                        <th>用户名</th>
+                        <th>身份证号</th>
+                        <th>手机号</th>
+                        <th>房东认证</th>
+                        <th>注册时间</th>
+                        <!--<th>头像路径</th>-->
+                        <th>用户的唯一标识</th>
+                        <th>用户状态</th>
+                        <th>操作</th>
                     </tr>
-                </table>
-
-
-                <br/>
-
-                <div class="result-wrapUser">
-                    <table class="result-tab" width="100%">
+                    <c:forEach items="${userList}" var="user">
                         <tr>
-                            <th>用户编号</th>
-                            <th>用户昵称</th>
-                            <th>用户性别</th>
-                            <th>用户名</th>
-                            <th>身份证号</th>
-                            <th>手机号</th>
-                            <th>房东认证</th>
-                            <th>注册时间</th>
-                            <!--<th>头像路径</th>-->
-                            <th>用户的唯一标识</th>
-                            <th>用户状态</th>
-                            <th>操作</th>
+                            <td>${user.id}</td>
+                            <td>${user.nickname}</td>
+                            <c:if test="${user.sex==0}">
+                                <td>男</td>
+                            </c:if>
+                            <c:if test="${user.sex==1}">
+                                <td>女</td>
+                            </c:if>
+                            <td style="color: red">${user.userName}</td>
+                            <td>${user.idcard}</td>
+                            <td>${user.phone}</td>
+                            <!-- 房东认证 0代表普通用户 1代表房东-->
+                            <c:if test="${user.landlord==0}">
+                                <td>普通用户</td>
+                            </c:if>
+                            <c:if test="${user.landlord==1}">
+                                <td>房东</td>
+                            </c:if>
+
+                            <td><fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                            <!-- 头像路径-->
+                            <!--<td style="text-overflow : clip; ">${user.imageUrl}</td>-->
+                            <td>${user.openId}</td>
+                            <c:if test="${user.state==0}">
+                                <td>正常</td>
+                            </c:if>
+                            <c:if test="${user.state==1}">
+                                <td>失效</td>
+                            </c:if>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/user/selectByUserMessage?pageUser=2&id=${user.id}">查看</a>
+                                &nbsp;
+                                <a href="${pageContext.request.contextPath}/user/updateByState?pageUser=1&id=${user.id}">修改</a>
+                            </td>
                         </tr>
-                        <c:forEach items="${userList}" var="user">
-                            <tr>
-                                <td>${user.id}</td>
-                                <td>${user.nickname}</td>
-                                <c:if test="${user.sex==0}">
-                                    <td>男</td>
-                                </c:if>
-                                <c:if test="${user.sex==1}">
-                                    <td>女</td>
-                                </c:if>
-                                <td style="color: red">${user.userName}</td>
-                                <td>${user.idcard}</td>
-                                <td>${user.phone}</td>
-                                <!-- 房东认证 0代表普通用户 1代表房东-->
-                                <c:if test="${user.landlord==0}">
-                                    <td>普通用户</td>
-                                </c:if>
-                                <c:if test="${user.landlord==1}">
-                                    <td>房东</td>
-                                </c:if>
-
-                                <td><fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-                                <!-- 头像路径-->
-                                <!--<td style="text-overflow : clip; ">${user.imageUrl}</td>-->
-                                <td>${user.openId}</td>
-                                <c:if test="${user.state==0}">
-                                    <td>正常</td>
-                                </c:if>
-                                <c:if test="${user.state==1}">
-                                    <td>失效</td>
-                                </c:if>
-                                <td>
-                                    <a href="${pageContext.request.contextPath}/user/selectByUserMessage?pageUser=2&id=${user.id}">查看</a>
-                                    &nbsp;
-                                    <a href="${pageContext.request.contextPath}/user/updateByState?pageUser=1&id=${user.id}">修改</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-
-                </div>
-
-            </form>
-
-            <div id="fenye">
-
-                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=1&size=2">首页</a>
-                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
-                <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                    <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageNum}&size=2">${pageNum}</a>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
-                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pages}&size=2"
-                   aria-label="Next"> 尾页</a>
-
+                    </c:forEach>
+                </table>
 
             </div>
 
+        </form>
+        <c:if test="${username=='' || username==null}">
+        <div id="fenye">
 
+            <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&page=1&size=2">首页</a>
+            <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&page=${pageNum}&size=2">${pageNum}</a>
+            </c:forEach>
+            <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+            <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&page=${pageInfo.pages}&size=2"
+               aria-label="Next"> 尾页</a>
+
+
+        </div>
+        </c:if>
         </c:if>
 
         <c:if test="${pageUser==2}">
 
-            <div class="result-wrapUserInfo">
+        <div class="result-wrapUserInfo">
 
-                <div class="result-content">
+            <div class="result-content">
 
 
-                    <c:forEach items="${users}" var="user">
-                        用户编号:&nbsp;${user.id}
-                        <br/><br/>
-                        用户昵称:&nbsp;${user.nickname}
-                        <br/><br/>
-                        用户性别:&nbsp;
-                        <c:if test="${user.sex==0}">
-                            男
-                        </c:if>
-                        <c:if test="${user.sex==1}">
-                            女
-                        </c:if> <br/><br/>
-                        用户名:&nbsp;${user.userName} <br/><br/>
-                        身份证:&nbsp;${user.idcard} <br/><br/>
-                        手机号:&nbsp;${user.phone} <br/><br/>
-                        房东认证:&nbsp;
-                        <!-- 房东认证 0代表普通用户 1代表房东-->
-                        <c:if test="${user.landlord==0}">
-                            普通用户
-                        </c:if>
-                        <c:if test="${user.landlord==1}">
-                            房东
-                        </c:if> <br/><br/>
-                        注册时间:&nbsp;<fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/>
-                        <br/><br/>
+                <c:forEach items="${users}" var="user">
+                    用户编号:&nbsp;${user.id}
+                    <br/><br/>
+                    用户昵称:&nbsp;${user.nickname}
+                    <br/><br/>
+                    用户性别:&nbsp;
+                    <c:if test="${user.sex==0}">
+                        男
+                    </c:if>
+                    <c:if test="${user.sex==1}">
+                        女
+                    </c:if> <br/><br/>
+                    用户名:&nbsp;${user.userName} <br/><br/>
+                    身份证:&nbsp;${user.idcard} <br/><br/>
+                    手机号:&nbsp;${user.phone} <br/><br/>
+                    房东认证:&nbsp;
+                    <!-- 房东认证 0代表普通用户 1代表房东-->
+                    <c:if test="${user.landlord==0}">
+                        普通用户
+                    </c:if>
+                    <c:if test="${user.landlord==1}">
+                        房东
+                    </c:if> <br/><br/>
+                    注册时间:&nbsp;<fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/>
+                    <br/><br/>
 
-                        用户的唯一标识:&nbsp;${user.openId} <br/><br/>
+                    用户的唯一标识:&nbsp;${user.openId} <br/><br/>
 
-                        用户状态:&nbsp;
-                        <c:if test="${user.state==0}">
-                            正常
-                        </c:if>
-                        <c:if test="${user.state==1}">
-                            失效
-                        </c:if>
+                    用户状态:&nbsp;
+                    <c:if test="${user.state==0}">
+                        正常
+                    </c:if>
+                    <c:if test="${user.state==1}">
+                        失效
+                    </c:if>
 
-                    </c:forEach>
-
-                </div>
+                </c:forEach>
 
             </div>
+
+        </div>
         </c:if>
 
-    </div>
+        <c:if test="${pageHouseCareful==1}">
+
+        <form action="${pageContext.request.contextPath}/house/queryHouseCarefulById?pageHouseCareful=1" method="post"
+              id="form">
+
+            <table class="search-tab">
+                <tr>
+                    <th width="70">关键字:</th>
+                    <td><input class="common-text" placeholder="请输入房屋id" name="houseId" id="text" type="text"
+                    ></td>
+
+                    <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+            <br/>
+            <div class="result-wrapHouseCareful">
+
+                <table class="result-tab" width="100%">
+                    <tr>
+                        <td>id</td>
+                        <td>房屋id</td>
+                        <td>床</td>
+                        <td>沙发</td>
+                        <td>空调</td>
+                        <td>燃气</td>
+                        <td>洗衣机</td>
+                        <td>宽带</td>
+                        <td>电视</td>
+                        <td>电冰箱</td>
+                        <td>操作</td>
+                    </tr>
+                    <c:forEach items="${houseCarefuls}" var="item">
+                        <td>${item.id}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/house/queryByHouseId?pageHouseCareful=2&houseId=${item.houseId}">${item.houseId}</a>
+                        </td>
+                        <td>
+                            <c:if test="${item.chuang == 0}">有</c:if>
+                            <c:if test="${item.chuang == 1}">没有</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${item.shafa == 0}">有</c:if>
+                            <c:if test="${item.shafa == 1}">没有</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${item.kongtiao == 0}">有</c:if>
+                            <c:if test="${item.kongtiao == 1}">没有</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${item.ranqi == 0}">有</c:if>
+                            <c:if test="${item.ranqi == 1}">没有</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${item.xiyiji == 0}">有</c:if>
+                            <c:if test="${item.xiyiji == 1}">没有</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${item.kuandai == 0}">有</c:if>
+                            <c:if test="${item.kuandai == 1}">没有</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${item.dianshi == 0}">有</c:if>
+                            <c:if test="${item.dianshi == 1}">没有</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${item.bingxiang == 0}">有</c:if>
+                            <c:if test="${item.bingxiang == 1}">没有</c:if>
+                        </td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/house/selectHouseCarefulById?pageHouseCareful=3&id=${item.houseId}">修改</a>
+                        </td>
+                    </c:forEach>
+                    <tr>
+                    </tr>
+
+                </table>
+
+            </div>
+        </form>
+        </c:if>
+
+        <c:if test="${pageHouseCareful==2}">
+
+        <div class="result-wrapHouseCarefulInfo">
+
+            <div class="result-content">
+
+
+                <p>房屋名字:&nbsp;${house.houseName}</p><br/>
+                <p>房东名字:&nbsp;${house.userName}</p><br/>
+                <p>起租月数:&nbsp;${house.startName}</p><br/>
+                <p>月价格:&nbsp;${house.price}</p><br/>
+                <p>房屋描述:&nbsp;${house.narrate}</p><br/>
+                <p>小区:&nbsp;${house.uptown}</p><br/>
+                <p>城市:&nbsp;${house.address}</p><br/>
+                <p>类型名字:&nbsp;${house.houseTypeName}</p><br/>
+                <p>租赁类型名字:&nbsp;${house.houseLeaseName}</p><br/>
+                <p>剩余房间:&nbsp;${house.residueRoom}</p><br/>
+                <p>状态:&nbsp;
+                    <c:if test="${house.state == 1}">满租</c:if>
+                    <c:if test="${house.state == 0}">可租</c:if>
+
+            </div>
+
+        </div>
+        </c:if>
+
+        <c:if test="${pageHouseCareful==3}">
+
+        <div class="result-wrapHouseUpdate">
+
+            <div class="result-content">
+
+                <form method="post" action="${pageContext.request.contextPath}/house/modifyById?pageHouseCareful=1">
+                    <input type="hidden" readonly value="${houseCareful.id}" name="id"/>
+                    房屋id:
+
+                    <input type="text" name="houseId" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.houseId}" readonly><br/><br/>
+
+
+                    床:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <input type="text" name="chuang" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.chuang}">
+
+                    (0代表有 1代表没有)<br/><br/>
+
+                    沙发:&nbsp;&nbsp;&nbsp;
+
+                    <input type="text" name="shafa" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.shafa}"><br/><br/>
+
+                    空调:&nbsp;&nbsp;&nbsp;
+                    <input type="text" name="kongtiao" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.kongtiao}"><br/><br/>
+                    燃气:&nbsp;&nbsp;&nbsp;
+                    <input type="text" name="ranqi" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.ranqi}"><br/><br/>
+                    洗衣机:
+                    <input type="text" name="xiyiji" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.xiyiji}"><br/><br/>
+                    宽带:&nbsp;&nbsp;&nbsp;
+                    <input type="text" name="kuandai" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.kuandai}"><br/><br/>
+
+                    电视:&nbsp;&nbsp;&nbsp;
+                    <input type="text" name="dianshi" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.dianshi}"><br/><br/>
+                    冰箱:&nbsp;&nbsp;&nbsp;
+                    <input type="text" name="bingxiang" required lay-verify="required" placeholder="请输入标题"
+                           autocomplete="off"
+                           value="${houseCareful.bingxiang}"><br/><br/>
+
+
+                    <input type="submit" value="立即提交"/>
+                </form>
+
+                    </c:if>
+
 
 </div>
+        </div>
+
 </body>
 
 </html>
