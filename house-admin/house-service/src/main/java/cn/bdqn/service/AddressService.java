@@ -22,6 +22,8 @@ public interface AddressService {
     //修改
     void updateById(Address address);
 
+    Address selectByAddress(String address);
+
     //删除
     void deleteById(Integer id);
 }

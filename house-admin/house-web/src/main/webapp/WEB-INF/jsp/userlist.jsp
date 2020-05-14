@@ -77,5 +77,6 @@
     </c:forEach>
     <a href="${pageContext.request.contextPath}/user/selectByUser?pageStart=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
     <a  href="${pageContext.request.contextPath}/user/selectByUser?pageStart=1&page=${pageInfo.pages}&size=2" aria-label="Next"> 尾页</a>
+</div>
 </body>
 </html>

@@ -26,9 +26,7 @@
         <table class="result-tab" width="100%" border="2px">
             <tr>
                 <th>房屋编号</th>
-                <th>房屋对象</th>
                 <th style="color: #0e9aef">房东姓名</th>
-                <th>起租时间对象</th>
                 <th>起租时间</th>
                 <th>起租实际类型</th>
                 <th>月价格</th>
@@ -40,23 +38,19 @@
                 <th>房屋类型名字</th>
                 <th>房屋租赁类型</th>
                 <th>房屋租赁类型名字</th>
-                <th>房屋图片列表</th>
                 <th style="color: #c67605">房屋详细信息</th>
                 <th>剩余房间</th>
                 <th>房屋状态</th>
             </tr>
             <c:forEach items="${housesList}" var="house">
                 <tr>
+                    房屋编号
                     <td>${house.id}</td>
-                    <td>${house.user.id}</td>
                     <!--- 房东姓名-->
                     <td>
                         ${house.userName}
                     </td>
-                    <td>${house.latitude}</td>
-                    <td>${house.longitude}</td>
                     <!-- 起租时间-->
-                    <td>${house.start.id}</td>
                     <td>${house.startName}</td>
                     <td>${house.startValue}</td>
                     <td>${house.price}</td>
@@ -70,17 +64,12 @@
                     <!-- 房屋租赁类型-->
                     <td>${house.houseLease.id}</td>
                     <td>${house.houseLeaseName}</td>
-                    <td>${house.residueRoom}</td>
-                    <!-- 房屋图片 -->
-                    <c:forEach items="${house.houseImages}" var="imgs">
-                        <td>
-                            <a href="#">${imgs.id}</a>
-                        </td>
-                    </c:forEach>
+
                     <!-- 房屋详情信息-->
                     <td style="color: #c67605">
                         <a href="${pageContext.request.contextPath}/house/selectHouseCareful?houseId=${house.houseCareful.id}">${house.houseCareful.id}</a>
                     </td>
+                    <td>${house.residueRoom}</td>
                     <!-- 房屋状态 0可租 1满租-->
                     <c:if test="${house.state==0}">
                         <td>可租</td>
@@ -97,9 +86,10 @@
     <a href="${pageContext.request.contextPath}/house/queryByPage?pageStart=1&page=1&size=2">首页</a>
     <a href="${pageContext.request.contextPath}/house/queryByPage?pageStart=1&page=${pageInfo.pageNum-1}&size=2">上一页</a>
     <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-    <a href="${pageContext.request.contextPath}/house/queryByPage?pageStart=1&page=${pageNum}&size=2">${pageNum}</a>
+        <a href="${pageContext.request.contextPath}/house/queryByPage?pageStart=1&page=${pageNum}&size=2">${pageNum}</a>
     </c:forEach>
     <a href="${pageContext.request.contextPath}/house/queryByPage?pageStart=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
     <a  href="${pageContext.request.contextPath}/house/queryByPage?pageStart=1&page=${pageInfo.pages}&size=2" aria-label="Next"> 尾页</a>
+</div>
 </body>
 </html>

@@ -5,6 +5,8 @@ import cn.bdqn.domain.HouseCareful;
 import cn.bdqn.exception.MyException;
 import cn.bdqn.service.HouseService;
 import cn.bdqn.utils.Result;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,8 +79,12 @@ public class HouseController {
     @RequestMapping("/queryByPage")
     public String queryByPage(Integer pageStart,Model model, @RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size, String houseName,Integer id,String userName) {
         try {
+
             List<House> houses = houseService.selectByPage(houseName,id,userName,page,size);
+            PageInfo pageInfo = new PageInfo(houses);
             model.addAttribute("housesList", houses);//用户集合
+            model.addAttribute("pageInfo", pageInfo);
+            model.addAttribute("pageStart",pageStart);
             return "houselist";
         }catch (Exception e){
             e.printStackTrace();

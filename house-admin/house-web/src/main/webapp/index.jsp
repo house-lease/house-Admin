@@ -1,7 +1,7 @@
 <html>
 <body>
 
-    <jsp:forward page="/WEB-INF/jsp/mainlist.jsp"/>
+    <jsp:forward page="/WEB-INF/jsp/orderList.jsp"/>
 
 
 </body>
