@@ -3,6 +3,7 @@ package cn.bdqn.service.impl;
 import cn.bdqn.domain.Address;
 import cn.bdqn.mapper.AddressMapper;
 import cn.bdqn.service.AddressService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,10 @@ public class AddressServiceImpl implements AddressService {
 
     //查询
     @Override
-    public List<Address> queryAll( String address) {
-        return addressMapper.selectByPrimaryKey(address);
+    public List<Address> queryAll( String address,int page,int size) {
+        PageHelper.startPage(page,size);
+
+        return addressMapper.selectByHouseName(address);
     }
 
     @Override
@@ -45,6 +48,6 @@ public class AddressServiceImpl implements AddressService {
     //删除
     @Override
     public void deleteById(Integer id) {
-        addressMapper.deleteByPrimaryKey(id);
+        addressMapper.updateById(id);
     }
 }

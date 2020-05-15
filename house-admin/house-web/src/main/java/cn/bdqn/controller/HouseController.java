@@ -55,17 +55,18 @@ public class HouseController {
     }
 
     @RequestMapping("/queryByHouseId")
-    public String queryByHouseId(Integer houseId, Map<String, Object> map) throws MyException {
+    public String queryByHouseId(int pageCareful,Integer houseId, Map<String, Object> map) throws MyException {
         try {
             Result result = new Result();
             //根据id查询房屋详细信息
             House house = houseService.selectByPrimaryKey(houseId);
             map.put("house", house);
+            map.put("pageCareful", pageCareful);
         } catch (Exception e) {
            e.printStackTrace();
            throw new MyException("网络异常");
         }
-        return "houseCarefulDetails";
+        return "mainlist";
     }
 
 
@@ -77,15 +78,18 @@ public class HouseController {
      * @return
      */
     @RequestMapping("/queryByPage")
-    public String queryByPage(Integer pageStart,Model model, @RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size, String houseName,Integer id,String userName) {
+    public String queryByPage(int pageHouse ,Model model, @RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "2") Integer size, String houseName,Integer id,String userName) {
         try {
 
             List<House> houses = houseService.selectByPage(houseName,id,userName,page,size);
             PageInfo pageInfo = new PageInfo(houses);
             model.addAttribute("housesList", houses);//用户集合
             model.addAttribute("pageInfo", pageInfo);
-            model.addAttribute("pageStart",pageStart);
-            return "houselist";
+            model.addAttribute("userName", userName);
+            model.addAttribute("houseName", houseName);
+            model.addAttribute("pageHouse", pageHouse);
+            model.addAttribute("id", id);
+            return "mainlist";
         }catch (Exception e){
             e.printStackTrace();
             return "error";
@@ -100,11 +104,12 @@ public class HouseController {
      * @return
      */
     @RequestMapping("selectHouseCareful")
-    public String selectHouseCarefulByHouseId(Integer houseId,Model model){
+    public String selectHouseCarefulByHouseId(int pageHouse,Integer houseId,Model model){
         try {
             HouseCareful houseCareful = houseService.selectHouseCarefulByHouseId(houseId);
             model.addAttribute("houseCareful",houseCareful);
-            return "houseCareful";
+            model.addAttribute("pageHouse",pageHouse);
+            return "mainlist";
         }catch (Exception e){
             e.printStackTrace();
             return "error";
@@ -119,34 +124,37 @@ public class HouseController {
      * @return
      */
     @RequestMapping("/modifyById")
-    public String modifyById(HouseCareful houseCareful) throws MyException {
+    public String modifyById(int pageCareful,HouseCareful houseCareful,Model model) throws MyException {
         try {
             houseService.modifyById(houseCareful);
+            model.addAttribute("pageCareful", pageCareful);
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException("网络错误");
         }
-        return "redirect: queryHouseCarefulById";
+        return "mainlist";
     }
 
     /**
      *
-     * @param id
+     * @param
      * @return
      */
     @RequestMapping("/queryHouseCarefulById")
-    public String  queryHouseCarefulById(Integer id,@RequestParam(defaultValue = "1") Integer pageCode, Model model){
-        PageHelper.startPage(pageCode, 10);//设置分页 每页10条数据
-        List<HouseCareful> houseCarefuls = houseService.selectByHouseId(pageCode);
-        PageInfo<HouseCareful> houseCarefulPageInfo = new PageInfo<>(houseCarefuls);
-        model.addAttribute("houseCarefulPageInfo", houseCarefulPageInfo);
-        return "houseCarefulAllInfo";
+    public String  queryHouseCarefulById(int pageCareful,Integer houseId, Model model){
+
+        List<HouseCareful> houseCarefuls = houseService.selectByHouseId(houseId);
+
+        model.addAttribute("houseCarefuls", houseCarefuls);
+        model.addAttribute("pageCareful", pageCareful);
+        return "mainlist";
     }
     @RequestMapping("/selectHouseCarefulById")
-    public String queryHouseCarefulById(Integer id, Map<String, Object> map){
+    public String queryHouseCarefulById(int pageCareful,Integer id, Map<String, Object> map){
         List<HouseCareful> houseCarefuls = houseService.selectByHouseId(id);
         map.put("houseCareful", houseCarefuls.get(0));
-        return "changeHouseCaregul";
+        map.put("pageCareful", pageCareful);
+        return "mainlist";
     }
 
 }

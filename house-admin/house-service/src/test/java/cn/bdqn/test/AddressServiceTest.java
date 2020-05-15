@@ -14,20 +14,20 @@ import java.util.List;
 public class AddressServiceTest {
 
 
-    //查询
-    @Test
-    public void testSelectAll() throws Exception {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("beans-service.xml", "beans-mapper.xml");
-
-        AddressService addressService = (AddressService) ac.getBean("addressService");
-
-        List<Address> addressList =addressService.queryAll("");
-
-        for(Address address : addressList){
-            System.out.println("城市名称："+address.getAddress());
-            System.out.println(address.getParentId());
-        }
-    }
+//    //查询
+//    @Test
+//    public void testSelectAll() throws Exception {
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("beans-service.xml", "beans-mapper.xml");
+//
+//        AddressService addressService = (AddressService) ac.getBean("addressService");
+//
+//        List<Address> addressList =addressService.queryAll("");
+//
+//        for(Address address : addressList){
+//            System.out.println("城市名称："+address.getAddress());
+//            System.out.println(address.getParentId());
+//        }
+//    }
 
     //添加城市
     @Test

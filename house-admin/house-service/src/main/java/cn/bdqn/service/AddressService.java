@@ -14,7 +14,7 @@ public interface AddressService {
     void insertAddress(Address address);
 
     //查询
-    List<Address> queryAll(String address);
+    List<Address> queryAll(String address,int page,int size);
 
     //根据id查询
     Address selectById(Integer id);

@@ -353,7 +353,7 @@
 
     <style>
 
-        #formParticular .search-tab {
+        #form .search-tab {
 
             margin-top: 10px;
         }
@@ -361,6 +361,9 @@
         .result-wrapParticular {
             margin-left: 90px;
 
+        }
+        .result-wrapAddress{
+            margin-left: 90px;
         }
 
         .result-wrapStart {
@@ -371,6 +374,11 @@
         .result-wrapStartAdd {
             margin-top: 70px;
             margin-left: 300px;
+        }
+
+        .result-wrapHouseCarfulInfo {
+            margin-top: 70px;
+            margin-left: 600px;
         }
 
         #fenye {
@@ -385,6 +393,21 @@
         .result-wrapUserInfo {
             margin-top: 50px;
             margin-left: 600px;
+        }
+
+
+        .result-wrapHouse {
+            margin-top: 50px;
+            margin-left: 600px;
+        }
+
+        .result-wrapHouseCareful {
+            margin-top: 50px;
+            margin-left: 600px;
+        }
+
+        .result-wrapHouseCarefulAll {
+            margin-left: 90px;
         }
 
     </style>
@@ -414,15 +437,9 @@
                     <a href="javascript:void(0);" id="a1"><i class="icon-font-video">&#xe003;</i>房屋管理</a>
                     <ul class="sub-menu1">
                         <li>
-                            <a href=""><i class="icon-font">&#xe008;</i>按条件查询房屋</a>
+                            <a href="${pageContext.request.contextPath}/house/queryByPage?pageHouse=1"><i
+                                    class="icon-font">&#xe008;</i>查询房屋信息</a>
                         </li>
-                        <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>查询房屋信息</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="icon-font">&#xe006;</i>根据房东查询房屋</a>
-                        </li>
-
                     </ul>
 
 
@@ -460,29 +477,21 @@
                                     class="icon-font">&#xe005;</i>查询起租时间信息</a>
                         </li>
 
+
                         <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>修改房屋详细信息</a>
+                            <a href="${pageContext.request.contextPath}/house/queryHouseCarefulById?pageCareful=1"><i
+                                    class="icon-font">&#xe005;</i>查询房屋详细信息</a>
                         </li>
 
                         <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>查询房屋详细信息</a>
+                            <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1"><i class="icon-font">&#xe005;</i>查询城市信息</a>
                         </li>
 
                         <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>查询城市信息</a>
+                            <a href="${pageContext.request.contextPath}/address/insert?pageAddress=2"><i class="icon-font">&#xe005;</i>新增城市信息</a>
                         </li>
 
-                        <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>新增城市信息</a>
-                        </li>
 
-                        <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>修改城市信息</a>
-                        </li>
-
-                        <li>
-                            <a href=""><i class="icon-font">&#xe005;</i>删除城市信息</a>
-                        </li>
                     </ul>
 
                 </li>
@@ -502,7 +511,7 @@
         <c:if test="${pageParticularByUserId==1}">
 
             <form action="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&page=1&size=2"
-                  method="post" id="formParticular">
+                  method="post" id="form">
 
                 <table class="search-tab">
                     <tr>
@@ -574,7 +583,7 @@
         <c:if test="${pageParticularById==1}">
 
             <form action="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1" method="post"
-                  id="formParticular">
+                  id="form">
 
                 <table class="search-tab">
                     <tr>
@@ -728,7 +737,7 @@
         <c:if test="${pageUser==1}">
 
             <form action="${pageContext.request.contextPath}/user/selectByUser?pageUser=1" method="post"
-                  id="formParticular">
+                  id="form">
 
                 <table class="search-tab">
                     <tr>
@@ -802,169 +811,572 @@
                 </div>
 
             </form>
+            <c:if test="${username=='' || username==null}">
+                <div id="fenye">
 
-            <div id="fenye">
-
-                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=1&size=2">首页</a>
-                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
-                <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                    <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageNum}&size=2">${pageNum}</a>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
-                <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pages}&size=2"
-                   aria-label="Next"> 尾页</a>
+                    <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=1&size=2">首页</a>
+                    <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+                    <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                        <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageNum}&size=2">${pageNum}</a>
+                    </c:forEach>
+                    <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+                    <a href="${pageContext.request.contextPath}/user/selectByUser?pageUser=1&username=${username}&page=${pageInfo.pages}&size=2"
+                       aria-label="Next"> 尾页</a>
 
 
-            </div>
-
+                </div>
+            </c:if>
 
         </c:if>
 
         <c:if test="${pageUser==2}">
 
-            <div class="result-wrapUserInfo">
+        <div class="result-wrapUserInfo">
+
+            <div class="result-content">
+
+
+                <c:forEach items="${users}" var="user">
+                    用户编号:&nbsp;${user.id}
+                    <br/><br/>
+                    用户昵称:&nbsp;${user.nickname}
+                    <br/><br/>
+                    用户性别:&nbsp;
+                    <c:if test="${user.sex==0}">
+                        男
+                    </c:if>
+                    <c:if test="${user.sex==1}">
+                        女
+                    </c:if> <br/><br/>
+                    用户名:&nbsp;${user.userName} <br/><br/>
+                    身份证:&nbsp;${user.idcard} <br/><br/>
+                    手机号:&nbsp;${user.phone} <br/><br/>
+                    房东认证:&nbsp;
+                    <!-- 房东认证 0代表普通用户 1代表房东-->
+                    <c:if test="${user.landlord==0}">
+                        普通用户
+                    </c:if>
+                    <c:if test="${user.landlord==1}">
+                        房东
+                    </c:if> <br/><br/>
+                    注册时间:&nbsp;<fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/>
+                    <br/><br/>
+
+                    用户的唯一标识:&nbsp;${user.openId} <br/><br/>
+
+                    用户状态:&nbsp;
+                    <c:if test="${user.state==0}">
+                        正常
+                    </c:if>
+                    <c:if test="${user.state==1}">
+                        失效
+                    </c:if>
+
+                </c:forEach>
+
+            </div>
+
+            </c:if>
+
+        <c:if test="${pageCareful==3}">
+
+                <div class="result-wrapHouseCarfulInfo">
+
+                    <div class="result-content">
+
+                        <form method="post" action="${pageContext.request.contextPath}/house/modifyById?pageCareful=1">
+                            <input type="hidden" readonly value="${houseCareful.id}" name="id"/>
+                            房屋id:
+                            <input type="text" name="houseId" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.houseId}" readonly>
+                            <br/> <br/>
+
+                            床:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="text" name="chuang" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.chuang}">
+                            (0代表有 1代表没有)<br/> <br/>
+                            沙发:&nbsp;&nbsp;&nbsp;
+                            <input type="text" name="shafa" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.shafa}"><br/> <br/>
+
+                            空调:&nbsp;&nbsp;&nbsp;
+                            <input type="text" name="kongtiao" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.kongtiao}"><br/> <br/>
+                            燃气:&nbsp;&nbsp;&nbsp;
+                            <input type="text" name="ranqi" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.ranqi}"><br/> <br/>
+                            洗衣机:
+                            <input type="text" name="xiyiji" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.xiyiji}"><br/> <br/>
+                            宽带:&nbsp;&nbsp;&nbsp;
+                            <input type="text" name="kuandai" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.kuandai}"><br/> <br/>
+                            电视:&nbsp;&nbsp;&nbsp;
+                            <input type="text" name="dianshi" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.dianshi}"><br/> <br/>
+                            冰箱:&nbsp;&nbsp;&nbsp;
+                            <input type="text" name="bingxiang" required lay-verify="required" placeholder="请输入标题"
+                                   autocomplete="off"
+                                   class="layui-input" value="${houseCareful.bingxiang}"><br/> <br/>
+
+                            <input type="submit" value="修改">
+                        </form>
+                    </div>
+
+                </div>
+            </c:if>
+
+        <c:if test="${pageCareful==2}">
+
+            <div class="result-wrapHouseCareful">
 
                 <div class="result-content">
 
-
-                    <c:forEach items="${users}" var="user">
-                        用户编号:&nbsp;${user.id}
-                        <br/><br/>
-                        用户昵称:&nbsp;${user.nickname}
-                        <br/><br/>
-                        用户性别:&nbsp;
-                        <c:if test="${user.sex==0}">
-                            男
-                        </c:if>
-                        <c:if test="${user.sex==1}">
-                            女
-                        </c:if> <br/><br/>
-                        用户名:&nbsp;${user.userName} <br/><br/>
-                        身份证:&nbsp;${user.idcard} <br/><br/>
-                        手机号:&nbsp;${user.phone} <br/><br/>
-                        房东认证:&nbsp;
-                        <!-- 房东认证 0代表普通用户 1代表房东-->
-                        <c:if test="${user.landlord==0}">
-                            普通用户
-                        </c:if>
-                        <c:if test="${user.landlord==1}">
-                            房东
-                        </c:if> <br/><br/>
-                        注册时间:&nbsp;<fmt:formatDate value="${user.registerTime}" pattern="yyyy-MM-dd hh:mm:ss"/>
-                        <br/><br/>
-
-                        用户的唯一标识:&nbsp;${user.openId} <br/><br/>
-
-                        用户状态:&nbsp;
-                        <c:if test="${user.state==0}">
-                            正常
-                        </c:if>
-                        <c:if test="${user.state==1}">
-                            失效
-                        </c:if>
-
-                    </c:forEach>
+                    房屋名字:${house.houseName}<br/><br/>
+                    房东名字: ${house.userName}<br/><br/>
+                    起租月数: ${house.startName}<br/><br/>
+                    月价格:${house.price}<br/><br/>
+                    房屋描述: ${house.narrate}<br/><br/>
+                    小区: ${house.uptown}<br/><br/>
+                    城市: ${house.address}<br/><br/>
+                    类型名字:${house.houseTypeName}<br/><br/>
+                    租赁类型名字:${house.houseLeaseName}<br/><br/>
+                    剩余房间: ${house.residueRoom}<br/><br/>
+                    状态:
+                    <c:if test="${house.state == 1}">满租</c:if>
+                    <c:if test="${house.state == 0}">可租</c:if>
 
                 </div>
 
-<<<<<<< HEAD
+                </c:if>
+
+        <c:if test="${pageCareful==1}">
+
+                    <form action="${pageContext.request.contextPath}/house/queryHouseCarefulById?pageCareful=1"
+                          method="post" id="form">
+
+                        <table class="search-tab">
+                            <tr>
+                                <th width="70">关键字:</th>
+                                <td><input class="common-text" placeholder="请输入房屋id" name="houseId" id="text"
+                                           type="text"
+                                ></td>
+
+                                <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
+
+                                </td>
+
+
+                            </tr>
+
+                        </table>
+
+
+                        <br/>
+                        <div class="result-wrapHouseCarefulAll">
+
+                            <table class="result-tab" width="100%">
+                                <tr>
+                                    <td>id</td>
+                                    <td>房屋id</td>
+                                    <td>床</td>
+                                    <td>沙发</td>
+                                    <td>空调</td>
+                                    <td>燃气</td>
+                                    <td>洗衣机</td>
+                                    <td>宽带</td>
+                                    <td>电视</td>
+                                    <td>电冰箱</td>
+                                    <td>操作</td>
+                                </tr>
+                                <c:forEach items="${houseCarefuls}" var="item">
+                                    <td>${item.id}</td>
+                                    <td>
+                                       ${item.houseId}
+                                    </td>
+                                    <td>
+                                        <c:if test="${item.chuang == 0}">有</c:if>
+                                        <c:if test="${item.chuang == 1}">没有</c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${item.shafa == 0}">有</c:if>
+                                        <c:if test="${item.shafa == 1}">没有</c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${item.kongtiao == 0}">有</c:if>
+                                        <c:if test="${item.kongtiao == 1}">没有</c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${item.ranqi == 0}">有</c:if>
+                                        <c:if test="${item.ranqi == 1}">没有</c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${item.xiyiji == 0}">有</c:if>
+                                        <c:if test="${item.xiyiji == 1}">没有</c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${item.kuandai == 0}">有</c:if>
+                                        <c:if test="${item.kuandai == 1}">没有</c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${item.dianshi == 0}">有</c:if>
+                                        <c:if test="${item.dianshi == 1}">没有</c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${item.bingxiang == 0}">有</c:if>
+                                        <c:if test="${item.bingxiang == 1}">没有</c:if>
+                                    </td>
+                                    <td>
+                                        <a href="${pageContext.request.contextPath}/house/selectHouseCarefulById?pageCareful=3&id=${item.houseId}">修改</a>
+                                    &nbsp;<a href="${pageContext.request.contextPath}/house/queryByHouseId?pageCareful=2&houseId=${item.houseId}">查看</a>
+                                    </td>
+                                </c:forEach>
+                            </table>
+
+                        </div>
+                    </form>
+
                 </c:if>
 
         <c:if test="${pageRecordList==1}">
 
-            <form action="${pageContext.request.contextPath}/record/getRecordList?pageRecordList=1"
-                  method="post" id="form">
+                    <form action="${pageContext.request.contextPath}/record/getRecordList?pageRecordList=1"
+                          method="post" id="form">
 
-                <table class="search-tab">
-                    <tr>
-                        <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="订单号" id="record" name="record" id="text" type="text"
-                                   ></td>
-
-                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
-
-                        </td>
-
-
-                    </tr>
-
-                    <tr>
-                        <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="用户id" name="userId" id="userId" id="text" type="text"
-                                  ></td>
-
-                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
-
-                        </td>
-
-
-                    </tr>
-
-                </table>
-
-
-                <br/>
-                <div class="result-wrapParticular">
-
-                    <table class="result-tab" width="100%">
-                        <tr>
-                            <td>订单id</td>
-                            <td>订单号</td>
-                            <td>付款人id</td>
-                            <td>付款人姓名</td>
-                            <td>收款人id</td>
-                            <td>收款人姓名</td>
-                            <td>房屋id</td>
-                            <td>房屋名字</td>
-                            <td>交易时间</td>
-                            <td>交易金额</td>
-                            <td>交易状态</td>
-                            <td>订单状态</td>
-                        </tr>
-                        <c:forEach items="${recordPageInfo.list}" var="item">
+                        <table class="search-tab">
                             <tr>
-                                <td>${item.id}</td>
-                                <td>${item.record}</td>
-                                <td>${item.payerUser.id}</td>
-                                <td>${item.payerName}</td>
-                                <td>${item.payeeUser.id}</td>
-                                <td>${item.payeeName}</td>
-                                <td>${item.house.id}</td>
-                                <td>${item.houseName}</td>
-                                <td><fmt:formatDate value="${item.dealTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-                                <td>${item.dealMoney}</td>
-                                <td>${item.dealState}</td>
-                                <td>${item.state}</td>
+                                <th width="70">关键字:</th>
+                                <td><input class="common-text" placeholder="订单号" id="record" name="record" id="text"
+                                           type="text"
+                                ></td>
+
+                                <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
+
+                                </td>
+
+
                             </tr>
-                        </c:forEach>
-                    </table>
 
-                </div>
-            </form>
-                <c:if test="${record==''||record==null}">
-            <div id="fenye">
+                            <tr>
+                                <th width="70">关键字:</th>
+                                <td><input class="common-text" placeholder="用户id" name="userId" id="userId" id="text"
+                                           type="text"
+                                ></td>
 
-                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.navigateFirstPage}">首页</a>
-                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.prePage}">上一页</a>
-                <c:forEach var="i" begin="1" end="${recordPageInfo.pages}">
-                    <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${i}">${i}</a>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.nextPage}">下一页</a>
-                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.navigateLastPage}">尾页</a>
+                                <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
 
-            </div>
+                                </td>
+
+
+                            </tr>
+
+                        </table>
+
+
+                        <br/>
+                        <div class="result-wrapParticular">
+
+                            <table class="result-tab" width="100%">
+                                <tr>
+                                    <td>订单id</td>
+                                    <td>订单号</td>
+                                    <td>付款人id</td>
+                                    <td>付款人姓名</td>
+                                    <td>收款人id</td>
+                                    <td>收款人姓名</td>
+                                    <td>房屋id</td>
+                                    <td>房屋名字</td>
+                                    <td>交易时间</td>
+                                    <td>交易金额</td>
+                                    <td>交易状态</td>
+                                    <td>订单状态</td>
+                                </tr>
+                                <c:forEach items="${recordPageInfo.list}" var="item">
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td>${item.record}</td>
+                                        <td>${item.payerUser.id}</td>
+                                        <td>${item.payerName}</td>
+                                        <td>${item.payeeUser.id}</td>
+                                        <td>${item.payeeName}</td>
+                                        <td>${item.house.id}</td>
+                                        <td>${item.houseName}</td>
+                                        <td><fmt:formatDate value="${item.dealTime}"
+                                                            pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                                        <td>${item.dealMoney}</td>
+                                        <td>${item.dealState}</td>
+                                        <td>${item.state}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+
+                        </div>
+                    </form>
+                    <c:if test="${record==''||record==null}">
+                        <div id="fenye">
+
+                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.navigateFirstPage}">首页</a>
+                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.prePage}">上一页</a>
+                            <c:forEach var="i" begin="1" end="${recordPageInfo.pages}">
+                                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${i}">${i}</a>
+                            </c:forEach>
+                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.nextPage}">下一页</a>
+                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.navigateLastPage}">尾页</a>
+
+                        </div>
+                    </c:if>
+
+
                 </c:if>
 
+        <c:if test="${pageHouse==1}">
+
+                    <form action="${pageContext.request.contextPath}/house/queryByPage?pageHouse=1"
+                          method="post" id="form">
+
+                        <table class="search-tab">
+                            <tr>
+                                <th width="70">房屋名称:</th>
+                                <td><input class="common-text" placeholder="请输入房屋名称" name="houseName" id="houseName"
+                                           type="text" value="${houseName}"/></td>
+                                <th width="70">房屋编号:</th>
+                                <td><input class="common-text" placeholder="请输入房屋编号" name="id" id="第" type="text"
+                                           value="${id}"/></td>
+                                <th width="70">房东姓名:</th>
+                                <td><input class="common-text" placeholder="请输入房东姓名" name="userName" id="userName"
+                                           type="text" value="${userName}"/></td>
+                                <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="query">
+                                </td>
+                            </tr>
+
+                        </table>
 
 
-        </c:if>
+                        <br/>
+                        <div class="result-wrapParticular">
+
+                            <table class="result-tab" width="100%">
+                                <tr>
+                                    <th>房屋编号</th>
+                                    <th style="color: #0e9aef">房东姓名</th>
+                                    <th>起租时间</th>
+                                    <th>起租实际类型</th>
+                                    <th>月价格</th>
+                                    <th>房屋描述</th>
+                                    <th>房屋名字</th>
+                                    <th>小区</th>
+                                    <th>城市</th>
+                                    <th>房屋类型名字</th>
+                                    <th>房屋租赁类型名字</th>
+                                    <th>剩余房间</th>
+                                    <th>房屋状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                <c:forEach items="${housesList}" var="house">
+                                    <tr>
+                                        <td>${house.id}</td>
+                                        <!--- 房东姓名-->
+                                        <td>
+                                                ${house.userName}
+                                        </td>
+                                        <!-- 起租时间-->
+                                        <td>${house.startName}</td>
+                                        <td>${house.startValue}</td>
+                                        <td>${house.price}</td>
+                                        <td>${house.narrate}</td>
+                                        <td style="color:red;">${house.houseName}</td>
+                                        <td>${house.uptown}</td>
+                                        <td>${house.address}</td>
+                                        <!-- 房屋类型对象-->
+                                        <td>${house.houseTypeName}</td>
+                                        <!-- 房屋租赁类型-->
+                                        <td>${house.houseLeaseName}</td>
+
+                                        <td>${house.residueRoom}</td>
+                                        <!-- 房屋状态 0可租 1满租-->
+                                        <c:if test="${house.state==0}">
+                                            <td>可租</td>
+                                        </c:if>
+                                        <c:if test="${house.state==1}">
+                                            <td>满租</td>
+                                        </c:if>
+                                        <td>
+                                            <a href="${pageContext.request.contextPath}/house/selectHouseCareful?pageHouse=2&houseId=${house.id}">查看</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+
+                        </div>
+                    </form>
+                    <c:if test="${houseName ==null ||houseName=='' && id==null || id==''}">
+                        <div id="fenye">
+                            <a href="${pageContext.request.contextPath}/house/queryByPage?pageHouse=1&userName=${userName}&page=1&size=2">首页</a>
+                            <a href="${pageContext.request.contextPath}/house/queryByPage?pageHouse=1&userName=${userName}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <a href="${pageContext.request.contextPath}/house/queryByPage?pageHouse=1&userName=${userName}&page=${pageNum}&size=2">${pageNum}</a>
+                            </c:forEach>
+                            <a href="${pageContext.request.contextPath}/house/queryByPage?pageHouse=1&userName=${userName}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+                            <a href="${pageContext.request.contextPath}/house/queryByPage?pageHouse=1&userName=${userName}&page=${pageInfo.pages}&size=2"
+                               aria-label="Next"> 尾页</a>
+                        </div>
+                    </c:if>
 
 
-=======
+                </c:if>
+
+        <c:if test="${pageHouse==2}">
+
+                    <div class="result-wrapHouse">
+
+                        <div class="result-content">
+                            房屋详情编号:${houseCareful.id}<br/><br/>
+                            房屋编号:${houseCareful.houseId}<br/><br/>
+                            床:
+                            <c:if test="${houseCareful.chuang == 0}">有</c:if>
+                            <c:if test="${houseCareful.chuang == 1}">没有</c:if><br/><br/>
+
+                            沙发:
+                            <c:if test="${houseCareful.shafa == 0}">有</c:if>
+                            <c:if test="${houseCareful.shafa == 1}">没有</c:if><br/><br/>
+                            空调:
+                            <c:if test="${houseCareful.kongtiao == 0}">有</c:if>
+                            <c:if test="${houseCareful.kongtiao == 1}">没有</c:if><br/><br/>
+                            燃气:
+                            <c:if test="${houseCareful.ranqi == 0}">有</c:if>
+                            <c:if test="${houseCareful.ranqi == 1}">没有</c:if><br/><br/>
+                            洗衣机:
+                            <c:if test="${houseCareful.xiyiji == 0}">有</c:if>
+                            <c:if test="${houseCareful.xiyiji == 1}">没有</c:if><br/><br/>
+                            宽带:
+                            <c:if test="${houseCareful.kuandai == 0}">有</c:if>
+                            <c:if test="${houseCareful.kuandai == 1}">没有</c:if><br/><br/>
+                            电视:
+                            <c:if test="${houseCareful.dianshi == 0}">有</c:if>
+                            <c:if test="${houseCareful.dianshi == 1}">没有</c:if><br/><br/>
+                            冰箱:
+                            <c:if test="${houseCareful.bingxiang == 0}">有</c:if>
+                            <c:if test="${houseCareful.bingxiang == 1}">没有</c:if>
+                        </div>
+
+                    </div>
+                </c:if>
+
+        <c:if test="${pageAddress==1}">
+
+                    <form action="${pageContext.request.contextPath}/address/selectAll?pageAddress=1"
+                          method="post" id="form">
+
+                        <table class="search-tab">
+                            <tr>
+                                <th width="70">城市名:</th>
+                                <td><input class="common-text" placeholder="请输入城市名" name="address"  id="address" type="text" value="${houseName}"/></td>
+                                <td><input name="sub" value="查询" type="submit" id="query"></td>
+
+                            </tr>
+
+                        </table>
+
+
+                        <br/>
+                        <div class="result-wrapAddress">
+
+                            <table class="result-tab" width="100%">
+                                <tr>
+                                    <th>城市编号</th>
+                                    <th>城市名</th>
+                                    <th>父级编号</th>
+                                    <th>城市的状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                <c:forEach items="${addressList}" var="address">
+                                    <tr>
+                                        <td>${address.id}</td>
+                                        <td>${address.address}</td>
+                                        <td>${address.parentId}</td>
+                                        <c:if test="${address.state == 0}">
+                                            <td>正常</td>
+                                        </c:if>
+                                        <c:if test="${address.state == 1}">
+                                            <td>删除</td>
+                                        </c:if>
+                                        <td>
+                                            <a href="${pageContext.request.contextPath}/address/selectById?pageAddress=3&id=${address.id}">修改</a>
+                                            <a href="${pageContext.request.contextPath}/address/deleteByState?pageAddress=1&id=${address.id}">删除</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+
+                        </div>
+                    </form>
+
+            <c:if test="${address==null||address==''}">
+                <div id="fenye">
+
+
+                    <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=1&size=2">首页</a>
+                    <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+                    <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                        <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageNum}&size=2">${pageNum}</a>
+                    </c:forEach>
+                    <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+                    <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pages}&size=2"
+                       aria-label="Next"> 尾页</a>
+
+
+                </div>
+            </c:if>
+
+
+                </c:if>
+
+        <c:if test="${pageAddress==2}">
+
+                    <div class="result-wrapStartAdd">
+
+                        <div class="result-content">
+
+                            <form method="post" action="${pageContext.request.contextPath}/address/insertAddress?pageAddress=1">
+                                城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address"><br/><br/>
+                                父级编号:<input type="text" name="parentId"><br/><br/>
+
+                                <br>
+                                <input type="submit" name="sub" value="添加">
+                            </form>
+                        </div>
+
+                    </div>
+                </c:if>
+
+        <c:if test="${pageAddress==3}">
+
+                    <div class="result-wrapStartAdd">
+
+                        <div class="result-content">
+
+                            <form method="post" action="${pageContext.request.contextPath}/address/updateByDelete?pageAddress=1">
+                                城市编号:<input type="text" value="${address.id}"  name="id" readonly="readonly"/> <br/><br/>
+                                城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="${address.address}" name="address"> <br/><br/>
+                                父级编号:<input type="text" value="${address.parentId}" name="parentId"> <br/><br/>
+                                <input type="submit" value="修改" id="sub" />
+                            </form>
+                        </div>
+
+                    </div>
+                </c:if>
+
             </div>
-        </c:if>
->>>>>>> fb7dc54a1a0afdf141c9c722b9d2fd14bde97887
 
+        </div>
     </div>
 
 </div>
@@ -973,8 +1385,8 @@
     const record = document.getElementById("record");
     const userID = document.getElementById("userId");
     const form = document.querySelector("form");
-    form.onsubmit = (event)=>{
-        if(record.value === '' || userID.value === ''){
+    form.onsubmit = (event) => {
+        if (record.value === '' || userID.value === '') {
             return true;
         }
         alert("订单号和用户名不能同时使用");

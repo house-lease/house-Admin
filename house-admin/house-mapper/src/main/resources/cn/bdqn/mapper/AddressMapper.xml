@@ -18,7 +18,7 @@
     where address = #{address}
   </select>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+  <select id="selectByHouseName" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from t_address
@@ -31,53 +31,21 @@
         </if>
       </trim>
   </select>
+
   <select id="selectById" resultMap="BaseResultMap">
     SELECT  <include refid="Base_Column_List" />
     FROM t_address
     where id=#{id}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_address
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.bdqn.domain.Address" >
+
+  <insert id="insertSelective" parameterType="cn.bdqn.domain.Address" >
     insert into t_address (id, address, parent_id, 
       state)
     values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
-      #{state,jdbcType=INTEGER})
+      0)
   </insert>
-  <insert id="insertSelective" parameterType="cn.bdqn.domain.Address" >
-    insert into t_address
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="address != null" >
-        address,
-      </if>
-      <if test="parentId != null" >
-        parent_id,
-      </if>
-      <if test="state != null" >
-        state,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null" >
-        #{parentId,jdbcType=INTEGER},
-      </if>
-      <if test="state != null" >
-        #{state,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="cn.bdqn.domain.Address" >
     update t_address
     <set>
@@ -100,4 +68,17 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <update id="updateById" parameterType="cn.bdqn.domain.Address" >
+    update t_address
+    set
+      state = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+
+
 </mapper>
