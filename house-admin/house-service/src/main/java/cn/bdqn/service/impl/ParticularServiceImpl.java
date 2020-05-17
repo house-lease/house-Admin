@@ -16,9 +16,16 @@ public class ParticularServiceImpl implements ParticularService {
 
     //    根据id查询
     @Override
-    public Particular queryByPrimaryKey(Integer id) {
+    public List<Particular> queryByPrimaryKey(Integer id) {
         return particularMapper.selectByPrimaryKey(id);
     }
+
+    //根据id和phone查询
+    @Override
+    public List<Particular> queryByIdAndPhone(String phone, Integer id) {
+        return particularMapper.selectByIdAndPhone(phone,id);
+    }
+
 
     /**
      * 根据用户id更改充值记录状态
@@ -31,14 +38,14 @@ public class ParticularServiceImpl implements ParticularService {
     }
 
     /**
-     * 根据用户id查询
-     * @param userId
+     * 根据phone查询
+     * @param phone
      * @return
      */
     @Override
-    public List<Particular> queryByUserId(Integer userId,int page,int size) {
+    public List<Particular> queryByUserId(String phone,int page,int size) {
         PageHelper.startPage(page,size);
-        return particularMapper.selectByUserId(userId);
+        return particularMapper.selectByUserId(phone);
     }
 
 }
