@@ -185,8 +185,8 @@
     select <include refid="Base_Column_List"/>
     from t_record
     <trim prefix="where" suffixOverrides="and">
-        <if test="userId != null">
-          payer_id = #{userId} or payee_id = #{userId}
+        <if test="phone != null">
+          payer_id = (select id from t_user where phone = #{phone}) or payee_id = (select id from t_user where phone = #{phone})
         </if>
         <if test="record != null">
           record = #{record}

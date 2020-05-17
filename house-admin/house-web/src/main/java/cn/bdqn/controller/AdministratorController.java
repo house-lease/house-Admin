@@ -25,10 +25,10 @@ public class AdministratorController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Result<Map<String, Object>> login(@RequestBody Map<String,String> param) throws MyException {
+    public Result<Map<String, Object>> login(String name, String password) throws MyException {
         Result<Map<String, Object>> result = new Result<>();
         try {
-            Administrator administrator = administratorService.login(param.get("name"), param.get("password"));
+            Administrator administrator = administratorService.login(name, password);
             Map<String, Object> map = new HashMap<>();
             if(administrator != null){
                 map.put("admin",administrator);

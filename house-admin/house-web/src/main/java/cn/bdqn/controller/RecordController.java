@@ -52,27 +52,26 @@ public class RecordController {
     /**
      * 查询订单
      * @param pageCode 页码
-     * @param userId 用户id
+     * @param phone 用户手机号
      * @param record 订单号
      * @return
      */
     @RequestMapping("/getRecordList")
-    public String getRecordList(int pageRecordList,@RequestParam(defaultValue = "0")Integer pageCode, Integer userId, String record, Model model) throws MyException {
+    public String getRecordList(int pageRecordList,@RequestParam(defaultValue = "0")Integer pageCode, String phone, String record, Model model) throws MyException {
         Map<String, Object> params = new HashMap<>();
-        if (userId != null) {
-            params.put("userId", userId);
+        if (phone != null) {
+            System.out.println(phone);
+            params.put("phone", phone);
         }
         if(record != null && !"".equals(record)){
-            System.out.println("----");
             params.put("record", record);
         }
         params.put("pageCode", pageCode);
 
         try {
             PageInfo<Record> recordPageInfo =  recordService.queryRecord(params);
-            System.out.println(recordPageInfo.getList());
             model.addAttribute("recordPageInfo", recordPageInfo);
-            model.addAttribute("userId", userId);
+            model.addAttribute("phone", phone);
             model.addAttribute("record", record);
             model.addAttribute("pageRecordList", pageRecordList);
         }catch(Exception e){

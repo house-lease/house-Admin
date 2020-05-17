@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 </head>
 <body>
 <div class="login-container">
@@ -155,7 +156,7 @@
 <script>
     window.onload = function () {
         const token = window.localStorage.getItem("token");
-        if(!token){
+        if(token){
             window.location.href = '${pageContext.request.contextPath}/index.jsp';
         }
     };
@@ -163,17 +164,15 @@
         const name = document.querySelector("#name").value;
         const password = document.querySelector("#password").value;
         const url = `${pageContext.request.contextPath}/admin/login`;
-        fetch(url, {
-            method: 'post',
-            headers: {'Content-Type': 'application/json;charset=utf-8;'},
-            body: JSON.stringify({'name': name, 'password': password})
-        }).then((response) => response.json()).then(data => {
-           if(data.data.success === '200'){
-               localStorage.setItem("token", data.data.token);
-               window.location.href = '${pageContext.request.contextPath}/index.jsp';
-           }
-        }).catch(error => {
-            console.log(error);
+        $.ajax(url, {
+            type: 'post',
+            data: {'name': name, 'password': password},
+            success(data){
+                if(data.data.success === '200'){
+                    localStorage.setItem("token", data.data.token);
+                    window.location.href = '${pageContext.request.contextPath}/index.jsp';
+                }
+            }
         });
     }
 </script>

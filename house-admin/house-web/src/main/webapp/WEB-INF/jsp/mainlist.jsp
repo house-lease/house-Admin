@@ -1018,7 +1018,7 @@
 
                             <tr>
                                 <th width="70">关键字:</th>
-                                <td><input class="common-text" placeholder="用户id" name="userId" id="userId" id="text"
+                                <td><input class="common-text" placeholder="手机号" name="phone" id="userId" id="text"
                                            type="text"
                                 ></td>
 
