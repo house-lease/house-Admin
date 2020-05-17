@@ -362,7 +362,8 @@
             margin-left: 90px;
 
         }
-        .result-wrapAddress{
+
+        .result-wrapAddress {
             margin-left: 90px;
         }
 
@@ -457,13 +458,10 @@
                     <a href="javascript:void(0);" id="a3"><i class="icon-font-message">&#xe003;</i>充值管理</a>
                     <ul class="sub-menu3">
                         <li>
-                            <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1"><i
-                                    class="icon-font">&#xe008;</i>根据用户id查询充值记录列表</a>
+                            <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticular=1"><i
+                                    class="icon-font">&#xe008;</i>查询充值记录列表</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1"><i
-                                    class="icon-font">&#xe005;</i>根据充值id查询充值记录信息</a>
-                        </li>
+
                     </ul>
 
 
@@ -484,11 +482,13 @@
                         </li>
 
                         <li>
-                            <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1"><i class="icon-font">&#xe005;</i>查询城市信息</a>
+                            <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1"><i
+                                    class="icon-font">&#xe005;</i>查询城市信息</a>
                         </li>
 
                         <li>
-                            <a href="${pageContext.request.contextPath}/address/insert?pageAddress=2"><i class="icon-font">&#xe005;</i>新增城市信息</a>
+                            <a href="${pageContext.request.contextPath}/address/insert?pageAddress=2"><i
+                                    class="icon-font">&#xe005;</i>新增城市信息</a>
                         </li>
 
 
@@ -504,27 +504,28 @@
 
         <div class="crumb-wrap">
             <div class="crumb-list"><i class="icon-font"></i>
-                <a href="javascript:void(0);" color="#white">首页</a><span class="crumb-step">&gt;</span><span
+                <a href="javascript:void(0);" color="#white">首页</a><span class="crumb-step">&gt</span><span
                         class="crumb-name">后台功能</span></div>
         </div>
 
-        <c:if test="${pageParticularByUserId==1}">
+        <c:if test="${pageParticular==1}">
 
-            <form action="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&page=1&size=2"
+            <form action="${pageContext.request.contextPath}/particular/selectByUserId?pageParticular=1&page=1&size=2"
                   method="post" id="form">
 
                 <table class="search-tab">
                     <tr>
                         <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="请输入用户Id" name="userId" id="text" type="text"
-                                   value="${userId}"></td>
-
-                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
-
+                        <td><input class="common-text" placeholder="请输入phone" name="phone" id="text" type="text"
+                                   value="${phone}"></td>
                         </td>
+                        <th width="70">关键字:</th>
+                        <td><input class="common-text" placeholder="请输入id" name="id" id="text" type="text"
+                                   value="${id}"></td>
 
-
+                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun"></td>
                     </tr>
+
 
                 </table>
 
@@ -542,6 +543,7 @@
                             <th>充值时间</th>
                             <th>状态</th>
                         </tr>
+
                         <c:forEach items="${particulars}" var="particulars">
                             <tr>
                                 <td>${particulars.id}</td>
@@ -558,81 +560,29 @@
                                 </c:if>
                             </tr>
                         </c:forEach>
-                    </table>
-
-                </div>
-            </form>
-
-            <div id="fenye">
-
-                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=1&size=2">首页</a>
-                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
-                <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                    <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=10&userId=${userId}&page=${pageNum}&size=2">${pageNum}</a>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
-                <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticularByUserId=1&userId=${userId}&page=${pageInfo.pages}&size=2"
-                   aria-label="Next"> 尾页</a>
-
-
-            </div>
-
-
-        </c:if>
-
-        <c:if test="${pageParticularById==1}">
-
-            <form action="${pageContext.request.contextPath}/particular/selectById?pageParticularById=1" method="post"
-                  id="form">
-
-                <table class="search-tab">
-                    <tr>
-                        <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="请输入Id" name="id" id="text" type="text"
-                                   value="${id}"></td>
-
-                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
-
-                        </td>
-
-                    </tr>
-
-                </table>
-
-
-                <br/>
-                <div class="result-wrapParticular">
-
-                    <table class="result-tab" width="100%">
-                        <tr>
-
-                            <th>充值编号</th>
-                            <th>用户编号</th>
-                            <th>用户姓名</th>
-                            <th>用户可以资金</th>
-                            <th>充值时间</th>
-                            <th>状态</th>
-                        </tr>
-
-                        <tr>
-                            <td>${particular.id}</td>
-                            <td>${particular.user.id}</td>
-                            <td>${particular.userName}</td>
-                            <td>${particular.money}</td>
-                            <td><fmt:formatDate value="${particular.refillTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-                            <c:if test="${particular.state==0}">
-                                <td>正常</td>
-                            </c:if>
-                            <c:if test="${particular.state==1}">
-                                <td>删除</td>
-                            </c:if>
-                        </tr>
 
                     </table>
 
                 </div>
             </form>
+            <c:if test="${id==null || id==''}">
+                <div id="fenye">
+
+                    <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticular=1&phone=${phone}&page=1&size=2">首页</a>
+                    <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticular=1&phone=${phone}&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+                    <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                        <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticular=10&phone=${phone}&page=${pageNum}&size=2">${pageNum}</a>
+                    </c:forEach>
+                    <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticular=1&phone=${phone}&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+                    <a href="${pageContext.request.contextPath}/particular/selectByUserId?pageParticular=1&phone=${phone}&page=${pageInfo.pages}&size=2"
+                       aria-label="Next"> 尾页</a>
+
+
+                </div>
+            </c:if>
+
         </c:if>
+
 
         <c:if test="${pageStart==1}">
 
@@ -1000,7 +950,7 @@
                                 <c:forEach items="${houseCarefuls}" var="item">
                                     <td>${item.id}</td>
                                     <td>
-                                       ${item.houseId}
+                                            ${item.houseId}
                                     </td>
                                     <td>
                                         <c:if test="${item.chuang == 0}">有</c:if>
@@ -1036,7 +986,8 @@
                                     </td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/house/selectHouseCarefulById?pageCareful=3&id=${item.houseId}">修改</a>
-                                    &nbsp;<a href="${pageContext.request.contextPath}/house/queryByHouseId?pageCareful=2&houseId=${item.houseId}">查看</a>
+                                        &nbsp;<a
+                                            href="${pageContext.request.contextPath}/house/queryByHouseId?pageCareful=2&houseId=${item.houseId}">查看</a>
                                     </td>
                                 </c:forEach>
                             </table>
@@ -1278,7 +1229,8 @@
                         <table class="search-tab">
                             <tr>
                                 <th width="70">城市名:</th>
-                                <td><input class="common-text" placeholder="请输入城市名" name="address"  id="address" type="text" value="${houseName}"/></td>
+                                <td><input class="common-text" placeholder="请输入城市名" name="address" id="address"
+                                           type="text" value="${houseName}"/></td>
                                 <td><input name="sub" value="查询" type="submit" id="query"></td>
 
                             </tr>
@@ -1319,22 +1271,22 @@
                         </div>
                     </form>
 
-            <c:if test="${address==null||address==''}">
-                <div id="fenye">
+                    <c:if test="${address==null||address==''}">
+                        <div id="fenye">
 
 
-                    <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=1&size=2">首页</a>
-                    <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pageNum-1}&size=2">上一页</a>
-                    <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                        <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageNum}&size=2">${pageNum}</a>
-                    </c:forEach>
-                    <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
-                    <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pages}&size=2"
-                       aria-label="Next"> 尾页</a>
+                            <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=1&size=2">首页</a>
+                            <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pageNum-1}&size=2">上一页</a>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageNum}&size=2">${pageNum}</a>
+                            </c:forEach>
+                            <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pageNum+1}&size=2">下一页</a>
+                            <a href="${pageContext.request.contextPath}/address/selectAll?pageAddress=1&page=${pageInfo.pages}&size=2"
+                               aria-label="Next"> 尾页</a>
 
 
-                </div>
-            </c:if>
+                        </div>
+                    </c:if>
 
 
                 </c:if>
@@ -1345,7 +1297,8 @@
 
                         <div class="result-content">
 
-                            <form method="post" action="${pageContext.request.contextPath}/address/insertAddress?pageAddress=1">
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/address/insertAddress?pageAddress=1">
                                 城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address"><br/><br/>
                                 父级编号:<input type="text" name="parentId"><br/><br/>
 
@@ -1363,11 +1316,13 @@
 
                         <div class="result-content">
 
-                            <form method="post" action="${pageContext.request.contextPath}/address/updateByDelete?pageAddress=1">
-                                城市编号:<input type="text" value="${address.id}"  name="id" readonly="readonly"/> <br/><br/>
-                                城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="${address.address}" name="address"> <br/><br/>
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/address/updateByDelete?pageAddress=1">
+                                城市编号:<input type="text" value="${address.id}" name="id" readonly="readonly"/> <br/><br/>
+                                城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="${address.address}"
+                                                                   name="address"> <br/><br/>
                                 父级编号:<input type="text" value="${address.parentId}" name="parentId"> <br/><br/>
-                                <input type="submit" value="修改" id="sub" />
+                                <input type="submit" value="修改" id="sub"/>
                             </form>
                         </div>
 
