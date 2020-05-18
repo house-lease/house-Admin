@@ -32,8 +32,9 @@
         select
         <include refid="Base_Column_List"/>
         from t_house_careful
-        where id = #{id,jdbcType=INTEGER}
+        where house_id = #{houseId}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_house_careful
     where id = #{id,jdbcType=INTEGER}

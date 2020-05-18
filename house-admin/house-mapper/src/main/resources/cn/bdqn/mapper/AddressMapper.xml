@@ -5,15 +5,30 @@
   <resultMap id="BaseResultMap" type="cn.bdqn.domain.Address" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
     <result column="state" property="state" jdbcType="INTEGER" />
+
   </resultMap>
   <sql id="Base_Column_List" >
     id, address, parent_id, state
   </sql>
 
-  <select id="selectByAddress" resultMap="BaseResultMap">
+  <!--根据id查询-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from t_address
+    where id = #{id}
+  </select>
+
+  <!-- 查询出所有城市名-->
+  <select id="selectAddress" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
+    from t_address
+    where parent_id is null
+  </select>
+
+  <select id="selectByAddress" resultType="java.lang.Integer">
+    select count(*)
     from t_address
     where address = #{address}
   </select>
@@ -22,14 +37,14 @@
     select
     <include refid="Base_Column_List" />
     from t_address
-      <trim prefix="where" suffixOverrides="and">
-        <if test="address!=null and address!=''">
-          address like concat('%',#{address},'%') and
-        </if>
-        <if test="address==null or address ==''">
-          state=0
-        </if>
-      </trim>
+    <trim prefix="where" suffixOverrides="and">
+      <if test="address!=null and address!=''">
+        address like concat('%',#{address},'%') and
+      </if>
+      <if test="address==null or address ==''">
+        state=0
+      </if>
+    </trim>
   </select>
 
   <select id="selectById" resultMap="BaseResultMap">
@@ -40,9 +55,9 @@
 
 
   <insert id="insertSelective" parameterType="cn.bdqn.domain.Address" >
-    insert into t_address (id, address, parent_id, 
+    insert into t_address (id, address, parent_id,
       state)
-    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},
       0)
   </insert>
 
@@ -53,7 +68,7 @@
         address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="parentId != null" >
-        parent_id = #{parentId,jdbcType=INTEGER},
+        parent_id = #{parentId},
       </if>
       <if test="state != null" >
         state = #{state,jdbcType=INTEGER},

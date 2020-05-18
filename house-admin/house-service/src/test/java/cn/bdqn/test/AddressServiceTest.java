@@ -66,8 +66,8 @@ public class AddressServiceTest {
 
         AddressService addressService = (AddressService) ac.getBean("addressService");
 
-        Address address = addressService.selectByAddress("郑州市");
-        System.out.println(address);
+//        Address address = addressService.selectByAddress("郑州市");
+//        System.out.println(address);
     }
 
 

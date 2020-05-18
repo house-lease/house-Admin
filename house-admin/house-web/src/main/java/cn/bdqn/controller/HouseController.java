@@ -107,6 +107,8 @@ public class HouseController {
     public String selectHouseCarefulByHouseId(int pageHouse,Integer houseId,Model model){
         try {
             HouseCareful houseCareful = houseService.selectHouseCarefulByHouseId(houseId);
+            House house =houseService.selectByPrimaryKey(houseId);
+            model.addAttribute("house",house);
             model.addAttribute("houseCareful",houseCareful);
             model.addAttribute("pageHouse",pageHouse);
             return "mainlist";

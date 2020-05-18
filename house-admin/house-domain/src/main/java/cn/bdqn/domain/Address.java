@@ -2,6 +2,8 @@ package cn.bdqn.domain;
 
 import org.springframework.stereotype.Component;
 
+import java.beans.Transient;
+
 /**
  * 城市对象
  */
@@ -14,11 +16,21 @@ public class Address {
     //城市名
     private String address;
 
-    //父级id
     private Integer parentId;
+
+    //父级id
+    private Address parentAddress;
 
     //城市的状态 0正常 1删除'
     private Integer state;
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
 
     public Integer getId() {
         return id;
@@ -36,12 +48,12 @@ public class Address {
         this.address = address == null ? null : address.trim();
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public Address getParentAddress() {
+        return parentAddress;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setParentAddress(Address parentAddress) {
+        this.parentAddress = parentAddress;
     }
 
     public Integer getState() {
@@ -50,5 +62,16 @@ public class Address {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", parentId=" + parentId +
+                ", parentAddress=" + parentAddress +
+                ", state=" + state +
+                '}';
     }
 }

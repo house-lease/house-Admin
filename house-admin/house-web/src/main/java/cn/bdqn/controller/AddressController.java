@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +33,10 @@ public class AddressController {
         try {
             List<Address> addressList = addressService.queryAll(address,page,size);//查询
             PageInfo pageInfo = new PageInfo(addressList);
+            //关联自身查询，添加到集合中
+            for (Address address1: addressList) {
+                address1.setParentAddress(addressService.selectByPrimaryKey(address1.getParentId()));
+            }
             model.addAttribute("addressList",addressList);
             model.addAttribute("pageInfo", pageInfo);
             model.addAttribute("address", address);
@@ -52,7 +57,10 @@ public class AddressController {
     @RequestMapping("/selectById")
     public String selectById(int pageAddress,Integer id,Model model){
         try {
-            Address address = addressService.selectById(id);
+            Address address = addressService.selectById(id);//根据id查询出城市
+            List<Address> addressList = addressService.selectAddress();//查询出所有城市
+
+            model.addAttribute("addressList",addressList);
             model.addAttribute("address",address);
             model.addAttribute("pageAddress",pageAddress);
             return "mainlist";
@@ -63,9 +71,17 @@ public class AddressController {
 
     }
 
+    /**
+     * 跳转到添加页面
+     * @param model
+     * @param pageAddress
+     * @return
+     */
     @RequestMapping("/insert")
     public String insert(Model model,int pageAddress){
-     model.addAttribute("pageAddress",pageAddress);
+        List<Address> addressList = addressService.selectAddress();//查询出所有城市
+        model.addAttribute("addressList",addressList);
+        model.addAttribute("pageAddress",pageAddress);
         return "mainlist";
     }
 
@@ -73,18 +89,18 @@ public class AddressController {
      *  添加城市
      */
     @RequestMapping("/insertAddress")
-    public String insertAddress(int pageAddress,String address,Integer parentId,Integer state,Model model){
+    public String insertAddress(int pageAddress,Address address,Model model){
         try {
-                Address address1 = addressService.selectByAddress(address);
-                if (address1 == null){
-                    Address address2 = new Address();
-                    address2.setAddress(address);
-                    address2.setParentId(parentId);
-                    address2.setState(state);
-                    addressService.insertAddress(address2);
-                    model.addAttribute("pageAddress",pageAddress);
-                    return "redirect:/address/selectAll?pageAddress=1";
-                }
+            int result = addressService.selectByAddress(address.getAddress());
+            model.addAttribute("pageAddress",pageAddress);
+            if (result == 0){
+                Address address2 = new Address();
+                address2.setAddress(address.getAddress());
+                address2.setParentId(address.getParentId());
+                address2.setState(address.getState());
+                addressService.insertAddress(address2);
+                return "redirect:/address/selectAll?pageAddress=1";
+            }
             return "redirect:/address/insert?pageAddress=2";
         }catch (Exception e){
             e.printStackTrace();
@@ -96,17 +112,17 @@ public class AddressController {
      *  修改
      */
     @RequestMapping("/updateByDelete")
-    public String updateByDelete(int pageAddress,Model model,Integer id,String address,Integer state,Integer parentId){
+    public String updateByDelete(int pageAddress,Model model,Address address){
 
         try {
-            Address address2 = addressService.selectByAddress(address);
-            if (address2== null){
+            int result = addressService.selectByAddress(address.getAddress());
+            model.addAttribute("pageAddress",pageAddress);
+            if (result == 0){
                 Address address1 = new Address();
-                address1.setId(id);
-                address1.setAddress(address);
-                address1.setParentId(parentId);
+                address1.setId(address.getId());
+                address1.setAddress(address.getAddress());
+                address1.setParentId(address.getParentId());
                 addressService.updateById(address1);
-                model.addAttribute("pageAddress",pageAddress);
                 return "redirect:/address/selectAll?pageAddress=1";
             }
             return "redirect:/address/selectById?pageAddress=3";
@@ -124,7 +140,7 @@ public class AddressController {
 
         addressService.deleteById(id);
         model.addAttribute("pageAddress", pageAddress);
-            return "redirect:/address/selectAll";
+        return "redirect:/address/selectAll";
 
     }
 

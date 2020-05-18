@@ -7,14 +7,15 @@ import java.util.List;
 
 public interface AddressMapper {
 
-
-
+    List<Address> selectAddress();
 
     void insertSelective(Address record);
 
     Address selectById(Integer id);
 
-    Address selectByAddress(String address);
+    Address selectByPrimaryKey(Integer id);
+
+    int selectByAddress(String address);
 
     void updateByPrimaryKeySelective(Address record);
 
@@ -24,7 +25,7 @@ public interface AddressMapper {
     void updateById(Integer id);
 
     //根据城市名称查询信息
-    List<Address>  selectByHouseName(String address);
+    List<Address> selectByHouseName(String address);
 
 
 }

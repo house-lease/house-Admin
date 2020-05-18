@@ -15,6 +15,16 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressMapper addressMapper;
 
+    @Override
+    public List<Address> selectAddress() {
+        return addressMapper.selectAddress();
+    }
+
+    @Override
+    public Address selectByPrimaryKey(Integer id) {
+        return addressMapper.selectByPrimaryKey(id);
+    }
+
     //添加
     @Override
     public void insertAddress(Address address) {
@@ -41,7 +51,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address selectByAddress(String address) {
+    public int selectByAddress(String address) {
         return addressMapper.selectByAddress(address);
     }
 

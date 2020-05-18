@@ -393,19 +393,32 @@
 
         .result-wrapUserInfo {
             margin-top: 50px;
-            margin-left: 600px;
+            margin-left: 400px;
         }
 
-
-        .result-wrapHouse {
+        .fudong{
             margin-top: 50px;
-            margin-left: 600px;
+            float: left;
+            margin-left: 400px;
+        }
+        .result-wrapHouse {
+
+
+            margin-right: 50px;
+            float: left;
+        }
+        .result-carful{
+
+            float: left;
+
         }
 
         .result-wrapHouseCareful {
             margin-top: 50px;
             margin-left: 600px;
+
         }
+
 
         .result-wrapHouseCarefulAll {
             margin-left: 90px;
@@ -582,7 +595,6 @@
             </c:if>
 
         </c:if>
-
 
         <c:if test="${pageStart==1}">
 
@@ -1009,14 +1021,6 @@
                                            type="text"
                                 ></td>
 
-                                <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit" id="chaxun">
-
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
                                 <th width="70">关键字:</th>
                                 <td><input class="common-text" placeholder="手机号" name="phone" id="userId" id="text"
                                            type="text"
@@ -1098,9 +1102,6 @@
                                 <th width="70">房屋名称:</th>
                                 <td><input class="common-text" placeholder="请输入房屋名称" name="houseName" id="houseName"
                                            type="text" value="${houseName}"/></td>
-                                <th width="70">房屋编号:</th>
-                                <td><input class="common-text" placeholder="请输入房屋编号" name="id" id="第" type="text"
-                                           value="${id}"/></td>
                                 <th width="70">房东姓名:</th>
                                 <td><input class="common-text" placeholder="请输入房东姓名" name="userName" id="userName"
                                            type="text" value="${userName}"/></td>
@@ -1185,43 +1186,62 @@
                 </c:if>
 
         <c:if test="${pageHouse==2}">
-
+                <div class="fudong" >
                     <div class="result-wrapHouse">
 
-                        <div class="result-content">
-                            房屋详情编号:${houseCareful.id}<br/><br/>
-                            房屋编号:${houseCareful.houseId}<br/><br/>
-                            床:
-                            <c:if test="${houseCareful.chuang == 0}">有</c:if>
-                            <c:if test="${houseCareful.chuang == 1}">没有</c:if><br/><br/>
 
-                            沙发:
-                            <c:if test="${houseCareful.shafa == 0}">有</c:if>
-                            <c:if test="${houseCareful.shafa == 1}">没有</c:if><br/><br/>
-                            空调:
-                            <c:if test="${houseCareful.kongtiao == 0}">有</c:if>
-                            <c:if test="${houseCareful.kongtiao == 1}">没有</c:if><br/><br/>
-                            燃气:
-                            <c:if test="${houseCareful.ranqi == 0}">有</c:if>
-                            <c:if test="${houseCareful.ranqi == 1}">没有</c:if><br/><br/>
-                            洗衣机:
-                            <c:if test="${houseCareful.xiyiji == 0}">有</c:if>
-                            <c:if test="${houseCareful.xiyiji == 1}">没有</c:if><br/><br/>
-                            宽带:
-                            <c:if test="${houseCareful.kuandai == 0}">有</c:if>
-                            <c:if test="${houseCareful.kuandai == 1}">没有</c:if><br/><br/>
-                            电视:
-                            <c:if test="${houseCareful.dianshi == 0}">有</c:if>
-                            <c:if test="${houseCareful.dianshi == 1}">没有</c:if><br/><br/>
-                            冰箱:
-                            <c:if test="${houseCareful.bingxiang == 0}">有</c:if>
-                            <c:if test="${houseCareful.bingxiang == 1}">没有</c:if>
-                        </div>
+
+                        房屋名字:${house.houseName}<br/><br/>
+                        房东名字: ${house.userName}<br/><br/>
+                        起租月数: ${house.startName}<br/><br/>
+                        月价格:${house.price}<br/><br/>
+                        房屋描述: ${house.narrate}<br/><br/>
+                        小区: ${house.uptown}<br/><br/>
+                        城市: ${house.address}<br/><br/>
+                        类型名字:${house.houseTypeName}<br/><br/>
+                        租赁类型名字:${house.houseLeaseName}<br/><br/>
+                        剩余房间: ${house.residueRoom}<br/><br/>
+                        状态:
+                        <c:if test="${house.state == 1}">满租</c:if>
+                        <c:if test="${house.state == 0}">可租</c:if>
+                    </div>
+                    <div class="result-carful">
+                        房屋详情编号:${houseCareful.id}<br/><br/>
+                        房屋编号:${houseCareful.houseId}<br/><br/>
+                        床:
+                        <c:if test="${houseCareful.chuang == 0}">有</c:if>
+                        <c:if test="${houseCareful.chuang == 1}">没有</c:if><br/><br/>
+
+                        沙发:
+                        <c:if test="${houseCareful.shafa == 0}">有</c:if>
+                        <c:if test="${houseCareful.shafa == 1}">没有</c:if><br/><br/>
+                        空调:
+                        <c:if test="${houseCareful.kongtiao == 0}">有</c:if>
+                        <c:if test="${houseCareful.kongtiao == 1}">没有</c:if><br/><br/>
+                        燃气:
+                        <c:if test="${houseCareful.ranqi == 0}">有</c:if>
+                        <c:if test="${houseCareful.ranqi == 1}">没有</c:if><br/><br/>
+                        洗衣机:
+                        <c:if test="${houseCareful.xiyiji == 0}">有</c:if>
+                        <c:if test="${houseCareful.xiyiji == 1}">没有</c:if><br/><br/>
+                        宽带:
+                        <c:if test="${houseCareful.kuandai == 0}">有</c:if>
+                        <c:if test="${houseCareful.kuandai == 1}">没有</c:if><br/><br/>
+                        电视:
+                        <c:if test="${houseCareful.dianshi == 0}">有</c:if>
+                        <c:if test="${houseCareful.dianshi == 1}">没有</c:if><br/><br/>
+                        冰箱:
+                        <c:if test="${houseCareful.bingxiang == 0}">有</c:if>
+                        <c:if test="${houseCareful.bingxiang == 1}">没有</c:if>
+
+
 
                     </div>
+                </div>
+
                 </c:if>
 
-        <c:if test="${pageAddress==1}">
+                <c:if test="${pageAddress==1}">
 
                     <form action="${pageContext.request.contextPath}/address/selectAll?pageAddress=1"
                           method="post" id="form">
@@ -1229,8 +1249,7 @@
                         <table class="search-tab">
                             <tr>
                                 <th width="70">城市名:</th>
-                                <td><input class="common-text" placeholder="请输入城市名" name="address" id="address"
-                                           type="text" value="${houseName}"/></td>
+                                <td><input class="common-text" placeholder="请输入城市名" name="address"  id="address" type="text" value="${houseName}"/></td>
                                 <td><input name="sub" value="查询" type="submit" id="query"></td>
 
                             </tr>
@@ -1253,7 +1272,8 @@
                                     <tr>
                                         <td>${address.id}</td>
                                         <td>${address.address}</td>
-                                        <td>${address.parentId}</td>
+                                        <!-- 父级城市名-->
+                                        <td>${address.parentAddress.address}</td>
                                         <c:if test="${address.state == 0}">
                                             <td>正常</td>
                                         </c:if>
@@ -1291,16 +1311,22 @@
 
                 </c:if>
 
-        <c:if test="${pageAddress==2}">
+                <c:if test="${pageAddress==2}">
 
                     <div class="result-wrapStartAdd">
 
                         <div class="result-content">
 
-                            <form method="post"
-                                  action="${pageContext.request.contextPath}/address/insertAddress?pageAddress=1">
+                            <form method="post" action="${pageContext.request.contextPath}/address/insertAddress?pageAddress=1">
                                 城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address"><br/><br/>
-                                父级编号:<input type="text" name="parentId"><br/><br/>
+                                父级编号:
+                                <select name="parentId">
+                                    <option value="-1">-请选择-</option>
+                                    <c:forEach items="${addressList}" var="address">
+                                        <option value="${address.id}">${address.address}</option>
+                                    </c:forEach>
+                                </select>
+                                <br/><br/>
 
                                 <br>
                                 <input type="submit" name="sub" value="添加">
@@ -1310,25 +1336,27 @@
                     </div>
                 </c:if>
 
-        <c:if test="${pageAddress==3}">
+                <c:if test="${pageAddress==3}">
 
                     <div class="result-wrapStartAdd">
 
                         <div class="result-content">
 
-                            <form method="post"
-                                  action="${pageContext.request.contextPath}/address/updateByDelete?pageAddress=1">
-                                城市编号:<input type="text" value="${address.id}" name="id" readonly="readonly"/> <br/><br/>
-                                城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="${address.address}"
-                                                                   name="address"> <br/><br/>
-                                父级编号:<input type="text" value="${address.parentId}" name="parentId"> <br/><br/>
-                                <input type="submit" value="修改" id="sub"/>
+                            <form method="post" action="${pageContext.request.contextPath}/address/updateByDelete?pageAddress=1">
+                                城市编号:<input type="text" value="${address.id}"  name="id" readonly="readonly"/> <br/><br/>
+                                城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="${address.address}" name="address"> <br/><br/>
+                                父级编号:<select name="parentId" >
+                                <option value="-1">请选择</option>
+                                <c:forEach items="${addressList}" var="address1">
+                                    <option  value="${address1.id}" <c:if test="${address1.id==address.id}"                                           >selected</c:if>>${address1.address}</option>
+                                </c:forEach>
+                            </select>
+                                <br/><br/>
+                                <input type="submit" value="修改" id="sub" />
                             </form>
                         </div>
-
                     </div>
                 </c:if>
-
             </div>
 
         </div>
