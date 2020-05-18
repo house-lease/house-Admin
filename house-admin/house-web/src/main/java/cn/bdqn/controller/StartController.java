@@ -77,9 +77,19 @@ public class StartController {
     //修改信息
     @RequestMapping("/update")
     public String update(int pageStart,Start start, Model model) {
-        model.addAttribute("pageStart",pageStart);
-        startService.update(start);
-        return "redirect:/start/selectAll";
+        try {
+            //验证是否与数据库数据重复
+
+            int count = startService.queryCount(start.getStartName(), start.getStartValue());
+            model.addAttribute("pageStart", pageStart);
+            if (count == 0) {
+            startService.update(start);
+            return "redirect:/start/selectAll";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/start/updateYe?pageStart=2";
     }
 
 
