@@ -125,6 +125,8 @@ public class AddressController {
                 addressService.updateById(address1);
                 return "redirect:/address/selectAll?pageAddress=1";
             }
+            int id =address.getId();
+            model.addAttribute("id",id);
             return "redirect:/address/selectById?pageAddress=3";
         }catch (Exception e){
             e.printStackTrace();

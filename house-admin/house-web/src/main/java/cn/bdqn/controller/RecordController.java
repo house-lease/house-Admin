@@ -60,7 +60,6 @@ public class RecordController {
     public String getRecordList(int pageRecordList,@RequestParam(defaultValue = "0")Integer pageCode, String phone, String record, Model model) throws MyException {
         Map<String, Object> params = new HashMap<>();
         if (phone != null) {
-            System.out.println(phone);
             params.put("phone", phone);
         }
         if(record != null && !"".equals(record)){

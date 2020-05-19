@@ -396,18 +396,20 @@
             margin-left: 400px;
         }
 
-        .fudong{
+        .fudong {
             margin-top: 50px;
             float: left;
             margin-left: 400px;
         }
+
         .result-wrapHouse {
 
 
             margin-right: 50px;
             float: left;
         }
-        .result-carful{
+
+        .result-carful {
 
             float: left;
 
@@ -764,7 +766,7 @@
                                 <td>
                                     <a href="${pageContext.request.contextPath}/user/selectByUserMessage?pageUser=2&id=${user.id}">查看</a>
                                     &nbsp;
-                                    <a href="${pageContext.request.contextPath}/user/updateByState?pageUser=1&id=${user.id}">修改</a>
+                                    <a href="${pageContext.request.contextPath}/user/updateByState?pageUser=1&id=${user.id}">删除</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -840,7 +842,7 @@
 
             </c:if>
 
-        <c:if test="${pageCareful==3}">
+            <c:if test="${pageCareful==3}">
 
                 <div class="result-wrapHouseCarfulInfo">
 
@@ -896,7 +898,7 @@
                 </div>
             </c:if>
 
-        <c:if test="${pageCareful==2}">
+            <c:if test="${pageCareful==2}">
 
             <div class="result-wrapHouseCareful">
 
@@ -920,7 +922,7 @@
 
                 </c:if>
 
-        <c:if test="${pageCareful==1}">
+                <c:if test="${pageCareful==1}">
 
                     <form action="${pageContext.request.contextPath}/house/queryHouseCarefulById?pageCareful=1"
                           method="post" id="form">
@@ -1009,7 +1011,7 @@
 
                 </c:if>
 
-        <c:if test="${pageRecordList==1}">
+                <c:if test="${pageRecordList==1}">
 
                     <form action="${pageContext.request.contextPath}/record/getRecordList?pageRecordList=1"
                           method="post" id="form">
@@ -1022,7 +1024,7 @@
                                 ></td>
 
                                 <th width="70">关键字:</th>
-                                <td><input class="common-text" placeholder="手机号" name="phone" id="userId" id="text"
+                                <td><input class="common-text" placeholder="手机号" name="phone" id="phone" id="text"
                                            type="text"
                                 ></td>
 
@@ -1078,13 +1080,45 @@
                     <c:if test="${record==''||record==null}">
                         <div id="fenye">
 
-                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.navigateFirstPage}">首页</a>
-                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.prePage}">上一页</a>
+                            <a <c:if test="${phone != null}">
+                                href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&phone=${phone}&pageCode=${recordPageInfo.navigateFirstPage}"
+                            </c:if>
+                                    <c:if test="${phone == null}">
+                                        href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&pageCode=${recordPageInfo.navigateFirstPage}"
+                                    </c:if>
+                            >首页</a>
+                            <a <c:if test="${phone != null}">
+                                href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&phone=${phone}&pageCode=${recordPageInfo.prePage}"
+                            </c:if>
+                                    <c:if test="${phone == null}">
+                                        href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&pageCode=${recordPageInfo.prePage}"
+                                    </c:if>
+                                    >上一页</a>
                             <c:forEach var="i" begin="1" end="${recordPageInfo.pages}">
-                                <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${i}">${i}</a>
+                                <a
+                                        <c:if test="${phone != null}">
+                                            href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&phone=${phone}&pageCode=${i}"
+                                        </c:if>
+                                        <c:if test="${phone == null}">
+                                            href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&pageCode=${i}"
+                                        </c:if>
+                                        >${i}</a>
                             </c:forEach>
-                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.nextPage}">下一页</a>
-                            <a href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&userId=${userId}&pageCode=${recordPageInfo.navigateLastPage}">尾页</a>
+                            <a
+                                    <c:if test="${phone != null}">
+                                        href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&phone=${phone}&pageCode=${recordPageInfo.nextPage}"
+                                    </c:if>
+                                    <c:if test="${phone == null}">
+                                        href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&pageCode=${recordPageInfo.nextPage}"
+                                    </c:if>
+
+                                    >下一页</a>
+                            <a
+                                    <c:if test="${phone != null}">
+                                        href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&phone=${phone}&pageCode=${recordPageInfo.navigateLastPage}"                                    </c:if>
+                                    <c:if test="${phone == null}">
+                                        href="${pageContext.request.contextPath}/record/getRecordList/?pageRecordList=1&pageCode=${recordPageInfo.navigateLastPage}"                                    </c:if>
+                                   >尾页</a>
 
                         </div>
                     </c:if>
@@ -1092,7 +1126,7 @@
 
                 </c:if>
 
-        <c:if test="${pageHouse==1}">
+                <c:if test="${pageHouse==1}">
 
                     <form action="${pageContext.request.contextPath}/house/queryByPage?pageHouse=1"
                           method="post" id="form">
@@ -1185,59 +1219,57 @@
 
                 </c:if>
 
-        <c:if test="${pageHouse==2}">
-                <div class="fudong" >
-                    <div class="result-wrapHouse">
+                <c:if test="${pageHouse==2}">
+                    <div class="fudong">
+                        <div class="result-wrapHouse">
 
 
+                            房屋名字:${house.houseName}<br/><br/>
+                            房东名字: ${house.userName}<br/><br/>
+                            起租月数: ${house.startName}<br/><br/>
+                            月价格:${house.price}<br/><br/>
+                            房屋描述: ${house.narrate}<br/><br/>
+                            小区: ${house.uptown}<br/><br/>
+                            城市: ${house.address}<br/><br/>
+                            类型名字:${house.houseTypeName}<br/><br/>
+                            租赁类型名字:${house.houseLeaseName}<br/><br/>
+                            剩余房间: ${house.residueRoom}<br/><br/>
+                            状态:
+                            <c:if test="${house.state == 1}">满租</c:if>
+                            <c:if test="${house.state == 0}">可租</c:if>
+                        </div>
+                        <div class="result-carful">
+                            房屋详情编号:${houseCareful.id}<br/><br/>
+                            房屋编号:${houseCareful.houseId}<br/><br/>
+                            床:
+                            <c:if test="${houseCareful.chuang == 0}">有</c:if>
+                            <c:if test="${houseCareful.chuang == 1}">没有</c:if><br/><br/>
 
-                        房屋名字:${house.houseName}<br/><br/>
-                        房东名字: ${house.userName}<br/><br/>
-                        起租月数: ${house.startName}<br/><br/>
-                        月价格:${house.price}<br/><br/>
-                        房屋描述: ${house.narrate}<br/><br/>
-                        小区: ${house.uptown}<br/><br/>
-                        城市: ${house.address}<br/><br/>
-                        类型名字:${house.houseTypeName}<br/><br/>
-                        租赁类型名字:${house.houseLeaseName}<br/><br/>
-                        剩余房间: ${house.residueRoom}<br/><br/>
-                        状态:
-                        <c:if test="${house.state == 1}">满租</c:if>
-                        <c:if test="${house.state == 0}">可租</c:if>
+                            沙发:
+                            <c:if test="${houseCareful.shafa == 0}">有</c:if>
+                            <c:if test="${houseCareful.shafa == 1}">没有</c:if><br/><br/>
+                            空调:
+                            <c:if test="${houseCareful.kongtiao == 0}">有</c:if>
+                            <c:if test="${houseCareful.kongtiao == 1}">没有</c:if><br/><br/>
+                            燃气:
+                            <c:if test="${houseCareful.ranqi == 0}">有</c:if>
+                            <c:if test="${houseCareful.ranqi == 1}">没有</c:if><br/><br/>
+                            洗衣机:
+                            <c:if test="${houseCareful.xiyiji == 0}">有</c:if>
+                            <c:if test="${houseCareful.xiyiji == 1}">没有</c:if><br/><br/>
+                            宽带:
+                            <c:if test="${houseCareful.kuandai == 0}">有</c:if>
+                            <c:if test="${houseCareful.kuandai == 1}">没有</c:if><br/><br/>
+                            电视:
+                            <c:if test="${houseCareful.dianshi == 0}">有</c:if>
+                            <c:if test="${houseCareful.dianshi == 1}">没有</c:if><br/><br/>
+                            冰箱:
+                            <c:if test="${houseCareful.bingxiang == 0}">有</c:if>
+                            <c:if test="${houseCareful.bingxiang == 1}">没有</c:if>
+
+
+                        </div>
                     </div>
-                    <div class="result-carful">
-                        房屋详情编号:${houseCareful.id}<br/><br/>
-                        房屋编号:${houseCareful.houseId}<br/><br/>
-                        床:
-                        <c:if test="${houseCareful.chuang == 0}">有</c:if>
-                        <c:if test="${houseCareful.chuang == 1}">没有</c:if><br/><br/>
-
-                        沙发:
-                        <c:if test="${houseCareful.shafa == 0}">有</c:if>
-                        <c:if test="${houseCareful.shafa == 1}">没有</c:if><br/><br/>
-                        空调:
-                        <c:if test="${houseCareful.kongtiao == 0}">有</c:if>
-                        <c:if test="${houseCareful.kongtiao == 1}">没有</c:if><br/><br/>
-                        燃气:
-                        <c:if test="${houseCareful.ranqi == 0}">有</c:if>
-                        <c:if test="${houseCareful.ranqi == 1}">没有</c:if><br/><br/>
-                        洗衣机:
-                        <c:if test="${houseCareful.xiyiji == 0}">有</c:if>
-                        <c:if test="${houseCareful.xiyiji == 1}">没有</c:if><br/><br/>
-                        宽带:
-                        <c:if test="${houseCareful.kuandai == 0}">有</c:if>
-                        <c:if test="${houseCareful.kuandai == 1}">没有</c:if><br/><br/>
-                        电视:
-                        <c:if test="${houseCareful.dianshi == 0}">有</c:if>
-                        <c:if test="${houseCareful.dianshi == 1}">没有</c:if><br/><br/>
-                        冰箱:
-                        <c:if test="${houseCareful.bingxiang == 0}">有</c:if>
-                        <c:if test="${houseCareful.bingxiang == 1}">没有</c:if>
-
-
-
-                    </div>
-                </div>
 
                 </c:if>
 
@@ -1249,7 +1281,8 @@
                         <table class="search-tab">
                             <tr>
                                 <th width="70">城市名:</th>
-                                <td><input class="common-text" placeholder="请输入城市名" name="address"  id="address" type="text" value="${houseName}"/></td>
+                                <td><input class="common-text" placeholder="请输入城市名" name="address" id="address"
+                                           type="text" value="${houseName}"/></td>
                                 <td><input name="sub" value="查询" type="submit" id="query"></td>
 
                             </tr>
@@ -1317,7 +1350,8 @@
 
                         <div class="result-content">
 
-                            <form method="post" action="${pageContext.request.contextPath}/address/insertAddress?pageAddress=1">
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/address/insertAddress?pageAddress=1">
                                 城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address"><br/><br/>
                                 父级编号:
                                 <select name="parentId">
@@ -1342,17 +1376,20 @@
 
                         <div class="result-content">
 
-                            <form method="post" action="${pageContext.request.contextPath}/address/updateByDelete?pageAddress=1">
-                                城市编号:<input type="text" value="${address.id}"  name="id" readonly="readonly"/> <br/><br/>
-                                城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="${address.address}" name="address"> <br/><br/>
-                                父级编号:<select name="parentId" >
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/address/updateByDelete?pageAddress=1">
+                                城市编号:<input type="text" value="${address.id}" name="id" readonly="readonly"/> <br/><br/>
+                                城市名:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="${address.address}"
+                                                                   name="address"> <br/><br/>
+                                父级编号:<select name="parentId">
                                 <option value="-1">请选择</option>
                                 <c:forEach items="${addressList}" var="address1">
-                                    <option  value="${address1.id}" <c:if test="${address1.id==address.id}"                                           >selected</c:if>>${address1.address}</option>
+
+                                    <option value="${address1.id}" <c:if test="${address1.id==address.parentId}">selected</c:if>>${address1.address}</option>
                                 </c:forEach>
                             </select>
                                 <br/><br/>
-                                <input type="submit" value="修改" id="sub" />
+                                <input type="submit" value="修改" id="sub"/>
                             </form>
                         </div>
                     </div>
@@ -1366,13 +1403,13 @@
 </body>
 <script>
     const record = document.getElementById("record");
-    const userID = document.getElementById("userId");
+    const phone = document.getElementById("phone");
     const form = document.querySelector("form");
     form.onsubmit = (event) => {
-        if (record.value === '' || userID.value === '') {
+        if (record.value === '' || phone.value === '') {
             return true;
         }
-        alert("订单号和用户名不能同时使用");
+        alert("订单号和手机号不能同时使用");
         return false;
     }
 </script>

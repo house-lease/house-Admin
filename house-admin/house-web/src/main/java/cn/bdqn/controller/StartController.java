@@ -89,6 +89,8 @@ public class StartController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        int id= start.getId();
+        model.addAttribute("id",id);
         return "redirect:/start/updateYe?pageStart=2";
     }
 
