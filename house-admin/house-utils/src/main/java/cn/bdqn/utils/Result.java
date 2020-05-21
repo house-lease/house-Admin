@@ -1,11 +1,13 @@
 package cn.bdqn.utils;
 
 
+import java.util.HashMap;
+
 /**
  * 统一返回结果
  * @param <T>
  */
-public class Result<T> {
+public class Result<T> extends HashMap<String, Object> {
 
     //返回结果
     private T data;

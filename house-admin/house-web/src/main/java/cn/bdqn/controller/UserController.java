@@ -30,84 +30,146 @@ public class UserController {
     //用户业务层
     @Autowired
     private UserService userService;
+//
+//    /**
+//     * 查询全部及根据用户名模糊查询
+//     */
+//    @RequestMapping("/selectByUser")
+//    public String selectByUser(int pageUser, Model model, String username
+//            , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size) {
+//        try {
+//            List<User> users = userService.queryByUser(username, page, size);//全部数据
+//            PageInfo pageInfo = new PageInfo(users);
+//            if (users != null) {
+//                model.addAttribute("pageInfo", pageInfo);
+//                model.addAttribute("pageUser",pageUser);
+//                model.addAttribute("userList", users);//用户集合
+//                model.addAttribute("username", username);
+//                return "mainlist";
+//            } else {
+//                return "error";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "error";
+//        }
+//    }
+
+
+//    /**
+//     * 查看用户信息
+//     */
+//    @RequestMapping("/selectByUserMessage")
+//    public String selectByUserMessage(int pageUser, Integer id, Model model) {
+//
+//        try {
+//            User user = userService.queryByUserId(id);//根据用户id查询
+//
+//            List<User> userList = new ArrayList<User>();
+//            userList.add(user);
+//            model.addAttribute("users", userList);
+//            model.addAttribute("pageUser", pageUser);
+//            return "mainlist";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "error";
+//        }
+//    }
+
+//    /**
+//     *  查看用户信息
+//     */
+//    @RequestMapping("/selectById")
+//    public String selectById(Integer id, Model model){
+//
+//        try {
+//            User user = userService.queryByUserId(id);//根据用户id查询
+//            System.out.println(user);
+//            model.addAttribute("user",user);
+//            return "updateUserByState";
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return "error";
+//        }
+//    }
+
+
+
+//    /**
+//     * 根据用户id修改状态
+//     */
+//    @RequestMapping("/updateByState")
+//    public String updateByState(int pageUser, Integer id, Integer state, Model model) {
+//
+//        try {
+//            userService.updateByState(id);
+//            model.addAttribute("pageUser", pageUser);
+//            return "redirect:/user/selectByUser";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "error";
+//        }
+//    }
+
 
     /**
      * 查询全部及根据用户名模糊查询
      */
     @RequestMapping("/selectByUser")
-    public String selectByUser(int pageUser, Model model, String username
+    @ResponseBody
+    public Result selectByUser(String username
             , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size) {
+        Result  result =new Result();
         try {
-            List<User> users = userService.queryByUser(username, page, size);//全部数据
+            List<User> users = userService.queryByUser(username, 0, 5);//全部数据
             PageInfo pageInfo = new PageInfo(users);
             if (users != null) {
-                model.addAttribute("pageInfo", pageInfo);
-                model.addAttribute("pageUser",pageUser);
-                model.addAttribute("userList", users);//用户集合
-                model.addAttribute("username", username);
-                return "mainlist";
+               result.put("pageInfo", pageInfo);
+                result.put("userList", users);//用户集合
+                result.put("username", username);
+                result.put("message","success");
             } else {
-                return "error";
+                result.put("message","error");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "error";
+            result.put("message","error");
         }
+        return result;
     }
-
-
-    /**
-     * 查看用户信息
-     */
-    @RequestMapping("/selectByUserMessage")
-    public String selectByUserMessage(int pageUser, Integer id, Model model) {
-
-        try {
-            User user = userService.queryByUserId(id);//根据用户id查询
-
-            List<User> userList = new ArrayList<User>();
-            userList.add(user);
-            model.addAttribute("users", userList);
-            model.addAttribute("pageUser", pageUser);
-            return "mainlist";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error";
-        }
-    }
-
-    /**
-     *  查看用户信息
-     */
-    @RequestMapping("/selectById")
-    public String selectById(Integer id, Model model){
-
-        try {
-            User user = userService.queryByUserId(id);//根据用户id查询
-            System.out.println(user);
-            model.addAttribute("user",user);
-            return "updateUserByState";
-        }catch (Exception e){
-            e.printStackTrace();
-            return "error";
-        }
-    }
-
-
 
     /**
      * 根据用户id修改状态
      */
     @RequestMapping("/updateByState")
-    public String updateByState(int pageUser, Integer id, Integer state, Model model) {
-
+    @ResponseBody
+    public Result updateByState(Integer id) {
+        Result  result =new Result();
         try {
             userService.updateByState(id);
-            model.addAttribute("pageUser", pageUser);
-            return "redirect:/user/selectByUser";
+            result.put("message","success");
         } catch (Exception e) {
             e.printStackTrace();
-            return "error";
+            result.put("message","error");
         }
+        return result;
+    }
+
+    /**
+     * 查看用户信息
+     */
+    @RequestMapping("/selectByUserMessage")
+    @ResponseBody
+    public Result selectByUserMessage(Integer id) {
+        Result  result =new Result();
+        try {
+            User user = userService.queryByUserId(id);//根据用户id查询
+            result.put("user", user);
+            result.put("message","success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("message","error");
+        }
+        return  result ;
     }
 }

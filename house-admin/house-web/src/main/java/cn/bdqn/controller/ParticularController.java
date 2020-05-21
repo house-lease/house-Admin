@@ -33,36 +33,68 @@ public class ParticularController {
      * @param phone
      * @return
      */
+//    @RequestMapping("/selectByUserId")
+//    public String selectByUserId(Integer id,int pageParticular, Model model, String phone, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
+//
+//        if(id==null){
+//
+//            List<Particular> particulars = particularService.queryByUserId(phone,page,size);
+//            PageInfo pageInfo = new PageInfo(particulars);
+//            model.addAttribute("particulars",particulars);
+//            model.addAttribute("pageInfo",pageInfo);
+//            model.addAttribute("phone",phone);
+//            model.addAttribute("pageParticular",pageParticular);
+//            return "mainlist";
+//        }else if(phone == null|| phone==""){
+//
+//            List<Particular> particulars = particularService.queryByPrimaryKey(id);
+//            model.addAttribute("particulars",particulars);
+//            model.addAttribute("id",id);
+//            model.addAttribute("pageParticular",pageParticular);
+//            return "mainlist";
+//        }else if(phone!=null ||phone !="" &&id!=null){
+//            List<Particular> particulars = particularService.queryByIdAndPhone(phone, id);
+//            model.addAttribute("particulars",particulars);
+//            model.addAttribute("id",id);
+//            model.addAttribute("phone",phone);
+//            model.addAttribute("pageParticular",pageParticular);
+//            return "mainlist";
+//        }else {
+//            return "error";
+//        }
+//
+//
+//    }
+
+
+
+
     @RequestMapping("/selectByUserId")
-    public String selectByUserId(Integer id,int pageParticular, Model model, String phone, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
-
+    @ResponseBody
+    public Result selectByUserId(Integer id, String phone, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
+        Result  result =new Result();
         if(id==null){
-
             List<Particular> particulars = particularService.queryByUserId(phone,page,size);
             PageInfo pageInfo = new PageInfo(particulars);
-            model.addAttribute("particulars",particulars);
-            model.addAttribute("pageInfo",pageInfo);
-            model.addAttribute("phone",phone);
-            model.addAttribute("pageParticular",pageParticular);
-            return "mainlist";
+            result.put("particulars",particulars);
+            result.put("pageInfo",pageInfo);
+            result.put("phone",phone);
+            result.put("message","success");
         }else if(phone == null|| phone==""){
-
             List<Particular> particulars = particularService.queryByPrimaryKey(id);
-            model.addAttribute("particulars",particulars);
-            model.addAttribute("id",id);
-            model.addAttribute("pageParticular",pageParticular);
-            return "mainlist";
+            result.put("particulars",particulars);
+            result.put("id",id);
+            result.put("message","success");
+
         }else if(phone!=null ||phone !="" &&id!=null){
             List<Particular> particulars = particularService.queryByIdAndPhone(phone, id);
-            model.addAttribute("particulars",particulars);
-            model.addAttribute("id",id);
-            model.addAttribute("phone",phone);
-            model.addAttribute("pageParticular",pageParticular);
-            return "mainlist";
+            result.put("particulars",particulars);
+            result.put("id",id);
+            result.put("phone",phone);
+            result.put("message","success");
         }else {
-            return "error";
+            result.put("message","error");
         }
-
-
+        return result;
     }
 }

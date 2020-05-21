@@ -25,29 +25,31 @@ public class RecordController {
     @Autowired
     private RecordService recordService;
 
-    /**
-     * 保存订单
-     *
-     * @param record
-     * @return
-     * @throws MyException
-     */
-    @RequestMapping("/save")
-    @ResponseBody
-    public Result save(Record record) throws MyException {
-        Result<Map<String, Object>> results = new Result<>();
-        Map<String, Object> result = new HashMap<>();
-        try {
-            recordService.save(record);
-            result.put("success", "付款成功");
-        } catch (Exception e) {
-            results.setMessage("付款失败去请稍后再试");
-            e.printStackTrace();
-            throw new MyException("付款失败");
-        }
-        results.setData(result);
-        return results;
-    }
+//    /**
+//     * 保存订单
+//     *
+//     * @param record
+//     * @return
+//     * @throws MyException
+//     */
+//    @RequestMapping("/save")
+//    @ResponseBody
+//    public Result save(Record record) throws MyException {
+//        Result<Map<String, Object>> results = new Result<>();
+//        Map<String, Object> result = new HashMap<>();
+//        try {
+//            recordService.save(record);
+//            result.put("success", "付款成功");
+//        } catch (Exception e) {
+//            results.setMessage("付款失败去请稍后再试");
+//            e.printStackTrace();
+//            throw new MyException("付款失败");
+//        }
+//        results.setData(result);
+//        return results;
+//    }
+
+
 
     /**
      * 查询订单
@@ -55,7 +57,7 @@ public class RecordController {
      * @param phone 用户手机号
      * @param record 订单号
      * @return
-     */
+
     @RequestMapping("/getRecordList")
     public String getRecordList(int pageRecordList,@RequestParam(defaultValue = "0")Integer pageCode, String phone, String record, Model model) throws MyException {
         Map<String, Object> params = new HashMap<>();
@@ -79,21 +81,58 @@ public class RecordController {
         }
         return "mainlist";
     }
-    @RequestMapping("/getRecordById")
+    */
+
+
+
+
+//    @RequestMapping("/getRecordById")
+//    @ResponseBody
+//    public Result getRecordById(Integer id) throws MyException {
+//        Result result = new Result();
+//        try {
+//            Record record = recordService.queryRecordById(id);
+//            result.setData(record);
+//            result.setMessage("success");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            result.setMessage("error");
+//            throw new MyException("网络异常");
+//        }
+//        return result;
+//    }
+
+   /**
+     * 查询订单
+     * @param pageCode 页码
+     * @param phone 用户手机号
+    * @param record 订单号
+   */
+
+    @RequestMapping("/getRecordList")
     @ResponseBody
-    public Result getRecordById(Integer id) throws MyException {
-        Result result = new Result();
+    public Result getRecordList(@RequestParam(defaultValue = "0")Integer pageCode, String phone, String record, Model model) throws MyException {
+        Map<String, Object> params = new HashMap<>();
+         Result result =new Result();
+        if (phone != null) {
+            params.put("phone", phone);
+        }
+        if(record != null && !"".equals(record)){
+            params.put("record", record);
+        }
+        params.put("pageCode", pageCode);
+
         try {
-            Record record = recordService.queryRecordById(id);
-            result.setData(record);
-            result.setMessage("success");
-        } catch (Exception e) {
+            PageInfo<Record> recordPageInfo =  recordService.queryRecord(params);
+            result.put("recordPageInfo", recordPageInfo);
+            result.put("phone", phone);
+            result.put("record", record);
+            result.put("message","success");
+        }catch(Exception e){
             e.printStackTrace();
-            result.setMessage("error");
             throw new MyException("网络异常");
         }
         return result;
     }
-
 
 }

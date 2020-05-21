@@ -189,7 +189,7 @@
           payer_id = (select id from t_user where phone = #{phone}) or payee_id = (select id from t_user where phone = #{phone})
         </if>
         <if test="record != null">
-          or record = #{record}
+           record = #{record}
         </if>
     </trim>
   </select>
