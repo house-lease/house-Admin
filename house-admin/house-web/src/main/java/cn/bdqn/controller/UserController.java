@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -117,14 +118,17 @@ public class UserController {
      */
     @RequestMapping("/selectByUser")
     @ResponseBody
-    public Result selectByUser(String username
-            , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size) {
+    public Result selectByUser(@RequestBody String username
+            , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2")Integer size) {
+        System.out.println(username);
+        System.out.println(page);
+        System.out.println(size);
         Result  result =new Result();
         try {
-            List<User> users = userService.queryByUser(username, 0, 5);//全部数据
+            List<User> users = userService.queryByUser(username, page, size);//全部数据
             PageInfo pageInfo = new PageInfo(users);
             if (users != null) {
-               result.put("pageInfo", pageInfo);
+                result.put("pageInfo", pageInfo);
                 result.put("userList", users);//用户集合
                 result.put("username", username);
                 result.put("message","success");
