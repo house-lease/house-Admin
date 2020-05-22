@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -94,7 +95,6 @@ public class UserController {
 //    }
 
 
-
 //    /**
 //     * 根据用户id修改状态
 //     */
@@ -118,22 +118,27 @@ public class UserController {
     @RequestMapping("/selectByUser")
     @ResponseBody
     public Result selectByUser(String username
-            , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size) {
-        Result  result =new Result();
+            , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size,
+                               @RequestBody Map<String, Object> body) {
+        username = username == null ? (String) body.get("username") : username;
+        page = page == 1 ? (Integer) body.get("pageCode") : page;
+        size = size == 2  ? (Integer) body.get("size") : size;
+        System.out.println(body);
+        Result result = new Result();
         try {
             List<User> users = userService.queryByUser(username, page, size);//全部数据
             PageInfo pageInfo = new PageInfo(users);
             if (users != null) {
-               result.put("pageInfo", pageInfo);
+                result.put("pageInfo", pageInfo);
                 result.put("userList", users);//用户集合
                 result.put("username", username);
-                result.put("message","success");
+                result.put("message", "success");
             } else {
-                result.put("message","error");
+                result.put("message", "error");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            result.put("message","error");
+            result.put("message", "error");
         }
         return result;
     }
@@ -144,13 +149,13 @@ public class UserController {
     @RequestMapping("/updateByState")
     @ResponseBody
     public Result updateByState(Integer id) {
-        Result  result =new Result();
+        Result result = new Result();
         try {
             userService.updateByState(id);
-            result.put("message","success");
+            result.put("message", "success");
         } catch (Exception e) {
             e.printStackTrace();
-            result.put("message","error");
+            result.put("message", "error");
         }
         return result;
     }
@@ -161,15 +166,15 @@ public class UserController {
     @RequestMapping("/selectByUserMessage")
     @ResponseBody
     public Result selectByUserMessage(Integer id) {
-        Result  result =new Result();
+        Result result = new Result();
         try {
             User user = userService.queryByUserId(id);//根据用户id查询
             result.put("user", user);
-            result.put("message","success");
+            result.put("message", "success");
         } catch (Exception e) {
             e.printStackTrace();
-            result.put("message","error");
+            result.put("message", "error");
         }
-        return  result ;
+        return result;
     }
 }

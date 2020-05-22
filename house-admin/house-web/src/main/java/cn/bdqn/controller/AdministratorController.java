@@ -25,18 +25,20 @@ public class AdministratorController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Result<Map<String, Object>> login(String name, String password) throws MyException {
-        Result<Map<String, Object>> result = new Result<>();
+    public Result login(String name, String password, @RequestBody Map<String, String> body) throws MyException {
+        Result result = new Result<>();
         try {
+            name = name == null ? name = body.get("username") : name;
+            password = password == null ? password = body.get("password"): password;
             Administrator administrator = administratorService.login(name, password);
             Map<String, Object> map = new HashMap<>();
+            System.out.println(administrator);
             if(administrator != null){
-                map.put("admin",administrator);
+                result.put("admin",administrator);
                 String token = UUID.randomUUID().toString();
-                map.put("token", token);
-                map.put("success", "200");
+                result.put("token", token);
+                result.put("success", "200");
                 result.setMessage("登录成功");
-                result.setData(map);
             }else{
                 result.setMessage("登录失败, 账号或密码输入错误");
             }
