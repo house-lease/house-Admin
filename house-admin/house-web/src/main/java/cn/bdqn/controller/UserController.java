@@ -121,7 +121,7 @@ public class UserController {
             , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size) {
         Result  result =new Result();
         try {
-            List<User> users = userService.queryByUser(username, 0, 5);//全部数据
+            List<User> users = userService.queryByUser(username, page, size);//全部数据
             PageInfo pageInfo = new PageInfo(users);
             if (users != null) {
                result.put("pageInfo", pageInfo);
