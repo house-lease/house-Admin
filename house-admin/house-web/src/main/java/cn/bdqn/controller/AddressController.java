@@ -9,12 +9,14 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *    城市
@@ -147,7 +149,13 @@ public class AddressController {
      **/
     @RequestMapping("/selectAll")
     @ResponseBody
-    public Result selectAll(String address, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
+    public Result selectAll(String address,
+                            @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size,
+                            @RequestBody Map<String, Object> body){
+        address = address == null ? (String) body.get("address") : address;
+        page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
+        size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
+        System.out.println(body);
         Result  result =new Result();
         try {
             List<Address> addressList = addressService.queryAll(address,page,size);//查询
@@ -174,7 +182,9 @@ public class AddressController {
      */
     @RequestMapping("/deleteByState")
     @ResponseBody
-    public Result deleteByState(Integer id){
+    public Result deleteByState(Integer id,@RequestBody Map<String, Object> body){
+        id = id == null ? (Integer) body.get("address") : id;
+        System.out.println(body);
         Result  result =new Result();
         try{
             addressService.deleteById(id);
@@ -195,7 +205,9 @@ public class AddressController {
      */
     @RequestMapping("/selectById")
     @ResponseBody
-    public Result selectById(Integer id){
+    public Result selectById(Integer id,@RequestBody Map<String, Object> body){
+        id = id == null ? (Integer) body.get("address") : id;
+        System.out.println(body);
         Result  result =new Result();
         try {
             Address address = addressService.selectById(id);//根据id查询出城市
@@ -234,7 +246,8 @@ public class AddressController {
      */
     @RequestMapping("/insertAddress")
     @ResponseBody
-    public Result insertAddress(Address address){
+    public Result insertAddress(@RequestBody Address address ){
+
         Result results =new Result();
         try {
             int result = addressService.selectByAddress(address.getAddress());
@@ -257,7 +270,8 @@ public class AddressController {
      */
     @RequestMapping("/updateByDelete")
     @ResponseBody
-    public Result updateByDelete(Address address){
+    public Result updateByDelete(@RequestBody Address address){
+
         Result results =new Result();
         try {
             int result = addressService.selectByAddress(address.getAddress());

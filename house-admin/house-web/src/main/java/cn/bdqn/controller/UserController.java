@@ -121,8 +121,8 @@ public class UserController {
             , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size,
                                @RequestBody Map<String, Object> body) {
         username = username == null ? (String) body.get("username") : username;
-        page = page == 1 ? (Integer) body.get("pageCode") : page;
-        size = size == 2  ? (Integer) body.get("size") : size;
+        page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
+        size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
         System.out.println(body);
         Result result = new Result();
         try {
@@ -148,7 +148,9 @@ public class UserController {
      */
     @RequestMapping("/updateByState")
     @ResponseBody
-    public Result updateByState(Integer id) {
+    public Result updateByState(Integer id,@RequestBody Map<String, Object> body) {
+        id = id == null ? (Integer) body.get("id") : id;
+        System.out.println(body);
         Result result = new Result();
         try {
             userService.updateByState(id);
@@ -165,7 +167,9 @@ public class UserController {
      */
     @RequestMapping("/selectByUserMessage")
     @ResponseBody
-    public Result selectByUserMessage(Integer id) {
+    public Result selectByUserMessage(Integer id,@RequestBody Map<String, Object> body) {
+        id = id == null ? (Integer) body.get("id") : id;
+        System.out.println(body);
         Result result = new Result();
         try {
             User user = userService.queryByUserId(id);//根据用户id查询

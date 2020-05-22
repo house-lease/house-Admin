@@ -1,19 +1,21 @@
 package cn.bdqn.controller;
 
-import cn.bdqn.domain.Address;
+
 import cn.bdqn.domain.Apply;
-import cn.bdqn.service.AddressService;
+
 import cn.bdqn.service.ApplyService;
-import cn.bdqn.service.UserService;
+
 import cn.bdqn.utils.Result;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/apply")
 @Controller
@@ -26,7 +28,13 @@ public class ApplyController {
      **/
     @RequestMapping("/selectByUserName")
     @ResponseBody
-    public Result selectByUserName(String userName, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int size){
+    public Result selectByUserName(String userName,
+                                   @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int size,
+                                   @RequestBody Map<String, Object> body){
+        userName = userName == null ? (String) body.get("userName") : userName;
+        page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
+        size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
+        System.out.println(body);
         Result  result =new Result();
         try {
 
@@ -48,7 +56,9 @@ public class ApplyController {
      **/
     @RequestMapping("/selectAll")
     @ResponseBody
-    public Result selectAll(Integer id){
+    public Result selectAll(Integer id,@RequestBody Map<String, Object> body){
+        id = id == null ? (Integer) body.get("id") : id;
+        System.out.println(body);
         Result  result =new Result();
         try {
             Apply applies= applyService.queryById(id);//查询
@@ -67,7 +77,9 @@ public class ApplyController {
      */
     @RequestMapping("/deleteById")
     @ResponseBody
-    public Result deleteById(Integer userId){
+    public Result deleteById(Integer userId,@RequestBody Map<String, Object> body){
+        userId = userId == null ? (Integer) body.get("userId") : userId;
+        System.out.println(body);
         Result  result =new Result();
         try{
             applyService.updateById(userId);

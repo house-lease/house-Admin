@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -111,7 +112,13 @@ public class RecordController {
 
     @RequestMapping("/getRecordList")
     @ResponseBody
-    public Result getRecordList(@RequestParam(defaultValue = "0")Integer pageCode, String phone, String record, Model model) throws MyException {
+    public Result getRecordList(@RequestParam(defaultValue = "0")Integer pageCode,
+                                String phone, String record,
+                                @RequestBody Map<String, Object> body) throws MyException {
+        pageCode = body.get("pageCode")  ==null  ? pageCode : (Integer) body.get("pageCode") ;
+        phone = phone == null ? (String) body.get("phone") : phone;
+        record = record == null ? (String) body.get("record") : record;
+        System.out.println(body);
         Map<String, Object> params = new HashMap<>();
          Result result =new Result();
         if (phone != null) {
