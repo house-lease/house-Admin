@@ -40,15 +40,12 @@
     </select>
 
 
-
-
-
-
   <!--  修改订单状态-->
   <update id="updateById">
     update t_particular
        set state = 1
     where id = #{id,jdbcType=INTEGER}
+
   </update>
 
 

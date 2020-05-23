@@ -25,4 +25,5 @@ public interface UserService {
 
     //根据用户id修改状态
     void updateByState(Integer id);
+
 }

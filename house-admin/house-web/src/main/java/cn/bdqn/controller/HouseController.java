@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -71,7 +72,9 @@ public class HouseController {
 
   @RequestMapping("/queryByHouseId")
   @ResponseBody
-  public Result queryByHouseId(Integer houseId) throws MyException {
+  public Result queryByHouseId(Integer houseId,@RequestBody Map<String, Object> body) throws MyException {
+      houseId = houseId == null ? (Integer) body.get("houseId") : houseId;
+      System.out.println(body);
       Result result = new Result();
       try {
 
@@ -121,7 +124,17 @@ public class HouseController {
      */
      @RequestMapping("/queryByPage")
      @ResponseBody
-     public Result queryByPage( @RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "2") Integer size, String houseName,Integer id,String userName) {
+     public Result queryByPage( @RequestParam(defaultValue = "1") Integer page,
+                                @RequestParam(defaultValue = "2") Integer size,
+                                String houseName,Integer id,String userName,
+                                @RequestBody Map<String, Object> body) {
+
+         houseName = houseName == null ? (String) body.get("houseName") : houseName;
+         userName = userName == null ? (String) body.get("userName") : userName;
+         id = id == null ? (Integer) body.get("id") : id;
+         page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
+         size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
+         System.out.println(body);
          Result result = new Result();
      try {
 
@@ -168,7 +181,9 @@ public class HouseController {
      */
      @RequestMapping("selectHouseCareful")
      @ResponseBody
-     public Result selectHouseCarefulByHouseId(Integer houseId){
+     public Result selectHouseCarefulByHouseId(Integer houseId, @RequestBody Map<String, Object> body){
+         houseId = houseId == null ? (Integer) body.get("houseId") : houseId;
+         System.out.println(body);
          Result result = new Result();
      try {
      HouseCareful houseCareful = houseService.selectHouseCarefulByHouseId(houseId);
@@ -213,8 +228,9 @@ public class HouseController {
 
     @RequestMapping("/queryHouseCarefulById")
     @ResponseBody
-    public Result queryHouseCarefulById(Integer houseId){
-
+    public Result queryHouseCarefulById(Integer houseId, @RequestBody Map<String, Object> body){
+        houseId = houseId == null ? (Integer) body.get("houseId") : houseId;
+        System.out.println(body);
         Result result = new Result();
         List<HouseCareful> houseCarefuls=null;
         try {
@@ -239,7 +255,9 @@ public class HouseController {
 
     @RequestMapping("/selectHouseCarefulById")
     @ResponseBody
-    public Result selectHouseCarefulById(Integer id){
+    public Result selectHouseCarefulById(Integer id, @RequestBody Map<String, Object> body){
+        id = id == null ? (Integer) body.get("id") : id;
+        System.out.println(body);
         Result result = new Result();
         try {
             List<HouseCareful> houseCarefuls = houseService.selectByHouseId(id);

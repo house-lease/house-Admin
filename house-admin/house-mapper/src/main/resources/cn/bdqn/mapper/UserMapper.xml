@@ -44,7 +44,6 @@
         </trim>
     </select>
 
-
     <!-- 根据用户id修改状态-->
     <update id="updateByPrimaryKeySelective" parameterType="cn.bdqn.domain.User">
         update t_user

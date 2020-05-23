@@ -8,6 +8,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.jws.WebParam;
 import java.rmi.MarshalledObject;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/start")
@@ -109,7 +111,11 @@ public class StartController {
     //分页查询Start全部信息的Controller
     @RequestMapping("/selectAll")
     @ResponseBody
-    public Result selectByUserId(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size) {
+    public Result selectByUserId(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size,
+                                 @RequestBody Map<String, Object> body) {
+        page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
+        size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
+        System.out.println(body);
         Result  result =new Result();
         try {
             List<Start> starts = startService.queryAll(page, size);

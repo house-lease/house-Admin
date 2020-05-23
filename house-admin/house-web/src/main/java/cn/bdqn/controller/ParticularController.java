@@ -9,6 +9,7 @@ import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -71,7 +72,14 @@ public class ParticularController {
 
     @RequestMapping("/selectByUserId")
     @ResponseBody
-    public Result selectByUserId(Integer id, String phone, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
+    public Result selectByUserId(Integer id, String phone,
+                                 @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size,
+                                 @RequestBody Map<String, Object> body){
+        id = id == null ? (Integer) body.get("id") : id;
+        phone = phone == null ? (String) body.get("phone") : phone;
+        page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
+        size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
+        System.out.println(body);
         Result  result =new Result();
         if(id==null){
             List<Particular> particulars = particularService.queryByUserId(phone,page,size);
