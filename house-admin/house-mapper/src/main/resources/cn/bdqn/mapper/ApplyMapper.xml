@@ -8,6 +8,7 @@
     <result column="house_image_url" property="houseImageUrl" jdbcType="VARCHAR" />
     <result column="cash" property="cash" jdbcType="INTEGER" />
     <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
 <!--    关联用户表-->
 
     <collection property="user" select="cn.bdqn.mapper.UserMapper.selectByPrimaryKey" column="user_id" >
@@ -16,7 +17,7 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, user_id, user_name, user_phone, house_image_url, cash, state
+    id, user_id, user_name, user_phone, house_image_url, cash, state,message
   </sql>
 
   <!--根据认证人名称模糊查询-->
