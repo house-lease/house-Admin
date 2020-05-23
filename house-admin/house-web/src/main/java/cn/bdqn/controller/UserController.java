@@ -118,15 +118,15 @@ public class UserController {
     @RequestMapping("/selectByUser")
     @ResponseBody
     public Result selectByUser(String username
-            , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "2") Integer size,
+            , @RequestParam(defaultValue = "1") Integer pageCode, @RequestParam(defaultValue = "2") Integer size,
                                @RequestBody Map<String, Object> body) {
-        username = username == null ? (String) body.get("username") : username;
-        page = page == 1 ? (Integer) body.get("pageCode") : page;
-        size = size == 2  ? (Integer) body.get("size") : size;
         System.out.println(body);
+        username = username == null ? (String) body.get("username") : username;
+        pageCode = body.get("pageCode") == null ? pageCode : (Integer) body.get("pageCode");
+        size = body.get("size") == null ? size  : (Integer) body.get("size");
         Result result = new Result();
         try {
-            List<User> users = userService.queryByUser(username, page, size);//全部数据
+            List<User> users = userService.queryByUser(username, pageCode, size);//全部数据
             PageInfo pageInfo = new PageInfo(users);
             if (users != null) {
                 result.put("pageInfo", pageInfo);
