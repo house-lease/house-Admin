@@ -7,11 +7,12 @@ import java.util.List;
 public interface ApplyMapper {
 
     //根据认证人名称模糊查询
-    List<Apply> selectByUserName(String userName);
+    List<Apply> selectAll();
     //根据id查询详细信息
     Apply selectById(Integer id);
-    //根据userId修改信息
-    void updateById(Integer userId);
+    //认证通过
+    int updatePass(Apply apply);
 
-
+    //认证驳回
+    int updateTurn(Apply apply);
 }

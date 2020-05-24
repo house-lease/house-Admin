@@ -16,11 +16,21 @@ public class Apply {
     //认证房产信息图片
     private String houseImageUrl;
 
-    //认证押金状态 0 已交 1未交
+    //认证押金状态 0 已交 1已退还
     private Integer cash;
 
-    //认证状态 0已认证 1未认证
+    //认证状态  0 代表已认证  1 代表未认证  2代表认证失败
     private Integer state;
+   //消息
+    private  String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Integer getId() {
         return id;
