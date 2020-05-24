@@ -1,56 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.bdqn.mapper.ApplyMapper" >
-  <resultMap id="BaseResultMap" type="cn.bdqn.domain.Apply" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
-    <result column="house_image_url" property="houseImageUrl" jdbcType="VARCHAR" />
-    <result column="cash" property="cash" jdbcType="INTEGER" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="message" property="message" jdbcType="VARCHAR" />
-<!--    关联用户表-->
+<mapper namespace="cn.bdqn.mapper.ApplyMapper">
+    <resultMap id="BaseResultMap" type="cn.bdqn.domain.Apply">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
+        <result column="house_image_url" property="houseImageUrl" jdbcType="VARCHAR"/>
+        <result column="cash" property="cash" jdbcType="INTEGER"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="message" property="message" jdbcType="VARCHAR"/>
+        <!--    关联用户表-->
 
-    <collection property="user" select="cn.bdqn.mapper.UserMapper.selectByPrimaryKey" column="user_id" >
-      <result column="landlord" property="landlord" jdbcType="INTEGER" />
-    </collection>
-  </resultMap>
+      <association property="user" select="cn.bdqn.mapper.UserMapper.selectByPrimaryKey" column="user_id"/>
+      <association property="user" select="cn.bdqn.mapper.MoneyMapper.selectByPrimaryKey" column="user"/>
+    </resultMap>
 
-  <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
     id, user_id, user_name, user_phone, house_image_url, cash, state,message
   </sql>
 
-  <!--根据认证人名称模糊查询-->
-  <select id="selectByUserName" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_apply
-
-    <trim prefix="where" suffixOverrides="and">
-      <if test="user_name != null">
-        user_name like concat('%',#{userName,jdbcType=VARCHAR},'%') and state=0
-      </if>
-      <if test="user_name == null">
-        state=0
-      </if>
-    </trim>
-  </select>
+    <!--根据认证人名称模糊查询-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_apply
+    </select>
 
 
-  <!--根据id查询详细信息-->
-  <select id="selectById" resultMap="BaseResultMap">
-    select  <include refid="Base_Column_List" />
-    from t_apply
-    where id=#{id,jdbcType=INTEGER}
-  </select>
+    <!--根据id查询详细信息-->
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_apply
+        where id=#{id,jdbcType=INTEGER}
+    </select>
 
-  <!--根据userId修改apply表信息-->
-  <update id="updateById" >
+    <!--通过认证-->
+    <update id="updatePass">
     update t_apply as a,t_user as u
     set
-      a.state = 1,
-      u.landlord=1
-    where a.user_id=u.id and user_id = #{user.id,jdbcType=INTEGER}
+      a.state = 0,
+      u.landlord=1,
+      a.message=#{message,jdbcType=VARCHAR}
+    where a.user_id=u.id and a.id=#{id,jdbcType=INTEGER}
+  </update>
+
+  <!--驳回认证-->
+    <update id="updateTurn">
+    update t_apply as a,t_money as m
+    set
+      a.state = 2,
+      a.cash=1,
+      m.money= m.money+1000,
+      a.message=#{message,jdbcType=VARCHAR}
+    where a.user_id=m.user_id and a.id=#{id,jdbcType=INTEGER}
   </update>
 
 
