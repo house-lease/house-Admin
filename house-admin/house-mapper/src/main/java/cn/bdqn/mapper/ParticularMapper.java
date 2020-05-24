@@ -20,6 +20,8 @@ public interface ParticularMapper {
 
     //    根据phone查询
     public List<Particular> selectByUserId(String phone);
-
+  //根据电话和id查询
     List<Particular> selectByIdAndPhone(@Param("phone") String phone, @Param("id")Integer id);
+   //查询全部
+    List<Particular> selectAll();
 }

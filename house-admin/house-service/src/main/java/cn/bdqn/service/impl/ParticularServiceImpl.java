@@ -48,4 +48,10 @@ public class ParticularServiceImpl implements ParticularService {
         return particularMapper.selectByUserId(phone);
     }
 
+    @Override
+    public List<Particular> queryAll(int page, int size) {
+        PageHelper.startPage(page,size);
+        return particularMapper.selectAll();
+    }
+
 }

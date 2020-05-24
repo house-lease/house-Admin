@@ -70,6 +70,43 @@ public class ParticularController {
 
 
 
+//    @RequestMapping("/selectByUserId")
+//    @ResponseBody
+//    public Result selectByUserId(Integer id, String phone,
+//                                 @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size,
+//                                 @RequestBody Map<String, Object> body){
+//        id = id == null ? (Integer) body.get("id") : id;
+//        phone = phone == null ? (String) body.get("phone") : phone;
+//        page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
+//        size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
+//        System.out.println(body);
+//        Result  result =new Result();
+//        if(id==null){
+//            List<Particular> particulars = particularService.queryByUserId(phone,page,size);
+//            PageInfo pageInfo = new PageInfo(particulars);
+//            result.put("particulars",particulars);
+//            result.put("pageInfo",pageInfo);
+//            result.put("phone",phone);
+//            result.put("message","success");
+//        }else if(phone == null|| phone==""){
+//            List<Particular> particulars = particularService.queryByPrimaryKey(id);
+//            result.put("particulars",particulars);
+//            result.put("id",id);
+//            result.put("message","success");
+//
+//        }else if(phone!=null ||phone !="" &&id!=null){
+//            List<Particular> particulars = particularService.queryByIdAndPhone(phone, id);
+//            result.put("particulars",particulars);
+//            result.put("id",id);
+//            result.put("phone",phone);
+//            result.put("message","success");
+//        }else {
+//            result.put("message","error");
+//        }
+//        return result;
+//    }
+
+
     @RequestMapping("/selectByUserId")
     @ResponseBody
     public Result selectByUserId(Integer id, String phone,
@@ -81,24 +118,30 @@ public class ParticularController {
         size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
         System.out.println(body);
         Result  result =new Result();
-        if(id==null){
+        if(id==null&&phone!=null){
             List<Particular> particulars = particularService.queryByUserId(phone,page,size);
             PageInfo pageInfo = new PageInfo(particulars);
             result.put("particulars",particulars);
             result.put("pageInfo",pageInfo);
             result.put("phone",phone);
             result.put("message","success");
-        }else if(phone == null|| phone==""){
+        }else if(phone == null&&id!=null){
             List<Particular> particulars = particularService.queryByPrimaryKey(id);
             result.put("particulars",particulars);
             result.put("id",id);
             result.put("message","success");
 
-        }else if(phone!=null ||phone !="" &&id!=null){
+        }else if(phone!=null&&id!=null){
             List<Particular> particulars = particularService.queryByIdAndPhone(phone, id);
             result.put("particulars",particulars);
             result.put("id",id);
             result.put("phone",phone);
+            result.put("message","success");
+        }else if(phone==null&&id==null){
+            List<Particular> particulars = particularService.queryAll(page,size);
+            PageInfo pageInfo = new PageInfo(particulars);
+            result.put("particulars",particulars);
+            result.put("pageInfo",pageInfo);
             result.put("message","success");
         }else {
             result.put("message","error");

@@ -18,4 +18,7 @@ public interface ParticularService {
 
     //    根据phone查询
     public List<Particular> queryByUserId(String phone,int page,int size);
+
+    //    查询全部
+    public List<Particular> queryAll(int page,int size);
 }
