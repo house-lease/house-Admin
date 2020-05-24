@@ -113,12 +113,12 @@ public class RecordController {
     @RequestMapping("/getRecordList")
     @ResponseBody
     public Result getRecordList(@RequestParam(defaultValue = "0")Integer pageCode,
-                                String phone, String record,
+                                @RequestParam(required = false)String phone, String record ,
                                 @RequestBody Map<String, Object> body) throws MyException {
         pageCode = body.get("pageCode")  ==null  ? pageCode : (Integer) body.get("pageCode") ;
         phone = phone == null ? (String) body.get("phone") : phone;
         record = record == null ? (String) body.get("record") : record;
-        System.out.println(body);
+        System.out.println(body.get("phone"));
         Map<String, Object> params = new HashMap<>();
          Result result =new Result();
         if (phone != null) {
