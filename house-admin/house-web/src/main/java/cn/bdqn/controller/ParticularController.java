@@ -103,6 +103,7 @@ public class ParticularController {
         }else {
             result.put("message","error");
         }
+        System.out.println(result);
         return result;
     }
 }

@@ -132,7 +132,7 @@ public class HouseController {
          houseName = houseName == null ? (String) body.get("houseName") : houseName;
          userName = userName == null ? (String) body.get("userName") : userName;
          id = id == null ? (Integer) body.get("id") : id;
-         page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
+         page = body.get("pageCode")  == null  ? page : (Integer) body.get("pageCode") ;
          size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
          System.out.println(body);
          Result result = new Result();
