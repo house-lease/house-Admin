@@ -186,10 +186,10 @@
     from t_record
     <trim prefix="where" suffixOverrides="and">
         <if test="phone != null">
-          payer_id = (select id from t_user where phone = #{phone}) or payee_id = (select id from t_user where phone = #{phone})
+          payer_id in (select id from t_user where phone = #{phone}) or payee_id in (select id from t_user where phone = #{phone})
         </if>
         <if test="record != null">
-           record = #{record}
+           or record = #{record}
         </if>
     </trim>
   </select>
