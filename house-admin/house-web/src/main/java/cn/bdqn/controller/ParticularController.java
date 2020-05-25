@@ -112,11 +112,13 @@ public class ParticularController {
     public Result selectByUserId(Integer id, String phone,
                                  @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size,
                                  @RequestBody Map<String, Object> body){
-        id = id == null ? (Integer) body.get("id") : id;
-        phone = phone == null ? (String) body.get("phone") : phone;
+        if(body.get("id") != null){
+            id = Integer.parseInt(body.get("id").toString());
+        }
+        phone =  body.get("phone") == null ? phone : (String) body.get("phone");
         page = body.get("pageCode")  ==null  ? page : (Integer) body.get("pageCode") ;
         size = body.get("size")  ==null  ? size : (Integer) body.get("size") ;
-        System.out.println(body);
+        System.out.println(id + "-" + phone);
         Result  result =new Result();
         if(id==null&&phone!=null){
             List<Particular> particulars = particularService.queryByUserId(phone,page,size);
@@ -126,6 +128,7 @@ public class ParticularController {
             result.put("phone",phone);
             result.put("message","success");
         }else if(phone == null&&id!=null){
+            System.out.println("--------");
             List<Particular> particulars = particularService.queryByPrimaryKey(id);
             result.put("particulars",particulars);
             result.put("id",id);
@@ -146,7 +149,6 @@ public class ParticularController {
         }else {
             result.put("message","error");
         }
-        System.out.println(result);
         return result;
     }
 }

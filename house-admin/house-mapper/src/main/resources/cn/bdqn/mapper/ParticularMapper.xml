@@ -34,7 +34,7 @@
     select
     <include refid="Base_Column_List"/>
     from t_particular
-    where user_id = (SELECT id FROM `t_user` where phone =#{phone}) and state=0
+    where user_id in (SELECT id FROM `t_user` where phone =#{phone}) and state=0
   </select>
 
     <select id="selectByIdAndPhone" resultMap="BaseResultMap">
