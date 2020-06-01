@@ -182,7 +182,7 @@ public class HouseController {
      @RequestMapping("selectHouseCareful")
      @ResponseBody
      public Result selectHouseCarefulByHouseId(Integer houseId, @RequestBody Map<String, Object> body){
-         houseId = houseId == null ? (Integer) body.get("houseId") : houseId;
+         houseId = houseId == null ? Integer.parseInt(body.get("houseId").toString()) : houseId;
          System.out.println(body);
          Result result = new Result();
      try {

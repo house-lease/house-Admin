@@ -131,6 +131,7 @@ public class RecordController {
 
         try {
             PageInfo<Record> recordPageInfo =  recordService.queryRecord(params);
+            System.out.println(recordPageInfo);
             result.put("recordPageInfo", recordPageInfo);
             result.put("phone", phone);
             result.put("record", record);

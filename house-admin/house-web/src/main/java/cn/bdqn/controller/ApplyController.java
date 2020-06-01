@@ -100,15 +100,36 @@ public class ApplyController {
                                    Model model){
 
         try {
-
+            Result result = new Result();
             List<Apply>  applies= applyService.queryAll(page,size);//查询
             PageInfo pageInfo = new PageInfo(applies);
             model.addAttribute("applies",applies);
             model.addAttribute("pageInfo",pageInfo);
+            result.put("pageInfo", pageInfo);
+            result.put("applies", applies);
         }catch (Exception e){
             e.printStackTrace();
         }
         return "ApplyList";
+    }
+    @RequestMapping("/queryAll")
+    @ResponseBody
+    public Result queryAll(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "2") int size,
+            @RequestBody Map<String, Object> map){
+            page = map.get("pageCode") == null ? page : (int)map.get("pageCode");
+            size = map.get("size") == null ? size : (int)map.get("size");
+        Result result = new Result();
+        try {
+            List<Apply>  applies= applyService.queryAll(page,size);//查询
+            PageInfo pageInfo = new PageInfo(applies);
+            result.put("pageInfo", pageInfo);
+            result.put("applies", applies);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
 
