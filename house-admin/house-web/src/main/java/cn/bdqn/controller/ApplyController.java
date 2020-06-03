@@ -137,14 +137,19 @@ public class ApplyController {
      *  根据id查询详细信息
      **/
     @RequestMapping("/selectById")
-    public String selectById(Integer id,Model model){
+    @ResponseBody
+    public Result selectById(Integer id, @RequestBody Map<String, Integer> body){
+        id = body.get("id") == null ? id : body.get("id");
+        System.out.println(id);
+        Result result = new Result();
         try {
             Apply applies= applyService.queryById(id);//查询
-            model.addAttribute("applies",applies);
+            result.put("success", 200);
+            result.put("applies", applies);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return "ApplyInfo";
+        return result;
     }
 
 
