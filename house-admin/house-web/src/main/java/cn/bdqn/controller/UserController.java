@@ -148,7 +148,7 @@ public class UserController {
     @RequestMapping("/updateByState")
     @ResponseBody
     public Result updateByState(Integer id,@RequestBody Map<String, Object> body) {
-        id = id == null ? (Integer) body.get("id") : id;
+        id = id == null ? Integer.parseInt(body.get("id").toString()) : id;
         System.out.println(body);
         Result result = new Result();
         try {
