@@ -144,7 +144,7 @@ public class ApplyController {
         Result result = new Result();
         try {
             Apply applies= applyService.queryById(id);//查询
-            System.out.println(applies.getUser());
+            System.out.println(applies.getUser().getIdcard());//user为空
             result.put("success", 200);
             result.put("applies", applies);
         }catch (Exception e){
