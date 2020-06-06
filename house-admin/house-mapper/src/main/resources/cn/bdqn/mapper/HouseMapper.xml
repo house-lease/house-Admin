@@ -54,9 +54,11 @@
 <!--    租赁类型对象-->
     <association property="houseLease" select="cn.bdqn.mapper.HouseLeaseMapper.selectByPrimaryKey" column="house_lease_id"/>
 
-
     <!--    关联房屋详细信息-->
     <association property="houseCareful" select="cn.bdqn.mapper.HouseCarefulMapper.selectByHouseId" column="id"/>
+
+<!--    租客信息表-->
+    <association property="tenants" column="id" select="cn.bdqn.mapper.TenantMapper.selectByHouseId"/>
   </resultMap>
 
   <sql id="Base_Column_List_1" >
