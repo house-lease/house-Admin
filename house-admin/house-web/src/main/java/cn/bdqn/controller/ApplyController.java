@@ -158,13 +158,22 @@ public class ApplyController {
      *   认证通过
      */
     @RequestMapping("/updatePass")
-    public String updatePass(Apply apply,Model model){
+    @ResponseBody
+    public Result updatePass(@RequestBody Map<String, Integer> body){
+        System.out.println(body);
+        Result result = new Result();
+        Integer id = body.get("id");
+        Apply apply  = new Apply();
+        apply.setMessage("已认证");
+        apply.setId(id);
         try{
                 applyService.updatePass(apply);
+            result.put("success", "200");
         }catch (Exception e){
            e.printStackTrace();
+            result.put("error", e);
         }
-        return "redirect:/apply/selectAll";
+        return result;
     }
 
 
@@ -172,12 +181,20 @@ public class ApplyController {
      *   驳回认证
      */
     @RequestMapping("/updateTurn")
-    public String updateTurn(Apply apply,Model model){
+    public Result updateTurn(@RequestBody Map<String, Integer> body){
+        Result result = new Result();
+        Integer id = body.get("id");
+        Apply apply  = new Apply();
+        apply.setMessage("认证失败");
+        apply.setId(id);
         try{
             applyService.updateTurn(apply);
+            result.put("success", "200");
         }catch (Exception e){
             e.printStackTrace();
+            result.put("error", e);
         }
-        return "redirect:/apply/selectAll";
+        return result;
+
     }
 }

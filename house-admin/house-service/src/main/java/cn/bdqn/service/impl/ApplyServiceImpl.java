@@ -27,7 +27,6 @@ public class ApplyServiceImpl implements ApplyService {
     //根据userId修改信息
     @Override
     public int updatePass(Apply apply) {
-
         return applyMapper.updatePass(apply);
     }
 

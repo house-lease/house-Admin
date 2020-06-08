@@ -16,7 +16,7 @@
     select
     <include refid="Base_Column_List"/>
     from t_tenant
-    where house_id = #{houseId}
+    where house_id = #{houseId} and state = 0
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
