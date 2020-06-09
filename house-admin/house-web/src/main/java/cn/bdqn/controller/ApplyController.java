@@ -140,11 +140,9 @@ public class ApplyController {
     @ResponseBody
     public Result selectById(Integer id, @RequestBody Map<String, Integer> body){
         id = body.get("id") == null ? id : body.get("id");
-        System.out.println(id);
         Result result = new Result();
         try {
             Apply applies= applyService.queryById(id);//查询
-            System.out.println(applies.getUser().getIdcard());//user为空
             result.put("success", 200);
             result.put("applies", applies);
         }catch (Exception e){
@@ -160,7 +158,6 @@ public class ApplyController {
     @RequestMapping("/updatePass")
     @ResponseBody
     public Result updatePass(@RequestBody Map<String, Integer> body){
-        System.out.println(body);
         Result result = new Result();
         Integer id = body.get("id");
         Apply apply  = new Apply();
@@ -181,11 +178,14 @@ public class ApplyController {
      *   驳回认证
      */
     @RequestMapping("/updateTurn")
-    public Result updateTurn(@RequestBody Map<String, Integer> body){
+    @ResponseBody
+    public Result updateTurn(@RequestBody Map<String, Object> body){
+        System.out.println(body);
         Result result = new Result();
-        Integer id = body.get("id");
+        Integer id = Integer.parseInt(body.get("id").toString());
+        String message = body.get("message").toString();
         Apply apply  = new Apply();
-        apply.setMessage("认证失败");
+        apply.setMessage(message);
         apply.setId(id);
         try{
             applyService.updateTurn(apply);

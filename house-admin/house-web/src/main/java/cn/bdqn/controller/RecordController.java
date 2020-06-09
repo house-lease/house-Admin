@@ -118,7 +118,6 @@ public class RecordController {
         pageCode = body.get("pageCode")  ==null  ? pageCode : (Integer) body.get("pageCode") ;
         phone = phone == null ? (String) body.get("phone") : phone;
         record = record == null ? (String) body.get("record") : record;
-        System.out.println(body.get("phone"));
         Map<String, Object> params = new HashMap<>();
          Result result =new Result();
         if (phone != null) {
@@ -131,7 +130,6 @@ public class RecordController {
 
         try {
             PageInfo<Record> recordPageInfo =  recordService.queryRecord(params);
-            System.out.println(recordPageInfo);
             result.put("recordPageInfo", recordPageInfo);
             result.put("phone", phone);
             result.put("record", record);
