@@ -3,6 +3,7 @@ package cn.bdqn.controller;
 import cn.bdqn.domain.Administrator;
 import cn.bdqn.exception.MyException;
 import cn.bdqn.service.AdministratorService;
+import cn.bdqn.utils.MD5Util;
 import cn.bdqn.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,7 @@ public class AdministratorController {
         try {
             name = name == null ? name = body.get("username") : name;
             password = password == null ? password = body.get("password"): password;
-            Administrator administrator = administratorService.login(name, password);
+            Administrator administrator = administratorService.login(name, MD5Util.encode(password));
             Map<String, Object> map = new HashMap<>();
             System.out.println(administrator);
             if(administrator != null){
